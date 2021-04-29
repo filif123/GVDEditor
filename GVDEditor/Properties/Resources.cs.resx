@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="RInfo" xml:space="preserve">
+    <value>Informace</value>
+  </data>
+  <data name="Global_Yes" xml:space="preserve">
+    <value>&amp;Ano</value>
+  </data>
+  <data name="Global_No" xml:space="preserve">
+    <value>&amp;Ne</value>
+  </data>
+  <data name="Global_Ignore" xml:space="preserve">
+    <value>&amp;Ignorovat</value>
+  </data>
+  <data name="Global_Cancel" xml:space="preserve">
+    <value>&amp;Zrušit</value>
+  </data>
+  <data name="Global_Abort" xml:space="preserve">
+    <value>&amp;Přerušit</value>
+  </data>
+  <data name="REdit" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="FAppSettings_bSave_Click_Niektoré_zmeny_sa_prejavia_až_po_reštarte_programu" xml:space="preserve">
+    <value>Některé provedené změny se projeví po restartu programu. Restartovat program nyní?</value>
+  </data>
+  <data name="FAppSettings_cbDebugModeGUI_SelectedIndexChanged_Not_For_All_Users" xml:space="preserve">
+    <value>Vybrali jste typ debugování, který není určen pro běžné uživatele. To může vést k neočekávaným následkům.
+
+Opravdu chcete použít tento typ debugování?</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Nesprávny_formát_času_odchodu" xml:space="preserve">
+    <value>Nesprávný formát času odjezdu.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Nesprávny_formát_času_príchodu" xml:space="preserve">
+    <value>Nesprávný formát času příjezdu.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Nie_je_vybratá_koľaj" xml:space="preserve">
+    <value>Není vybrána kolej.</value>
+  </data>
+  <data name="FEditTrain_Tento_vlak_nemá_iné_varianty_a_preto_mu_bude_varianta_nastavená_na_hodnotu_Minus_1" xml:space="preserve">
+    <value>Tento vlak nemá jiné varianty a proto mu bude varianta nastavena na hodnotu -1.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Varianta_tohto_vlaku_nemôže_byť_Minus_1" xml:space="preserve">
+    <value>Varianta tohoto vlaku nemůže být -1, protože se v seznamu vlaků nachází vlak / y s podobnými vlastnostmi.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Vlak_nemá_zadanú_žiadnu_stanicu" xml:space="preserve">
+    <value>Vlak nemá zadanou žádnou stanici.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Vybraná_varianta_vlaku_sa_už_používa_pri_inom_vlaku" xml:space="preserve">
+    <value>Vybraná varianta vlaku se již používá při jiném vlaku.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Zadajte_číslo_vlaku" xml:space="preserve">
+    <value>Zadejte číslo vlaku.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Začiatok_platnosti_musí_skôr_ako_koniec_platnosti" xml:space="preserve">
+    <value>Začátek platnosti musí dříve než konec platnosti.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Čas_príchodu_je_neskôr_ako_čas_odchodu" xml:space="preserve">
+    <value>Čas příjezdu je později než čas odjezdu.</value>
+  </data>
+  <data name="FEditTrain_DateRem_radenia_obsahuje_chybu" xml:space="preserve">
+    <value>Datumové omezení řazení obsahuje chybu:</value>
+  </data>
+  <data name="FEditTrain_DateRem_zasahuje_do_ineho_vlaku" xml:space="preserve">
+    <value>Datovací omezení tohoto vlaku zasahuje do vlaku {0} {1} {2} v rozmezí
+" {3} ".
+
+Upravit datumové omezení popsaného vlaku? </value>
+  </data>
+  <data name="FEditTrain_FEditTrain_Duplikovať_vlak" xml:space="preserve">
+    <value>Duplikovat vlak</value>
+  </data>
+  <data name="FEditTrain_FEditTrain_Pridať" xml:space="preserve">
+    <value>Přidat</value>
+  </data>
+  <data name="FEditTrain_FEditTrain_Pridať_vlak" xml:space="preserve">
+    <value>Přidat vlak</value>
+  </data>
+  <data name="FEditTrain_Nebolo_zadané_radenie_vlaku" xml:space="preserve">
+    <value>Nebylo zadáno řazení vlaku.</value>
+  </data>
+  <data name="FEditTrain_Nezadaný_čas_odchodu" xml:space="preserve">
+    <value>Nezadaný čas odjezdu.</value>
+  </data>
+  <data name="FEditTrain_Nezadaný_čas_príchodu" xml:space="preserve">
+    <value>Nezadaný čas příjezdu.</value>
+  </data>
+  <data name="FEditTrain_Číslo_vlaku_sa_zhoduje_s_iným_vlakom_a_preto_bude_aj_jeho_radenie_priradené_k_tomuto_vlaku" xml:space="preserve">
+    <value>Číslo vlaku se shoduje s jiným vlakem a proto bude i jeho řazení přiřazeny k tomuto vlaku (Dosud upravené řazení se vymaže).</value>
+  </data>
+  <data name="FEditTrain_Zadané_dátumové_obmedzenie_radenia_sa_prekrýva_s_iným_v_období" xml:space="preserve">
+    <value>Zadané datumové omezení řazení se překrývá s jiným v období {0}.</value>
+  </data>
+  <data name="FEditTrain_Začiatok_platnosti_radenia_je_neskôr_ako_jeho_koniec" xml:space="preserve">
+    <value>Začátek platnosti řazení je později než jeho konec.</value>
+  </data>
+  <data name="FGlobalSettings_bLanguageAdd_Click_Iba_1_jazyk_môže_byť_hlavný" xml:space="preserve">
+    <value>Pouze jeden jazyk může být hlavní.</value>
+  </data>
+  <data name="FGlobalSettings_Click_Zadaný_typ_vlaku_sa_už_v_zozname_nachádza" xml:space="preserve">
+    <value>Zadaný typ vlaku se již v seznamu nachází.</value>
+  </data>
+  <data name="FGlobalSettings_Maximálny_počet_typov_vlakov_tohto_druhu_je_9" xml:space="preserve">
+    <value>Maximální počet typů vlaků tohoto druhu je 9.</value>
+  </data>
+  <data name="FGlobalSettings_Nebola_zadaná_skratka_typu_vlaku" xml:space="preserve">
+    <value>Nebyla zadána zkratka typu vlaku.</value>
+  </data>
+  <data name="FGlobalSettings_Neboli_vyplnené_všetky_polia" xml:space="preserve">
+    <value>Nebyly vyplněny všechna pole.</value>
+  </data>
+  <data name="FGlobalSettings_Názov_tejto_audio_linky_už_existuje" xml:space="preserve">
+    <value>Název této audio linky již existuje.</value>
+  </data>
+  <data name="FGlobalSettings_Táto_hodnota_sa_už_v_zozname_nachádza" xml:space="preserve">
+    <value>Tato hodnota se již v seznamu nachází.</value>
+  </data>
+  <data name="FGlobalSettings_Vybraný_typ_vlaku_sa_už_v_zozname_nachádza" xml:space="preserve">
+    <value>Vybraný typ vlaku se již v seznamu nachází.</value>
+  </data>
+  <data name="FGlobalSettings_Zadaný_jazyk_sa_sa_už_v_zozname_nachádza" xml:space="preserve">
+    <value>Zadaný jazyk se již v seznamu nachází.</value>
+  </data>
+  <data name="FLocalSettings_Koľaj_" xml:space="preserve">
+    <value>Kolej </value>
+  </data>
+  <data name="FLocalSettings_Nezadaný_názov_písma" xml:space="preserve">
+    <value>Nezadaný název písma.</value>
+  </data>
+  <data name="FLocalSettings_Nezadaný_názov_stanice" xml:space="preserve">
+    <value>Nezadaný název stanice.</value>
+  </data>
+  <data name="FLocalSettings_Nástupište_" xml:space="preserve">
+    <value>Nástupiště </value>
+  </data>
+  <data name="FLocalSettings_Všetky_parametre_sú_povinné" xml:space="preserve">
+    <value>Všechny parametry jsou povinné.</value>
+  </data>
+  <data name="FLocalSettings_Zadané_ID_stanice_už_má_iná_stanica" xml:space="preserve">
+    <value>Zadané ID stanice již má jiná stanice.</value>
+  </data>
+  <data name="FLocalSettings_Zadaný_dopravca_už_existuje" xml:space="preserve">
+    <value>Zadaný dopravce již existuje.</value>
+  </data>
+  <data name="FLocalSettings_Zadaný_kľúč_koľaje_už_existuje" xml:space="preserve">
+    <value>Zadaný klíč koleje již existuje.</value>
+  </data>
+  <data name="FLocalSettings_Zadaný_kľúč_nástupišťa_už_existuje" xml:space="preserve">
+    <value>Zadaný klíč nástupiště již existuje.</value>
+  </data>
+  <data name="Tables_Nie_sú_vyplnené_všetky_povinné_polia" xml:space="preserve">
+    <value>Nejsou vyplněny všechna povinná pole.</value>
+  </data>
+  <data name="Tables_Zadaný_kľúč_tabule_už_existuje" xml:space="preserve">
+    <value>Zadaný klíč tabule již existuje.</value>
+  </data>
+  <data name="FTabTab_Zadajte_názov" xml:space="preserve">
+    <value>Zadejte název.</value>
+  </data>
+  <data name="FTableText_Generate_TTexts_Wrong_Item" xml:space="preserve">
+    <value>Byl vybrán nepodporovaný typ obsahu tabule. Vyberte jiný.</value>
+  </data>
+  <data name="FTableText_Generate_TTexts_Info" xml:space="preserve">
+    <value>Texty do tabulí se automaticky vygenerují podle vlaků.
+Všechny zapsané texty se smažou.
+Opravdu chcete provést tuto akci? </value>
+  </data>
+  <data name="FTableCatalog_Zadaný_kľúč_stĺpca_už_existuje" xml:space="preserve">
+    <value>Zadaný klíč sloupce již existuje.</value>
+  </data>
+  <data name="FTableCatalog_Nie_sú_vyplnené_všetky_povinné_parametre" xml:space="preserve">
+    <value>Nejsou vyplněny všechny povinné parametry.</value>
+  </data>
+  <data name="FRegistration_Registrácia_prebehla_úspešne" xml:space="preserve">
+    <value>Registrace proběhla úspěšně. Změny se projeví po restartu programu. Restartovat nyní?</value>
+  </data>
+  <data name="FRegistration_Registračný_kľúč_nebol_zadaný" xml:space="preserve">
+    <value>Registrační klíč nebyl zadán.</value>
+  </data>
+  <data name="FRegistration_Nesprávny_registračný_kľúč" xml:space="preserve">
+    <value>Nesprávný registrační klíč.</value>
+  </data>
+  <data name="FNewGrafikon_Čas_konca_platnosti_grafikonu_má_byť_neskôr_ako_začiatok_platnosti" xml:space="preserve">
+    <value>Čas konce platnosti grafikonu má být později než počátek platnosti.</value>
+  </data>
+  <data name="FNewGrafikon_Čas_konca_platnosti_dát_má_byť_neskôr_ako_začiatok_platnosti" xml:space="preserve">
+    <value>Čas konce platnosti dat má být později než počátek platnosti.</value>
+  </data>
+  <data name="FNewGrafikon_Zadané_obdobie_platnosti_tejto_stanice_už_existuje" xml:space="preserve">
+    <value>Zadané období platnosti této stanice již existuje. Zvolte jiné.</value>
+  </data>
+  <data name="FNewGrafikon_Zadané_ID_vlastnej_stanice_už_patrí_inej_stanici" xml:space="preserve">
+    <value>Zadané ID vlastní stanice už patří jiné stanici.</value>
+  </data>
+  <data name="FNewGrafikon_Zadaná_stanica_pre_tento_INISS_už_existuje" xml:space="preserve">
+    <value>Zadaná stanice pro tento INISS již existuje.</value>
+  </data>
+  <data name="FNewGrafikon_Priečinok_neobsahuje_priečinok_RAWBANK" xml:space="preserve">
+    <value>Složka neobsahuje složku RAWBANK.</value>
+  </data>
+  <data name="FNewGrafikon_Nie_je_zadaná_žiadna_stanica" xml:space="preserve">
+    <value>Není zadána žádná stanice.</value>
+  </data>
+  <data name="FNewGrafikon_Nie_je_vybratá_stanica" xml:space="preserve">
+    <value>Není vybrána stanice.</value>
+  </data>
+  <data name="FMain_V_uloženom_zozname_grafikonov_sa_žiaden_grafikon_nenachádza" xml:space="preserve">
+    <value>V uloženém seznamu grafikon se žádný grafikon nenachází.</value>
+  </data>
+  <data name="FMain_Save_Changes" xml:space="preserve">
+    <value>V souborech jste provedli změny. Uložit změny?</value>
+  </data>
+  <data name="FMain_Priečinok_neobsahuje_všetky_potrebné_dáta" xml:space="preserve">
+    <value>Složka neobsahuje všechna potřebná data.</value>
+  </data>
+  <data name="FMain_dgvTrains_DataError_Tabuľka_obsahuje_nesprávny_údaj" xml:space="preserve">
+    <value>Tabulka obsahuje nesprávný údaj:</value>
+  </data>
+  <data name="RQuestion" xml:space="preserve">
+    <value>Otázka</value>
+  </data>
+  <data name="RError" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="Global_Retry" xml:space="preserve">
+    <value>&amp;Znova</value>
+  </data>
+  <data name="Global_OK" xml:space="preserve">
+    <value>&amp;OK</value>
+  </data>
+  <data name="SetTEBraceBad" xml:space="preserve">
+    <value>Zvýraznění nedokončeného páru závorek</value>
+  </data>
+  <data name="SetTEBraces" xml:space="preserve">
+    <value>Zvýraznění aktivních závorek</value>
+  </data>
+  <data name="SetTEComment" xml:space="preserve">
+    <value>Komentář</value>
+  </data>
+  <data name="SetTEConstant" xml:space="preserve">
+    <value>Konstanta</value>
+  </data>
+  <data name="SetTEDefault" xml:space="preserve">
+    <value>Obyčejný text</value>
+  </data>
+  <data name="SetTEEvent" xml:space="preserve">
+    <value>Udalost</value>
+  </data>
+  <data name="SetTEIdentifier" xml:space="preserve">
+    <value>Identifikátor</value>
+  </data>
+  <data name="SetTEKeyword" xml:space="preserve">
+    <value>Funkce</value>
+  </data>
+  <data name="SetTENumber" xml:space="preserve">
+    <value>Číslo</value>
+  </data>
+  <data name="SetTEOnNewLine" xml:space="preserve">
+    <value>Znak konce řádku (přechod do dalšího řádku)</value>
+  </data>
+  <data name="SetTEOperator" xml:space="preserve">
+    <value>Operátor</value>
+  </data>
+  <data name="SetTEString" xml:space="preserve">
+    <value>Řetězec</value>
+  </data>
+  <data name="SetTEVar" xml:space="preserve">
+    <value>Proměnná</value>
+  </data>
+  <data name="SetDesktopTTR" xml:space="preserve">
+    <value>Rychlík</value>
+  </data>
+  <data name="SetDesktopTTOs" xml:space="preserve">
+    <value>Osobní vlak</value>
+  </data>
+  <data name="SetDesktopTTSl" xml:space="preserve">
+    <value>Služební vlak</value>
+  </data>
+  <data name="SetDesktopTTX" xml:space="preserve">
+    <value>Vlak vyšší kvality</value>
+  </data>
+  <data name="FGlobalSettings_Kľúč_jazyka_sa_nezhoduje_so_žiadnym_jazykom_nacházajúci_sa_v_zvukovej_banke" xml:space="preserve">
+    <value>Klíč jazyka se neshoduje s žádným jazykem nacházející se v zvukové bance.</value>
+  </data>
+  <data name="FBugReport_E_mail_nebol_zadaný" xml:space="preserve">
+    <value>E-mail nebyl zadán.</value>
+  </data>
+  <data name="FBugReport_Obsah_správy_nebol_zadaný" xml:space="preserve">
+    <value>Obsah zprávy nebyl zadán.</value>
+  </data>
+  <data name="FBugReport_E_mail_sa_nepodarilo_odoslať" xml:space="preserve">
+    <value>E-mail se nepodařilo odeslat: </value>
+  </data>
+  <data name="Priečinok_s_týmto_názvom_už_existuje__Zmeňte_jeho_názov" xml:space="preserve">
+    <value>Složka s tímto názvem již existuje. Změňte jeho název.</value>
+  </data>
+  <data name="FLocalSettings_Názov_priečinka_grafikonu_je_prázdny" xml:space="preserve">
+    <value>Název složky grafikonu je prázdný.</value>
+  </data>
+  <data name="FGlobalSettings_Naozaj_chcete_odstrániť_tento_grafikon" xml:space="preserve">
+    <value>Opravdu chcete odstranit tento grafikon?</value>
+  </data>
+  <data name="FAppSettings_lShortcutHelp1" xml:space="preserve">
+    <value>Stiskněte klávesovou zkratku pro přiřazení ke příkazu.</value>
+  </data>
+  <data name="FAppSettings_lShortcutHelp2" xml:space="preserve">
+    <value>Neplatná klávesová zkratka. Stiskněte jinou.</value>
+  </data>
+  <data name="FImportData_Nie_sú_zadané_údaje_pre_import" xml:space="preserve">
+    <value>Nejsou zadané údaje pro import.</value>
+  </data>
+  <data name="FBugReport_E_mail_je_neplatný" xml:space="preserve">
+    <value>E-mail není platný.</value>
+  </data>
+  <data name="FAppSettings_Bolo_zadané_neplatné_číslo" xml:space="preserve">
+    <value>Bylo zadáno neplatné číslo.</value>
+  </data>
+  <data name="SelectedItemRemoveCancel" xml:space="preserve">
+    <value>Vybranou položku nelze vymazat, protože se používá. Konflikt s:</value>
+  </data>
+  <data name="FMain_Mám_preskočiť_prechádzajúce_vlaky" xml:space="preserve">
+    <value>Mám přeskočit projíždějící vlaky?</value>
+  </data>
+  <data name="RUpdate" xml:space="preserve">
+    <value>Aktualizace</value>
+  </data>
+  <data name="RUpdateInfo" xml:space="preserve">
+    <value>Nová verze programu GVDEditor ({0}) je k dispozici.
+
+Otevřít stránku pro stažení programu? </value>
+  </data>
+  <data name="RWarning" xml:space="preserve">
+    <value>Upozornění</value>
+  </data>
+  <data name="FMain_Názov_priečinka_je_prázdny" xml:space="preserve">
+    <value>Název složky je prázdný.</value>
+  </data>
+  <data name="FTableCatalog_ShowWarningDefTab" xml:space="preserve">
+    <value>Vybraný DivType nevyžaduje mít definovaný {0}.
+I tak pokračovat? </value>
+  </data>
+  <data name="FTableCatalog_ShowErrorUnDefTab" xml:space="preserve">
+    <value>Vybraný DivType vyžaduje mít definovaný {0}.</value>
+  </data>
+  <data name="FTableCatalog_bSave_NespravnyPocetModov" xml:space="preserve">
+    <value>V type tabule {0} je nesprávný počet módů {1}. (Správný počet: {2})
+Pravděpodobně jste zapomněli upravit pořadí sloupců. </value>
+  </data>
+  <data name="FTableCatalog_Posledný_pixel_stĺpca_je_menší_alebo_rovný_ako_počiatočný" xml:space="preserve">
+    <value>Poslední pixel sloupce je menší nebo roven než počáteční.</value>
+  </data>
+  <data name="FTableCatalog_Tento_stĺpec_sa_prekrekrýva_so_stĺpcom" xml:space="preserve">
+    <value>Tento sloupec se prekrekrýva se sloupcem {0}.</value>
+  </data>
+  <data name="FMain_InissStartItemOnClick" xml:space="preserve">
+    <value>Jedna instance programu INISS již běží.
+
+Mám ji nuceně vypnout? </value>
+  </data>
+  <data name="FELISOptions_Zadaný_súbor_neexistuje" xml:space="preserve">
+    <value>Zadaný soubor neexistuje.</value>
+  </data>
+  <data name="FRenameStyle_Neplatný_nový_názov_štýlu" xml:space="preserve">
+    <value>Neplatný nový název stylu.</value>
+  </data>
+  <data name="FRenameStyle_Zadaný_názov_štýlu_už_existuje" xml:space="preserve">
+    <value>Zadaný název stylu již existuje.</value>
+  </data>
+  <data name="NameColorSettings_Border" xml:space="preserve">
+    <value>Okraje ovládacích prvků</value>
+  </data>
+  <data name="NameColorSettings_Button" xml:space="preserve">
+    <value>Tlačítka</value>
+  </data>
+  <data name="NameColorSettings_Highlight" xml:space="preserve">
+    <value>Zvýraznění ovládacího prvku nebo jeho části</value>
+  </data>
+  <data name="FMain_Nepodarilo_sa_spustiť_vybraný_program" xml:space="preserve">
+    <value>Nelze spustit vybraný program: {0}.</value>
+  </data>
+  <data name="FAppSettings_Zmeny_sa_prejavia_po_reštarte_programu" xml:space="preserve">
+    <value>Změny se projeví po restartu programu.</value>
+  </data>
+</root>

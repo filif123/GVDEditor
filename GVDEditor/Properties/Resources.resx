@@ -1,0 +1,627 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="prechadza_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\prechadza-st.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SetTEIdentifier" xml:space="preserve">
+    <value>Identifikátor</value>
+  </data>
+  <data name="SetTEVar" xml:space="preserve">
+    <value>Premenná</value>
+  </data>
+  <data name="FEditTrain_Nebolo_zadané_radenie_vlaku" xml:space="preserve">
+    <value>Nebolo zadané radenie vlaku.</value>
+  </data>
+  <data name="FTableCatalog_Nie_sú_vyplnené_všetky_povinné_parametre" xml:space="preserve">
+    <value>Nie sú vyplnené všetky povinné parametre.</value>
+  </data>
+  <data name="FEditTrain_FEditTrain_Duplikovať_vlak" xml:space="preserve">
+    <value>Duplikovať vlak</value>
+  </data>
+  <data name="statedgmSK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\statedgm.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1250</value>
+  </data>
+  <data name="FMain_dgvTrains_DataError_Tabuľka_obsahuje_nesprávny_údaj" xml:space="preserve">
+    <value>Tabuľka obsahuje nesprávny údaj: </value>
+  </data>
+  <data name="FAppSettings_bSave_Click_Niektoré_zmeny_sa_prejavia_až_po_reštarte_programu" xml:space="preserve">
+    <value>Niektoré vykonané zmeny sa prejavia po reštarte programu. Reštartovať program teraz?</value>
+  </data>
+  <data name="FEditTrain_FEditTrain_Pridať_vlak" xml:space="preserve">
+    <value>Pridať vlak</value>
+  </data>
+  <data name="Global_Cancel" xml:space="preserve">
+    <value>&amp;Zrušiť</value>
+  </data>
+  <data name="FLocalSettings_Nezadaný_názov_stanice" xml:space="preserve">
+    <value>Nezadaný názov stanice.</value>
+  </data>
+  <data name="save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="REdit" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="Global_Yes" xml:space="preserve">
+    <value>&amp;Áno</value>
+  </data>
+  <data name="redo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\redo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FNewGrafikon_Zadané_ID_vlastnej_stanice_už_patrí_inej_stanici" xml:space="preserve">
+    <value>Zadané ID vlastnej stanice už patrí inej stanici.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Začiatok_platnosti_musí_skôr_ako_koniec_platnosti" xml:space="preserve">
+    <value>Začiatok platnosti musí skôr ako koniec platnosti.</value>
+  </data>
+  <data name="info-app" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\info-app.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FRegistration_Registračný_kľúč_nebol_zadaný" xml:space="preserve">
+    <value>Registračný kľúč nebol zadaný.</value>
+  </data>
+  <data name="local-settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\local-settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FEditTrain_Tento_vlak_nemá_iné_varianty_a_preto_mu_bude_varianta_nastavená_na_hodnotu_Minus_1" xml:space="preserve">
+    <value>Tento vlak nemá iné varianty a preto mu bude varianta nastavená na hodnotu -1.</value>
+  </data>
+  <data name="SetDesktopTTR" xml:space="preserve">
+    <value>Rýchlik</value>
+  </data>
+  <data name="FEditTrain_Zadané_dátumové_obmedzenie_radenia_sa_prekrýva_s_iným_v_období" xml:space="preserve">
+    <value>Zadané dátumové obmedzenie radenia sa prekrýva s iným v období {0}.</value>
+  </data>
+  <data name="FGlobalSettings_Názov_tejto_audio_linky_už_existuje" xml:space="preserve">
+    <value>Názov tejto audio linky už existuje.</value>
+  </data>
+  <data name="SetTEEvent" xml:space="preserve">
+    <value>Udalosť</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Vybraná_varianta_vlaku_sa_už_používa_pri_inom_vlaku" xml:space="preserve">
+    <value>Vybraná varianta vlaku sa už používa pri inom vlaku.</value>
+  </data>
+  <data name="FNewGrafikon_Nie_je_zadaná_žiadna_stanica" xml:space="preserve">
+    <value>Nie je zadaná žiadna stanica.</value>
+  </data>
+  <data name="FNewGrafikon_Zadané_obdobie_platnosti_tejto_stanice_už_existuje" xml:space="preserve">
+    <value>Zadané obdobie platnosti tejto stanice už existuje. Zvoľte iné.</value>
+  </data>
+  <data name="FEditTrain_Začiatok_platnosti_radenia_je_neskôr_ako_jeho_koniec" xml:space="preserve">
+    <value>Začiatok platnosti radenia je neskôr ako jeho koniec.</value>
+  </data>
+  <data name="SetTEDefault" xml:space="preserve">
+    <value>Obyčajný text</value>
+  </data>
+  <data name="konecna_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\konecna-st.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vychodzia_st" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vychodzia-st.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Zadajte_číslo_vlaku" xml:space="preserve">
+    <value>Zadajte číslo vlaku.</value>
+  </data>
+  <data name="recent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\recent-gvds.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FEditTrain_FEditTrain_Pridať" xml:space="preserve">
+    <value>Pridať</value>
+  </data>
+  <data name="Global_Abort" xml:space="preserve">
+    <value>&amp;Prerušiť</value>
+  </data>
+  <data name="Global_Ignore" xml:space="preserve">
+    <value>&amp;Ignorovať</value>
+  </data>
+  <data name="FNewGrafikon_Čas_konca_platnosti_dát_má_byť_neskôr_ako_začiatok_platnosti" xml:space="preserve">
+    <value>Čas konca platnosti dát má byť neskôr ako začiatok platnosti.</value>
+  </data>
+  <data name="FEditTrain_DateRem_radenia_obsahuje_chybu" xml:space="preserve">
+    <value>Dátumové obmedzenie radenia obsahuje chybu: </value>
+  </data>
+  <data name="FNewGrafikon_Nie_je_vybratá_stanica" xml:space="preserve">
+    <value>Nie je vybratá stanica.</value>
+  </data>
+  <data name="SetDesktopTTX" xml:space="preserve">
+    <value>Vlak vyššej kvality</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Nesprávny_formát_času_odchodu" xml:space="preserve">
+    <value>Nesprávny formát času odchodu.</value>
+  </data>
+  <data name="SetDesktopTTOs" xml:space="preserve">
+    <value>Osobný vlak</value>
+  </data>
+  <data name="Global_Retry" xml:space="preserve">
+    <value>&amp;Znova</value>
+  </data>
+  <data name="Global_OK" xml:space="preserve">
+    <value>&amp;OK</value>
+  </data>
+  <data name="app-settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\app-settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RWarning" xml:space="preserve">
+    <value>Upozornenie</value>
+  </data>
+  <data name="FRegistration_Registrácia_prebehla_úspešne" xml:space="preserve">
+    <value>Registrácia prebehla úspešne. Zmeny sa prejavia po reštarte programu. Reštarovať teraz? </value>
+  </data>
+  <data name="FLocalSettings_Zadané_ID_stanice_už_má_iná_stanica" xml:space="preserve">
+    <value>Zadané ID stanice už má iná stanica.</value>
+  </data>
+  <data name="RQuestion" xml:space="preserve">
+    <value>Otázka</value>
+  </data>
+  <data name="Tables_Zadaný_kľúč_tabule_už_existuje" xml:space="preserve">
+    <value>Zadaný kľúč tabule už existuje.</value>
+  </data>
+  <data name="FMain_V_uloženom_zozname_grafikonov_sa_žiaden_grafikon_nenachádza" xml:space="preserve">
+    <value>V uloženom zozname grafikonov sa žiaden grafikon nenachádza.</value>
+  </data>
+  <data name="import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="create" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\create.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FGlobalSettings_Táto_hodnota_sa_už_v_zozname_nachádza" xml:space="preserve">
+    <value>Táto hodnota sa už v zozname nachádza.</value>
+  </data>
+  <data name="FLocalSettings_Nezadaný_názov_písma" xml:space="preserve">
+    <value>Nezadaný názov písma.</value>
+  </data>
+  <data name="FRegistration_Nesprávny_registračný_kľúč" xml:space="preserve">
+    <value>Nesprávny registračný kľúč.</value>
+  </data>
+  <data name="FLocalSettings_Koľaj_" xml:space="preserve">
+    <value>Koľaj </value>
+  </data>
+  <data name="FTableCatalog_Zadaný_kľúč_stĺpca_už_existuje" xml:space="preserve">
+    <value>Zadaný kľúč stĺpca už existuje.</value>
+  </data>
+  <data name="copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Global_No" xml:space="preserve">
+    <value>&amp;Nie</value>
+  </data>
+  <data name="FTabTab_Zadajte_názov" xml:space="preserve">
+    <value>Zadajte názov.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Varianta_tohto_vlaku_nemôže_byť_Minus_1" xml:space="preserve">
+    <value>Varianta tohto vlaku nemôže byť -1, pretože sa v zozname vlakov nachádza vlak/y s podobnými vlastnosťami.</value>
+  </data>
+  <data name="SetTEString" xml:space="preserve">
+    <value>Reťazec</value>
+  </data>
+  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Nie_je_vybratá_koľaj" xml:space="preserve">
+    <value>Nie je vybratá koľaj.</value>
+  </data>
+  <data name="FMain_Priečinok_neobsahuje_všetky_potrebné_dáta" xml:space="preserve">
+    <value>Priečinok neobsahuje všetky potrebné dáta.</value>
+  </data>
+  <data name="FLocalSettings_Nástupište_" xml:space="preserve">
+    <value>Nástupište </value>
+  </data>
+  <data name="SetTEConstant" xml:space="preserve">
+    <value>Konštanta</value>
+  </data>
+  <data name="open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="undo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\undo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="global-settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\global-settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FGlobalSettings_Vybraný_typ_vlaku_sa_už_v_zozname_nachádza" xml:space="preserve">
+    <value>Vybraný typ vlaku sa už v zozname nachádza.</value>
+  </data>
+  <data name="FNewGrafikon_Zadaná_stanica_pre_tento_INISS_už_existuje" xml:space="preserve">
+    <value>Zadaná stanica pre tento INISS už existuje.</value>
+  </data>
+  <data name="FTableText_Generate_TTexts_Info" xml:space="preserve">
+    <value>Texty do tabúľ sa automaticky vygenerujú podľa vlakov.
+Všetky zapísané texty sa zmažú.
+
+Naozaj chcete vykonať túto akciu?</value>
+  </data>
+  <data name="FGlobalSettings_Kľúč_jazyka_sa_nezhoduje_so_žiadnym_jazykom_nacházajúci_sa_v_zvukovej_banke" xml:space="preserve">
+    <value>Kľúč jazyka sa nezhoduje so žiadnym jazykom nacházajúci sa v zvukovej banke.</value>
+  </data>
+  <data name="FLocalSettings_Zadaný_dopravca_už_existuje" xml:space="preserve">
+    <value>Zadaný dopravca už existuje.</value>
+  </data>
+  <data name="FGlobalSettings_Maximálny_počet_typov_vlakov_tohto_druhu_je_9" xml:space="preserve">
+    <value>Maximálny počet typov vlakov tohto druhu je 9.</value>
+  </data>
+  <data name="FLocalSettings_Zadaný_kľúč_koľaje_už_existuje" xml:space="preserve">
+    <value>Zadaný kľúč koľaje už existuje.</value>
+  </data>
+  <data name="SetTEBraceBad" xml:space="preserve">
+    <value>Zvýraznenie nedokončeného páru zátvoriek</value>
+  </data>
+  <data name="FEditTrain_Nezadaný_čas_príchodu" xml:space="preserve">
+    <value>Nezadaný čas príchodu.</value>
+  </data>
+  <data name="RError" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="FLocalSettings_Zadaný_kľúč_nástupišťa_už_existuje" xml:space="preserve">
+    <value>Zadaný kľúč nástupišťa už existuje.</value>
+  </data>
+  <data name="RInfo" xml:space="preserve">
+    <value>Informácia</value>
+  </data>
+  <data name="FGlobalSettings_Nebola_zadaná_skratka_typu_vlaku" xml:space="preserve">
+    <value>Nebola zadaná skratka typu vlaku.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Vlak_nemá_zadanú_žiadnu_stanicu" xml:space="preserve">
+    <value>Vlak nemá zadanú žiadnu stanicu.</value>
+  </data>
+  <data name="SetTEOnNewLine" xml:space="preserve">
+    <value>Znak konca riadku (prechod do ďalšieho riadku)</value>
+  </data>
+  <data name="FEditTrain_Číslo_vlaku_sa_zhoduje_s_iným_vlakom_a_preto_bude_aj_jeho_radenie_priradené_k_tomuto_vlaku" xml:space="preserve">
+    <value>Číslo vlaku sa zhoduje s iným vlakom a preto bude aj jeho radenie priradené k tomuto vlaku (Doteraz upravené radenie sa vymaže).</value>
+  </data>
+  <data name="FLocalSettings_Všetky_parametre_sú_povinné" xml:space="preserve">
+    <value>Všetky parametre sú povinné.</value>
+  </data>
+  <data name="FAppSettings_cbDebugModeGUI_SelectedIndexChanged_Not_For_All_Users" xml:space="preserve">
+    <value>Vybrali ste typ debugovania, ktorý nie je určený pre bežných používateľov.  To môže viesť k neočakávaným následkom.
+
+Naozaj chcete použiť tento typ debugovania?</value>
+  </data>
+  <data name="FEditTrain_DateRem_zasahuje_do_ineho_vlaku" xml:space="preserve">
+    <value>Dátumové obmedzenie tohto vlaku zasahuje do vlaku {0} {1} {2} v rozmedzí 
+"{3}".
+
+Upraviť dátumové obmedzenie popísaného vlaku?</value>
+  </data>
+  <data name="iniss-settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iniss-settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SetDesktopTTSl" xml:space="preserve">
+    <value>Služobný vlak</value>
+  </data>
+  <data name="FMain_Save_Changes" xml:space="preserve">
+    <value>V súboroch ste vykonali zmeny. Uložiť zmeny?</value>
+  </data>
+  <data name="FGlobalSettings_Neboli_vyplnené_všetky_polia" xml:space="preserve">
+    <value>Neboli vyplnené všetky polia.</value>
+  </data>
+  <data name="SetTENumber" xml:space="preserve">
+    <value>Číslo</value>
+  </data>
+  <data name="FNewGrafikon_Priečinok_neobsahuje_priečinok_RAWBANK" xml:space="preserve">
+    <value>Priečinok neobsahuje priečinok RAWBANK.</value>
+  </data>
+  <data name="SetTEKeyword" xml:space="preserve">
+    <value>Funkcia</value>
+  </data>
+  <data name="FTableText_Generate_TTexts_Wrong_Item" xml:space="preserve">
+    <value>Bol vybratý nepodporovaný typ obsahu tabule. Vyberte iný.</value>
+  </data>
+  <data name="FEditTrain_Nezadaný_čas_odchodu" xml:space="preserve">
+    <value>Nezadaný čas odchodu.</value>
+  </data>
+  <data name="FGlobalSettings_Click_Zadaný_typ_vlaku_sa_už_v_zozname_nachádza" xml:space="preserve">
+    <value>Zadaný typ vlaku sa už v zozname nachádza.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Čas_príchodu_je_neskôr_ako_čas_odchodu" xml:space="preserve">
+    <value>Čas príchodu je neskôr ako čas odchodu.</value>
+  </data>
+  <data name="SetTEOperator" xml:space="preserve">
+    <value>Operátor</value>
+  </data>
+  <data name="Tables_Nie_sú_vyplnené_všetky_povinné_polia" xml:space="preserve">
+    <value>Nie sú vyplnené všetky povinné polia.</value>
+  </data>
+  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FNewGrafikon_Čas_konca_platnosti_grafikonu_má_byť_neskôr_ako_začiatok_platnosti" xml:space="preserve">
+    <value>Čas konca platnosti grafikonu má byť neskôr ako začiatok platnosti.</value>
+  </data>
+  <data name="edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SetTEComment" xml:space="preserve">
+    <value>Komentár</value>
+  </data>
+  <data name="SetTEBraces" xml:space="preserve">
+    <value>Zvýraznenie aktívnych zátvoriek</value>
+  </data>
+  <data name="FGlobalSettings_bLanguageAdd_Click_Iba_1_jazyk_môže_byť_hlavný" xml:space="preserve">
+    <value>Iba jeden jazyk môže byť hlavný.</value>
+  </data>
+  <data name="FGlobalSettings_Zadaný_jazyk_sa_sa_už_v_zozname_nachádza" xml:space="preserve">
+    <value>Zadaný jazyk sa sa už v zozname nachádza.</value>
+  </data>
+  <data name="FEditTrain_bSave_Click_Nesprávny_formát_času_príchodu" xml:space="preserve">
+    <value>Nesprávny formát času príchodu.</value>
+  </data>
+  <data name="delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="debugging" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\debugging.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FBugReport_E_mail_nebol_zadaný" xml:space="preserve">
+    <value>E-mail nebol zadaný.</value>
+  </data>
+  <data name="FBugReport_Obsah_správy_nebol_zadaný" xml:space="preserve">
+    <value>Obsah správy nebol zadaný.</value>
+  </data>
+  <data name="FBugReport_E_mail_je_neplatný" xml:space="preserve">
+    <value>E-mail je neplatný.</value>
+  </data>
+  <data name="FBugReport_E_mail_sa_nepodarilo_odoslať" xml:space="preserve">
+    <value>E-mail sa nepodarilo odoslať: </value>
+  </data>
+  <data name="Priečinok_s_týmto_názvom_už_existuje__Zmeňte_jeho_názov" xml:space="preserve">
+    <value>Priečinok s týmto názvom už existuje. Zmeňte jeho názov.</value>
+  </data>
+  <data name="FLocalSettings_Názov_priečinka_grafikonu_je_prázdny" xml:space="preserve">
+    <value>Názov priečinka grafikonu je prázdny.</value>
+  </data>
+  <data name="FGlobalSettings_Naozaj_chcete_odstrániť_tento_grafikon" xml:space="preserve">
+    <value>Naozaj chcete odstrániť tento grafikon ?</value>
+  </data>
+  <data name="desktop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\desktop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="shortcut" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\shortcut.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FAppSettings_lShortcutHelp1" xml:space="preserve">
+    <value>Stlačte klávesovú skratku pre priradenie ku príkazu.</value>
+  </data>
+  <data name="FAppSettings_lShortcutHelp2" xml:space="preserve">
+    <value>Neplatná klávesová skratka. Stlačte inú.</value>
+  </data>
+  <data name="FAppSettings_Bolo_zadané_neplatné_číslo" xml:space="preserve">
+    <value>Bolo zadané neplatné číslo.</value>
+  </data>
+  <data name="FImportData_Nie_sú_zadané_údaje_pre_import" xml:space="preserve">
+    <value>Nie sú zadané údaje pre import.</value>
+  </data>
+  <data name="colors" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\colors.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="environment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\environment.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="general" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\general.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="localization" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\localization.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SelectedItemRemoveCancel" xml:space="preserve">
+    <value>Vybranú položku nie je možné vymazať, pretože sa používa. Konflikt s:</value>
+  </data>
+  <data name="FMain_Mám_preskočiť_prechádzajúce_vlaky" xml:space="preserve">
+    <value>Mám preskočiť prechádzajúce vlaky?</value>
+  </data>
+  <data name="RUpdate" xml:space="preserve">
+    <value>Aktualizácia</value>
+  </data>
+  <data name="RUpdateInfo" xml:space="preserve">
+    <value>Nová verzia programu GVDEditor ({0}) je k dispozícií.
+
+Otvoriť stránku pre stiahnutie programu?</value>
+  </data>
+  <data name="FMain_Názov_priečinka_je_prázdny" xml:space="preserve">
+    <value>Názov priečinka je prázdny.</value>
+  </data>
+  <data name="FTableCatalog_ShowWarningDefTab" xml:space="preserve">
+    <value>Vybraný DivType nevyžaduje mať zadefinovaný {0}.
+Aj tak pokračovať ?</value>
+  </data>
+  <data name="FTableCatalog_ShowErrorUnDefTab" xml:space="preserve">
+    <value>Vybraný DivType vyžaduje mať zadefinovaný {0}.</value>
+  </data>
+  <data name="FTableCatalog_bSave_NespravnyPocetModov" xml:space="preserve">
+    <value>V type tabule {0} je nesprávny počet módov {1}. (Správny počet: {2})
+Pravdepodobne ste zabudli upraviť poradie stĺpcov.</value>
+  </data>
+  <data name="FTableCatalog_Posledný_pixel_stĺpca_je_menší_alebo_rovný_ako_počiatočný" xml:space="preserve">
+    <value>Posledný pixel stĺpca je menší alebo rovný ako počiatočný.</value>
+  </data>
+  <data name="FTableCatalog_Tento_stĺpec_sa_prekrekrýva_so_stĺpcom" xml:space="preserve">
+    <value>Tento stĺpec sa prekrekrýva so stĺpcom {0}.</value>
+  </data>
+  <data name="exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="find_replace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\find-replace.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hammer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hammer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rename" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rename.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="save_all" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save-all.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="start" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\start.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wrench" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wrench.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FMain_InissStartItemOnClick" xml:space="preserve">
+    <value>Jedna inštancia programu INISS už beží.
+
+Mám ju nútene vypnúť ?</value>
+  </data>
+  <data name="FELISOptions_Zadaný_súbor_neexistuje" xml:space="preserve">
+    <value>Zadaný súbor neexistuje.</value>
+  </data>
+  <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FRenameStyle_Neplatný_nový_názov_štýlu" xml:space="preserve">
+    <value>Neplatný nový názov štýlu.</value>
+  </data>
+  <data name="FRenameStyle_Zadaný_názov_štýlu_už_existuje" xml:space="preserve">
+    <value>Zadaný názov štýlu už existuje.</value>
+  </data>
+  <data name="NameColorSettings_Panel" xml:space="preserve">
+    <value>Panel</value>
+  </data>
+  <data name="NameColorSettings_Button" xml:space="preserve">
+    <value>Tlačidlá</value>
+  </data>
+  <data name="NameColorSettings_Label" xml:space="preserve">
+    <value>Štítky</value>
+  </data>
+  <data name="NameColorSettings_Box" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="NameColorSettings_Border" xml:space="preserve">
+    <value>Okraje ovládacích prvkov</value>
+  </data>
+  <data name="NameColorSettings_Mark" xml:space="preserve">
+    <value>Značky v CheckBox a v RadioButton</value>
+  </data>
+  <data name="NameColorSettings_Highlight" xml:space="preserve">
+    <value>Zvýraznenie ovládacieho prvku alebo jeho časti</value>
+  </data>
+  <data name="FMain_Nepodarilo_sa_spustiť_vybraný_program" xml:space="preserve">
+    <value>Nepodarilo sa spustiť vybraný program: {0}.</value>
+  </data>
+  <data name="FAppSettings_Zmeny_sa_prejavia_po_reštarte_programu" xml:space="preserve">
+    <value>Zmeny sa prejavia po reštarte programu.</value>
+  </data>
+  <data name="restart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\restart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

@@ -1,0 +1,55 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Media;
+using System.Threading;
+
+namespace GVDEditor.Tools
+{
+    internal class WAVPlayer
+    {
+        private readonly BackgroundWorker worker = new();
+
+        public WAVPlayer(string[] sounds, int wordPause)
+        {
+            Sounds = sounds;
+            WordPause = wordPause;
+
+            worker.DoWork += PlayingSoundsDoWork;
+        }
+
+        public string[] Sounds { get; }
+        public int WordPause { get; }
+
+        public void StartPlay()
+        {
+            worker.RunWorkerAsync();
+        }
+
+        private void PlayingSoundsDoWork(object sender, DoWorkEventArgs e)
+        {
+            List<SoundPlayer> soundps = new List<SoundPlayer>();
+            foreach (var sound in Sounds)
+            {
+                var p = new SoundPlayer(sound);
+                p.Load();
+                soundps.Add(p);
+            }
+
+            foreach (SoundPlayer p in soundps)
+            {
+                p.PlaySync();
+                if (WordPause > 0) Thread.Sleep(WordPause);
+            }
+        }
+
+        public static void Play(string sound)
+        {
+            if (File.Exists(sound))
+            {
+                using var player = new SoundPlayer(sound);
+                player.PlaySync();
+            }
+        }
+    }
+}

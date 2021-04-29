@@ -1,0 +1,618 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="bSave.Text" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="bStorno.Text" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 17</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Jazyk datum. omedzení:</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 17</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Jazyk rozhraní:</value>
+  </data>
+  <data name="cbLoggingError.Size" type="System.Drawing.Size, System.Drawing">
+    <value>259, 21</value>
+  </data>
+  <data name="cbLoggingError.Text" xml:space="preserve">
+    <value>Logovat chyby a výjimky do souboru</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 17</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Zobrazovat chybové hlášky:</value>
+  </data>
+  <data name="cbLoggingInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>338, 21</value>
+  </data>
+  <data name="cbLoggingInfo.Text" xml:space="preserve">
+    <value>Logovat informace o stave programu do souboru</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 17</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Čas mezi zvukmi při přehrávaní:</value>
+  </data>
+  <data name="cbAutoTableText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>342, 21</value>
+  </data>
+  <data name="cbAutoTableText.Text" xml:space="preserve">
+    <value>Automaticky generovat texty do tabulí při ukládaní</value>
+  </data>
+  <data name="cbClassicGUI.Size" type="System.Drawing.Size, System.Drawing">
+    <value>260, 21</value>
+  </data>
+  <data name="cbClassicGUI.Text" xml:space="preserve">
+    <value>Používat klasický dizajn komponentů</value>
+  </data>
+  <data name="cbMoreInstance.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 21</value>
+  </data>
+  <data name="cbMoreInstance.Text" xml:space="preserve">
+    <value>Povoleny duplicitní inštance</value>
+  </data>
+  <data name="imagesMenu.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAB2
+        JQAAAk1TRnQBSQFMAgEBCAEAAcwBAwHMAQMBFAEAARQBAAT/AREBAAj/AUIBTQE2BwABNgMAASgDAAFQ
+        AwABPAMAAQEBAAEQBQABgAEl/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A2AAB/wF/Ab0Bdx4AAf8BfwG+
+        AXcBfAFrAXwBawF8AWsBfAFrAb0BcwH/AX82AAFcAWMB9gElAfYBJQH2ASUB9gElAfYBJQH2ASUB9gEl
+        AVwBYyYAAZwBcwHxATEcAAG+AXMBeQE+AXgBOgG6AUYB2wFGAfwBTgG6AUIBeAE6AXkBQgGdAWsMAAH/
+        AX8BOgFjARIBOgHxATEB8QExAfEBMQHxATEB8QExAfEBMQHxATEB8QExAfEBMQHxATEB8QExAfEBMQHx
+        ATEBtwFSAf8BfwQAAVwBYwHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYBXAFjIgAB/wF/AXsBawGW
+        AUoB8QExBAAB3gF3AZ4BawHfAXsOAAH/AX8BXAFjAboBQgF6AT4B3AFCAdsBRgE9AVMBvwFjAfwBTgGf
+        AV8B+wFKAdoBRgH7AVIB3gF3CAABnAFzAbcBTgE7AWMBXAFjAVwBYwFcAWMBXAFjAVwBYwFcAWMBXAFj
+        AVwBYwFcAWMBXAFjAVwBYwFcAWMBXAFjAfkBVgG3AVIEAAFcAWMB3gFGAd4BRgHeAUYB3gFGAd4BRgHe
+        AUYB3gFGAVwBYyIAAToBYwF1AUIBGgFbAfEBMQYAAf8BfwE9AVsB3gF3DAABGwFbAV0BVwG7AUYB3QFG
+        Ad4BRgF4AToBHgFPAb8BYwH8AU4BvwFjAZ8BYwGZAUIB3AFGAXkBOgHeAXcGAAFbAWcBfQFrAZ0BbwGd
+        AW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFrAfEBMQQA
+        AVwBYwHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYBXAFjAgABvQFzAfMBRgHzAUYB8wFGAfMBRgHz
+        AUYB8wFGAVgBXwwAAf8BfwEZAV8BlwFKARoBWwEaAVsB8QExAgAB/wF/Ad8BewIAAf8BfwGeAWsBvgFz
+        BgAB/wF/AVwBZwGaAUIB/AFOAXkBPgGbAUIBmwE+AXkBOgG7AUIB/AFOAboBRgH7AUoB/AFOAdsBSgGa
+        AT4BmgE+AdoBTgH/AX8EAAFbAWcBnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFv
+        AZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAfEBMQQAAVwBYwHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHe
+        AUYBXAFjAgABegFnAZcBXwGXAV8BlwFfAZcBXwGXAV8BlwFfAW4BLgwAAdcBVgHYAU4BGgFbARoBWwEa
+        AVsB8QExAgAB/wF/AT0BWwF9AWcB/wF/AgABfgFrAf8BfwQAAd4BdwGZAUIBvwFjAZkBPgHdAUYB3gFG
+        AbwBQgG7AUIBXwFXAb8BYwFeAVcB/AFOAb8BYwE+AVMBmwE+Ad4BRgG7AUIBPAFfBAABWwFnAZ0BbwGd
+        AW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwHx
+        ATEEAAFcAWMB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAVwBYwIAAXoBZwGXAV8BlwFfAZcBXwGX
+        AV8BlwFfAZcBXwFuAS4EAAHXAVIBdgFGAXYBRgF2AUYBdgFGARoBWwEaAVsBGgFbARoBWwHxATEEAAH/
+        AX8BvgFzAZ4BawIAAf8BewE9AVsB/wF/AgABXAFnAX4BXwF+AVsBmgE+Ad4BRgH+AUYB3AFGAV0BVwG/
+        AWMBvwFjAV4BWwG6AUIBPgFTAf4BRgG8AUIBvAFCAd0BRgF5AT4B/wF/AgABWwFnAZ0BbwGdAW8BnQFv
+        AZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwHxATEEAAFc
+        AWMB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAVwBYwIAAXoBZwGXAV8BlwFfAZcBXwGXAV8BlwFf
+        AZcBXwFuAS4EAAF2AUYBGgFbARoBWwEaAVsBdgFGARoBWwEaAVsBGgFbARoBWwHxATEB/wF/AV0BYwH/
+        AX8CAAGeAWsB3wF7AgABfQFnAd4BewIAARsBUwGfAV8B/AFKAR0BUwG/AWMBvwFjARwBUwF+AVsBvwFj
+        Ab8BYwEeAU8BeQE6Ad4BRgHeAUYB3QFCAZoBPgHeAUYBmwE+AZ0BbwIAAVsBZwGdAW8BnQFvAZ0BbwFU
+        AUYBKwEhAW0BKQE6AWMBGQFbAUwBJQHXAVIBrgEtAZ0BbwGdAW8BdQFKAZ0BbwGdAW8B8QExBAABXAFj
+        Ad4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgFcAWMCAAF6AWcBlwFfAZcBXwGXAV8BlwFfAZcBXwGX
+        AV8BbgEuBAABdgFGARoBWwEaAVsBGgFbAXYBRgEaAVsBGgFbARoBWwEaAVsB8QExAf8BfwHeAXcBfgFn
+        AgAB3wF7AV0BXwIAAd4BewG+AXMCAAGaAUIBmwFCAboBRgH7AUoB/AFKAfwBTgG6AUYB/AFOAfwBTgH8
+        AU4B2wFKAVgBOgGbAUIBmwFCAZsBPgF4AToBmwFCAZoBPgF8AWsCAAFbAWcBnQFvAZ0BbwF0AUYBdQFK
+        AZ0BawF9AWsBfAFrAXUBSgEaAV8BXAFnAUwBJQGdAW8BnQFvAVMBQgGdAW8BnQFvAfEBMQQAAVwBYwHe
+        AUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYBXAFjAgABegFnAZcBXwGXAV8BlwFfAZcBXwGXAV8BlwFf
+        AW4BLgQAAXYBRgEaAVsBGgFbARoBWwF2AUYBGgFbARoBWwEaAVsBGgFbAfEBMQQAAX4BawIAAf8BfwH+
+        AUoCAAH/AX8BngFvAgABmwFCAd4BRgG7AUYB/gFKAX8BWwG/AWMBHAFPAZ8BYwG/AWMBvwFjAZ8BXwFY
+        AToB3gFGAd4BRgHdAUYBeAE6Ad4BRgHdAUYBfAFrAgABWwFnAZ0BbwGdAW8BKgEdAXwBawGdAW8BnQFv
+        AZ0BbwF1AUoBOwFjAVwBZwFLASUBnQFvAZ0BbwFTAUIBnQFvAZ0BbwHxATEEAAFcAWMB3gFGAd4BRgHe
+        AUYB3gFGAd4BRgHeAUYB3gFGAVwBYwIAAXoBZwGXAV8BlwFfAZcBXwGXAV8BlwFfAZcBXwFuAS4EAAF2
+        AUYBGgFbARoBWwEaAVsBdgFGARoBWwEaAVsBGgFbARoBWwHxATEEAAF9AWcCAAH/AX8BHQFPAgAB/wF/
+        AZ4BbwIAAZsBQgHeAUYBuwFCAd0BRgE+AVMBnwFjARwBTwGfAWMBvwFjAb8BYwGfAWMBeAE6Ad4BRgHe
+        AUYB3QFGAXgBOgHeAUYB3QFGAXwBawIAAVsBZwGdAW8BnQFvASsBIQFcAWcBnQFvAZ0BbwGdAW8BEQE+
+        AXQBSgEZAV8BKwEhAZUBSgGdAW8BUwFCAZ0BbwGdAW8B8QExBAABXAFjAd4BRgHeAUYB3gFGAd4BRgHe
+        AUYB3gFGAd4BRgFcAWMCAAF6AWcBlwFfAZcBXwGXAV8BlwFfAZcBXwGXAV8BbgEuBAABdgFGARoBWwEa
+        AVsBGgFbAXYBRgEaAVsBGgFbARoBWwEaAVsB8QExAf8BfwGeAWsBngFrAgAB3gF7AX0BZwIAAb4BdwG+
+        AXMCAAF5AT4BWAE6AVgBOgFYAToBWAE6AVgBOgFYAToBWAE6AVgBOgFYAToBWAE6AVgBOgFYAToBWAE6
+        AVgBOgFYAToBWAE6AVgBOgF9AWsCAAFbAWcBnQFvAZ0BbwF1AUoBlQFOAZ0BbwGdAW8BnQFvAVMBRgH4
+        AVYBfAFrATsBYwFbAWcBnQFvAVMBQgGdAW8BnQFvAfEBMQQAAVwBYwHeAUYB3gFGAd4BRgHeAUYB3gFG
+        Ad4BRgHeAUYBXAFjAgABegFnAZcBXwGXAV8BlwFfAZcBXwGXAV8BlwFfAW4BLgQAAXYBRgEaAVsBGgFb
+        ARoBWwF2AUYBGgFbARoBWwEaAVsBGgFbAfEBMQH/AX8BvgF3Af8BfwIAAZ4BawH/AX8B/wF/AT0BWwH/
+        AX8CAAH7AU4B3gFGAbwBQgG7AUIB/gFGAd4BRgG7AUIB/QFGAb8BYwG/AWMBnwFfAZoBQgFfAVcB3gFG
+        AbwBQgGbAT4B3gFGAZoBPgG+AXMCAAFbAWcBnQFvAZ0BbwGdAWsBdQFKAXQBRgF0AUoBOgFjAToBYwF8
+        AWcBnQFvAZ0BbwGdAW8BnQFvAVMBQgGdAW8BnQFvAfEBMQQAAVwBYwHeAUYB3gFGAd4BRgHeAUYB3gFG
+        Ad4BRgHeAUYBXAFjAgABegFnAZcBXwGXAV8BlwFfAZcBXwGXAV8BlwFfAW4BLgQAARkBXwHxATEB8QEx
+        AfEBMQF1AUYBGgFbARoBWwEaAVsBGgFbAfEBMQQAAf8BfwF+AWcBvgFzAgAB3gF3AX0BZwQAAXwBawHc
+        AUIB3QFGAXkBOgF/AVsB/gFKAbwBQgH8AUoBvwFjAb8BYwF+AVsB2wFGAb8BYwFfAVcBuwFCAd0BQgHd
+        AUYBeQE+Af8BfwIAAVsBZwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFv
+        AZ0BbwGdAW8BnQFvAZ0BbwGdAW8B8QExBAABXAFjAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgFc
+        AWMCAAF6AWcBdgFbAZcBXwGXAV8BlwFfAZcBXwF3AVsBkAE2DAABfAFvAXYBRgH6AVYBGgFbARoBWwHx
+        ATECAAH/AX8BfQFrAb4BdwH/AX8B/wF/AX4BZwH/AX8EAAHeAXsBeQE+AZsBQgF5AToB+wFKAfwBTgG6
+        AUIBugFGAfwBTgH8AU4B2wFKAboBQgH8AU4B/AFOAZkBPgGbAUIBmgE+Ab4BcwQAAVsBZwGdAW8BnQFv
+        AZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8B8QEx
+        BAABXAFjAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgFcAWMCAAHeAXsBkQE6AW4BLgFuAS4BbgEu
+        AW4BLgGPATYBvQF3DgABvgF3AXUBQgEaAVsBGgFbAfEBMQgAAf8BfwEdAU8B3gF7CAABvgFzAZsBPgHd
+        AUYBuwFGAZ8BYwEeAU8BmQE+AZ8BXwHeAUYB2wFGAX4BWwG/AWMBPQFXAbsBQgHdAUIBGwFbBgABWwFn
+        AZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFv
+        AZ0BbwHxATEEAAFcAWMB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAVwBYyIAAb0BdwF2AUYB2QFS
+        AfEBMQQAAd8BewGeAWsBfgFrAf8BewwAAXwBZwGbAUIBuwFCAbwBQgE+AU8BugFCAX4BWwHeAUYBmwFC
+        AT4BUwFeAVsBugFGAdwBSgH7AVIB/wF7BgABWwFrAZ0BawGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGd
+        AW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BawESAToEAAFcAWMB3gFGAd4BRgHeAUYB3gFG
+        Ad4BRgHeAUYB3gFGAVwBYyQAAf8BfwF1AUoB8QExBAAB3gF7Af8BfxIAAd4BdwGaAUIBugFGARwBUwFd
+        AVcBHAFTAd4BRgGbAT4B3QFGAboBQgG6AUYBXAFjCgABvQF3AbcBTgGdAWsBnQFvAZ0BbwGdAW8BnQFv
+        AZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvAZ0BbwGdAW8BnQFvARoBWwE6AWMEAAG+AXcBXAFjAVwBYwFc
+        AWMBXAFjAVwBYwFcAWMBXAFjAb4BdyYAAd4BewGWAU4cAAH/AXsBfAFrAfsBVgG6AUYBmQE+AXkBPgF5
+        AT4BmgFCAVwBYwHeAXcB/wF/CgAB/wF/Ab0BdwFbAWsBWwFnAVsBZwFbAWcBWwFnAVsBZwFbAWcBWwFn
+        AVsBZwFbAWcBWwFnAVsBZwFbAWcBWwFnAZwBcwH/AX+wAAHeAXsBnQFvAXwBawF6AWcBmwFvAd0BdwH/
+        AX9eAAE4AS4BegE2AXoBNgF6ATYBegE2AfYBJSQAAd4BewGZAUIBWQEyAZwBOgG9AT4BUwFLATIBQwHQ
+        AToBkAE2AbwBcwH/AX8KAAFZAW8gAAHMAUksAAF6ATYB/QFKAVgBawE6AVsB/QFGAfYBJSAAAf8BfwFc
+        AWMBmgE6Ab0BPgHeAUIB3gFCAd4BQgFTAUsBUwFLAVMBSwFTAUsB8QE+ATYBUwH/AXsIAAFaAW8BvQF7
+        BgAB/wF/AXsBcwGSAVoB6wFFAWgBQQFxAVYBFwFnAf8BfwYAAf8BfwEOAVIEAAFcAWMBXAFjAVwBYwFc
+        AWMBXAFjAVwBYwFcAWMBXAFjAVwBYwFcAWMBXAFjAVwBYwFcAWMBXAFjAVwBYwFcAWMBXAFjAVwBYwG+
+        AXcCAAF6ATYBWAFrAdoBfwHXAX8BGwFXAfYBJQQAAVsBawFbAWsBWwFrAVsBawFbAWsBWwFrAVsBawFb
+        AWsBWwFrAVsBawG+AXcGAAFcAWcBnAE6Ad4BQgHeAUIB3gFCAd4BQgHeAUIBUwFLAVMBSwFTAUsBUwFL
+        AVMBSwEyAUcB8wFWAf4BfwYAAf4BfwHLAUkB/wF/BAAB9QFiAS0BSgGXAV8BsQFSAesBRQGXAV8BFAFX
+        AVABVgYAATgBawG9AXsEAAFwASEBCQEZAQkBGQEJARkBCQEZAQkBGQEJARkBCQEZAQkBGQEJARkBCQEZ
+        AQkBGQEJARkBCQEZAQkBGQEJARkBCQEZAQkBGQFcAWMCAAF6ATYBOgFbAdcBfwG1AX8BHAFTAfYBJRwA
+        Af8BfwFcAWcBGQE2AVwBPgG9AUIB3gFCAd4BQgHeAUIB3gFCAVMBSwFTAUsBUwFLAVMBSwFTAUsBUQFb
+        AU4BdwESAW8B/wF/BgABvQF7AfYBZgGcAXcBWQFvAS0BSgF3AV8BlwFfAdIBVgEtAUoBlwFfAZcBXwHz
+        AVYBkgFaAb0BewEXAWcBWgFvBgAB9QEtAfMBMQHzATEB8wExAfMBMQHzATEB8wExAfMBMQHzATEB8wEx
+        AfMBMQHzATEB8wExAfMBMQHzATEB8wExAfMBMQHzATEBXAFjAgABegE2Af0BRgEbAVcBHAFTAf0BRgH2
+        ASUcAAHeAXsBtgEpAV0BPgFdAT4BXAE+Ad4BQgHeAUIB3gFCAd4BQgFTAUsBUwFLAVMBSwFTAUsBMgFX
+        AW8BewFvAXsB6wFuAbwBdwgAAf8BfwE4AWsBygFFAZcBXwGXAV8BlwFfAfMBVgFvAU4BlwFfAZcBXwGX
+        AV8BcAFOAXEBWgH/AX8IAAF6ATYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFG
+        Ad4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgFcAWMCAAH2ASUB9gElAfYBJQH2ASUB9gElAfYBJRwA
+        ATsBYwE7AToBXQE+AV0BPgFdAT4BXAE+Ab0BQgHeAUIB3gFCAVMBSwFTAUsBUwFLAVEBWwFvAXsBbwF7
+        AW8BewFPAXcBiQFiAf8BfwgAAb0BdwFvAU4BlwFfAZcBXwGXAV8BNAFbAdIBUgGXAV8BlwFfAZcBXwF3
+        AV8B9gFmCgABegE2Ad4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFG
+        Ad4BRgHeAUYB3gFGAd4BRgHeAUYBXAFjAgABegFnAXoBZwF6AWcBegFnAXoBZwF6AWccAAGaAU4BXQE+
+        AV0BPgFdAT4BXQE+AV0BPgFcAT4B3gFCAd4BQgFTAUsBUwFLATIBVwFvAXsBbwF7AW8BewFvAXsBbwF7
+        AckBagHdAXsIAAGSAVoB8wFWAZcBXwGXAV8BlwFfAVUBWwEUAVcBlwFfAZcBXwGXAV8BlwFfAbIBVgoA
+        AXoBNgHeAUYBaQFeAWkBXgFpAV4B3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFG
+        Ad4BRgHeAUYB3gFGAVwBYwIAAfMBRgGXAV8BlwFfAZcBXwGXAV8BbgEuHAABOQE+AV0BPgFdAT4BXQE+
+        AV0BPgFdAT4BXQE+AVwBPgG9AUIBUwFLAVEBWwFvAXsBbwF7AW8BewFvAXsBbwF7AW8BewEtAXMBmgF3
+        AgABOQFrATgBawE4AWsBaAFBAVUBWwGXAV8BlwFfAZcBXwF3AV8BVgFbAZcBXwGXAV8BlwFfAZcBXwFv
+        AU4BOAFrATgBawE4AWsBvQF7AgABegE2Ad4BRgEOAW8BtAF/AQ4BbwHeAUYB3gFGAd4BRgHeAUYB3gFG
+        Ad4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYBXAFjAgAB8wFGAboBawHcAXcB3AFzAZkBYwFu
+        AS4cAAH5ATUBXQE+AV0BPgFdAT4BXQE+AV0BPgFdAT4BXQE+AVwBPgEyAVcBbwF7AW8BewFvAXsBbwF7
+        AW8BewFvAXsBbwF7AW8BdwF4AXMIAAFGAT0BdgFbAZcBXwGXAV8BlwFfAZcBXwGXAV8BlwFfAZcBXwGX
+        AV8BlwFfAZABUgoAAXoBNgHeAUYBDgFvAbQBfwEOAW8B3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFG
+        Ad4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAVwBYwIAAfMBRgG7AW8B1wF/AdkBewGZAWcBbgEuBAABMwE+
+        ATMBPgEzAT4BMwE+ATMBPgEzAT4BMwE+ATMBPgEzAT4BMwE+AVsBawIAAfgBUQEcAWIBHAFiARwBYgEc
+        AWIBHAFiARwBYgEcAWIBGwFmAVABcgGOAXYBjgF6AY4BegGOAXoBjgF6AY4BegGOAXoBbQF2AVkBcwYA
+        Ab0BdwFHAT0BVQFbAZcBXwE1AVsBkAFSAW8BTgFvAU4BbwFOAfMBVgF3AV8BlwFfAW8BTgF6AXMB/wF/
+        BgABegE2Ad4BRgGzAVIBswFSAbMBUgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHe
+        AUYB3gFGAd4BRgHeAUYBXAFjAgAB8wFGAboBawHcAXcB3AFzAZkBYwFuAS4cAAE4AVYBHAFiARwBYgEc
+        AWIBHAFiARwBYgEcAWIBOgFiARwBbgExAXYBUAF2AY4BegGOAXoBjgF6AY4BegGOAXoBjgF6AUwBcgGb
+        AXcEAAG8AXcB1QFiAZIBWgGxAVIBLQFKAWcBQQErAVoBjQFmAY0BagFMAV4BiAFFAcoBRQE1AVsBswFa
+        AZwBdwHVAWIGAAF6ATYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHe
+        AUYB3gFGAd4BRgHeAUYB3gFGAd4BRgFcAWMCAAHzAUYBlwFfAZcBXwGXAV8BlwFfAW4BLhwAAboBYgEc
+        AWIBHAFiARwBYgEcAWIBHAFiARsBZgEcAW4BHAFuATEBdgExAXYBUAF2AY4BdgGOAXoBjgF6AY4BegGO
+        AXoB6QFlAd4BewIAAf8BfwEOAU4B/wF/Af8BfwGzAV4ByQFNAY0BagGuAWoBrgFqAa4BagGuAWoBrgFq
+        ASsBWgHLAUkBvQF3AgABOAFrAd0BewQAAXoBNgHeAUYBywFmAQ4BbwHLAWYB3gFGAd4BRgHeAUYB3gFG
+        Ad4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAVwBYwIAAXoBZwF6AWcBegFnAXoBZwF6
+        AWcBegFnHAABXAFvAfoBWQEcAWIBHAFiARwBYgE6AWIBHAFuARwBbgEcAW4BMQF2ATEBdgExAXYBUAF2
+        AY4BegGOAXoBjgF6AW0BdgFOAWIB/wF/AgABmwFzAXsBcwQAATgBawGNAWoBrgFqAa4BagGuAWoBrgFq
+        Aa4BagGuAWoBrQFqAUcBQQQAAd4BewGSAVoEAAF6ATYB3gFGAQ4BbwG0AX8BDgFvAd4BRgHeAUYB3gFG
+        Ad4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgFcAWMCAAGpAVEBqQFRAakBUQGp
+        AVEBqQFRAakBURwAAf8BfwH2AU0BGwFeARwBYgEbAWYBHAFuARwBbgEcAW4BHAFuATEBdgExAXYBMQF2
+        ATEBdgFQAXYBjgF2AY4BegFMAWoB3gF7BAABOQFrAf4BfwQAAbwBdwHqAVEBjQFqAa4BagGuAWoBrgFq
+        Aa4BagGuAWoBKwFaARcBZwQAAf8BfwGKAUUEAAF6ATYB3gFGAcsBZgEOAW8BywFmAd4BRgHeAUYB3gFG
+        Ad4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgFcAWMCAAHrAWEBTAFyAUwBcgEs
+        AWoBygFVAakBUR4AAf8BfwHXAU0BGgFiARwBbgEcAW4BHAFuARwBbgEcAW4BMQF2ATEBdgExAXYBMQF2
+        ATEBdgFQAXYBTAFyATcBcwYAATgBawgAAbwBdwGJAUUBKwFaAY0BZgGNAWoBTAFeAYgBRQHVAWIIAAEm
+        AT0EAAF6ATYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFGAd4BRgHeAUYB3gFG
+        Ad4BRgHeAUYB3gFGAd4BRgFcAWMCAAFNAWYBTQFyAW0BcgHKAVUBTgFmAakBUSAAAZ0BdwG1AVkB+gFp
+        ARwBbgEcAW4BHAFuARwBbgExAXYBMQF2ATEBdgExAXYBMQF2Aa0BaQE4AXMB/wF/BgABvQF7CgABewFz
+        AWcBQQGIAUkBiAFJAWgBRQGSAV4B/wF/CAABWQFvBAABOAEuAXoBNgF6ATYBegE2AXoBNgF6ATYBegE2
+        AXoBNgF6ATYBegE2AXoBNgF6ATYBegE2AXoBNgF6ATYBegE2AXoBNgF6ATYBXAFjAgABTgFqAfIBfgHy
+        AX4B8gF6ARMBfwGpAVEEAAFbAWsBWwFrAVsBawFbAWsBWwFrAVsBawFbAWsBWwFrAVsBawFbAWsBvgF3
+        CAAB3wF/AbQBVQHYAWEBHAFuARwBbgEcAW4BMQF2ATEBdgExAXYBEAFyASkBYQE5AXMUAAH/AX8BLwFS
+        Ae0BTQGIAUkBqQFRAasBSQFPAVYBOQFvNgABTgFqARMBfwETAX8BEwF/AXcBfwGpAVEkAAH/AX8BWwFz
+        AZgBZgEXAV4BtgFZAYwBaQHvAWkBUgFqARgBcwHeAXsB/wF/FAABLwFSAd4BewH/AX8BegFzATgBawHe
+        AXsB/wF/ARcBZzYAAQsBXgFOAWoBTgFqAU4BagFOAWoBqQFRugABQgFNAT4HAAE+AwABKAMAAVADAAE8
+        AwABAQEAAQEFAAHQAQIWAAP/8QAD/wH5Af8B/AEDA/8CAAGAAT8B/wH5Af8B+AEBAfgBAAEBAgABgAE/
+        Af8B4QGPAeABAAF4AQABAQIAAYABPwH/AeEBxwHgAQABOAEAAQECAAGAASABHwGBASMBgAEAARgBAAEB
+        AgABgAEgAR8BgQEJAYABAAEYAQABAQIAAYABIAEYAQEBiAGAAQABCAEAAQECAAGAASABGAEAASQBgAEA
+        AQgBAAEBAgABgAEgARgBAAEkAYABAAEIAQABAQIAAYABIAEYAQEBpAGAAQABCAEAAQECAAGAASABGAEB
+        AaQBgAEAAQgBAAEBAgABgAEgARgBAAEkAYABAAEIAQABAQIAAYABIAEYAQABIAGAAQABCAEAAQECAAGA
+        ASABGAEBAYkBgAEAAQgBAAEBAgABgAEgAR8BgQEBAYABAAEYAQABAQIAAYABIAEfAcEB4wHAAQABOAEA
+        AQECAAGAAT8B/wHhAYcB4AEAATgBAAEBAgABgAE/Af8B8QGfAfABAAH4AQABAQIAAYABPwH/AfkB/wH4
+        AQAB+AEAAQECAAr/AgAB/gEDBf8B+AEfAf8CAAH4AQAB+wH/Af0C/wH4AR8B/wIAAeABAAF5AcABOQGA
+        AQABCAEYAwAB4AEAATgBwAE5AYABAAEIAR8B/wIAAYABAAEcAQABAwGAAQABCAEfAf8CAAGAAQABHgEA
+        AQcBgAEAAQgBHwH/AgABgAEAAQ8BAAEPAYABAAEIAR8B/wIAAYABAAEPAQABDwGAAQABCAEfAf8CAAGA
+        AQABCAIAAYABAAEIAR8B/wIAAYABAAEPAQABDwGAAQABCAEYAwABgAEAAQ4BAAEDAYABAAEIAR8B/wIA
+        AYABAAEMAQABAwGAAQABCAEfAf8CAAGAAQABCAEAAQkBgAEAAQgBHwH/AgABgAEAAQkBgAEZAYABAAEI
+        AR8B/wIAAYABAAEZAYABGQGAAQABCAEfAf8CAAHAAQABOwHAAT0BgAEAAQgBHwH/AgAB4AEAATsB4AE9
+        AYABAAEIARgDAAHwAQAB/wHAAT8C/wH4AR8B/wIAAfgBAAH/AcABPwL/AfgBHwH/AgAK/wIACw==
+</value>
+  </data>
+  <data name="treeMenu.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAAB09iZWNuw60GBAAAAAAGBQAAAAd1T2JlY25lAP//
+        //8GBgAAAAtnZW5lcmFsLnBuZ/////8GBwAAAAtnZW5lcmFsLnBuZwAAAAAL
+</value>
+  </data>
+  <data name="treeMenu.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQ0AAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQJY2hpbGRyZW4wCWNoaWxkcmVuMQljaGlsZHJlbjIJY2hpbGRyZW4zAQEBAAABAAEABAQE
+        BAEICAgdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUCAAAAHVN5c3RlbS5XaW5kb3dzLkZvcm1z
+        LlRyZWVOb2RlAgAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQIAAAAdU3lzdGVtLldpbmRv
+        d3MuRm9ybXMuVHJlZU5vZGUCAAAAAgAAAAYDAAAAC1Byb3N0xZllZMOtBgQAAAAABgUAAAALdVByb3N0
+        cmVkaWUA/////wYGAAAAD2Vudmlyb25tZW50LnBuZ/////8GBwAAAA9lbnZpcm9ubWVudC5wbmcEAAAA
+        CQgAAAAJCQAAAAkKAAAACQsAAAAFCAAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAE
+        VGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVk
+        SW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYMAAAA
+        Ckxva2FsaXphY2UJBAAAAAYOAAAADXVMb2NhbGl6YXRpb24A/////wYPAAAAEGxvY2FsaXphdGlvbi5w
+        bmf/////BhAAAAAQbG9jYWxpemF0aW9uLnBuZwAAAAAFCQAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5U
+        cmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdl
+        S2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEAAQAB
+        CAgIAgAAAAYRAAAADlDDrXNtYSBhIGJhcnZ5CQQAAAAGEwAAAAx1Rm9udHNDb2xvcnMA/////wYUAAAA
+        CmNvbG9ycy5wbmf/////CRQAAAAAAAAABQoAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUJ
+        AAAABFRleHQLVG9vbFRpcFRleHQETmFtZQlJc0NoZWNrZWQKSW1hZ2VJbmRleAhJbWFnZUtleRJTZWxl
+        Y3RlZEltYWdlSW5kZXgQU2VsZWN0ZWRJbWFnZUtleQpDaGlsZENvdW50AQEBAAABAAEAAQgICAIAAAAG
+        FQAAABBQcmFjb3Zuw60gcGxvY2hhCQQAAAAGFwAAAAh1RGVza3RvcAD/////BhgAAAALZGVza3RvcC5w
+        bmf/////BhkAAAALZGVza3RvcC5wbmcAAAAABQsAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5v
+        ZGUJAAAABFRleHQLVG9vbFRpcFRleHQETmFtZQlJc0NoZWNrZWQKSW1hZ2VJbmRleAhJbWFnZUtleRJT
+        ZWxlY3RlZEltYWdlSW5kZXgQU2VsZWN0ZWRJbWFnZUtleQpDaGlsZENvdW50AQEBAAABAAEAAQgICAIA
+        AAAGGgAAABNLbMOhdmVzb3bDqSB6a3JhdGt5CQQAAAAGHAAAAAp1U2hvcnRjdXRzAP////8GHQAAAAxz
+        aG9ydGN1dC5wbmf/////CR0AAAAAAAAACw==
+</value>
+  </data>
+  <data name="treeMenu.Nodes2" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAAFkxvZ292w6Fuw60gYSBkZWJ1Z2dpbmcGBAAAAAAG
+        BQAAAAh1TG9nZ2luZwD/////BgYAAAANZGVidWdnaW5nLnBuZ/////8GBwAAAA1kZWJ1Z2dpbmcucG5n
+        AAAAAAs=
+</value>
+  </data>
+  <data name="treeMenu.Nodes3" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAADlDFmWVocsOhdsOhbsOtBgQAAAAABgUAAAAIdVBs
+        YXlpbmcA/////wYGAAAAEmluaXNzLXNldHRpbmdzLnBuZ/////8GBwAAABJpbmlzcy1zZXR0aW5ncy5w
+        bmcAAAAACw==
+</value>
+  </data>
+  <data name="cbDarkMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>236, 21</value>
+  </data>
+  <data name="cbAutoVariant.Size" type="System.Drawing.Size, System.Drawing">
+    <value>238, 21</value>
+  </data>
+  <data name="cbAutoVariant.Text" xml:space="preserve">
+    <value>Automatická správa variant vlaků</value>
+  </data>
+  <data name="cbDisableVariantCheck.Size" type="System.Drawing.Size, System.Drawing">
+    <value>421, 21</value>
+  </data>
+  <data name="cbDisableVariantCheck.Text" xml:space="preserve">
+    <value>Nekontrolovat indexy variant vlaků při přidávání / úpravě vlaku</value>
+  </data>
+  <data name="Example.HeaderText" xml:space="preserve">
+    <value>Ukázka</value>
+  </data>
+  <data name="bAppFontDefault.Text" xml:space="preserve">
+    <value>Východzí</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Písma používané v programu:</value>
+  </data>
+  <data name="bSetForegroundColor.Text" xml:space="preserve">
+    <value>Nastavit...</value>
+  </data>
+  <data name="bSetBackgroundColor.Text" xml:space="preserve">
+    <value>Nastavit...</value>
+  </data>
+  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 17</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>Barva popředí (textu):</value>
+  </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 17</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>Barva pozadí:</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>Ukázka:</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 17</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>Velikost:</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>352, 17</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>Písmo (tučné písmo označuje neproporcionální písmo):</value>
+  </data>
+  <data name="bColorsUseDefault.Text" xml:space="preserve">
+    <value>Použít výchozí</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 17</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>Zobrazit nastavení pro:</value>
+  </data>
+  <data name="cbFitLastColumn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 21</value>
+  </data>
+  <data name="cbFitLastColumn.Text" xml:space="preserve">
+    <value>Přizpůsobit poslední sloupec</value>
+  </data>
+  <data name="bColumnDown.Text" xml:space="preserve">
+    <value>Níže</value>
+  </data>
+  <data name="bColumnUp.Text" xml:space="preserve">
+    <value>Výše</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 17</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Stloupce:</value>
+  </data>
+  <data name="nameDataGridViewCheckBoxColumn.HeaderText" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="visibleDataGridViewCheckBoxColumn.HeaderText" xml:space="preserve">
+    <value>Viditelný</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="visibleDataGridViewCheckBoxColumn.Width" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="MinWidth.HeaderText" xml:space="preserve">
+    <value>Minimální šířka (px)</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Zobrazování komponent</value>
+  </data>
+  <data name="cbShowRowsHeader.Size" type="System.Drawing.Size, System.Drawing">
+    <value>258, 21</value>
+  </data>
+  <data name="cbShowRowsHeader.Text" xml:space="preserve">
+    <value>Zobrazovat hlavičku řádků v tabulce</value>
+  </data>
+  <data name="rbTS.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 21</value>
+  </data>
+  <data name="rbTS.Text" xml:space="preserve">
+    <value>Jen ToolStrip</value>
+  </data>
+  <data name="rbMS.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 21</value>
+  </data>
+  <data name="rbMS.Text" xml:space="preserve">
+    <value>Jen MenuStrip</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 17</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Zobrazovat:</value>
+  </data>
+  <data name="cbShowStateRow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 21</value>
+  </data>
+  <data name="cbShowStateRow.Text" xml:space="preserve">
+    <value>Zobrazovat stavový řádek</value>
+  </data>
+  <data name="lShortcutHelp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>348, 17</value>
+  </data>
+  <data name="lShortcutHelp.Text" xml:space="preserve">
+    <value>Stiskněte klávesovou zkratku pro přiřazení ke příkazu.</value>
+  </data>
+  <data name="nameDataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>Příkaz</value>
+  </data>
+  <data name="shortcutDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
+    <value>Zkratka</value>
+  </data>
+  <data name="AssignShortcut.HeaderText" xml:space="preserve">
+    <value>Přiradit</value>
+  </data>
+  <data name="RemoveShortcut.HeaderText" xml:space="preserve">
+    <value>Odebrat</value>
+  </data>
+  <data name="Default.HeaderText" xml:space="preserve">
+    <value>Původní</value>
+  </data>
+  <data name="bAllShortcutsSetDefault.Text" xml:space="preserve">
+    <value>Výchozí</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>Klávesové zkratky:</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Nastavení programu</value>
+  </data>
+  <data name="cbStartINISSAdmin.Text" xml:space="preserve">
+    <value>Spouštět jako administrátor</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>Argumenty příkazového řádku:</value>
+  </data>
+  <data name="cbDebugModeGUI.Items1" xml:space="preserve">
+    <value>Rozšířené info</value>
+  </data>
+  <data name="cbDebugModeGUI.Items2" xml:space="preserve">
+    <value>Bez chybových hlášek (systémové hlášky)</value>
+  </data>
+  <data name="cbDebugModeGUI.Items" xml:space="preserve">
+    <value>Normálně</value>
+  </data>
+  <data name="bAddStyle.Text" xml:space="preserve">
+    <value>Přidat</value>
+  </data>
+  <data name="bRemoveStyle.Text" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="bRenameStyle.Text" xml:space="preserve">
+    <value>Přejmenovat...</value>
+  </data>
+  <data name="bUseStyle.Text" xml:space="preserve">
+    <value>Použít</value>
+  </data>
+  <data name="cboxDateTimeInStateRow.Text" xml:space="preserve">
+    <value>Zobrazovat čas a datum v stav. řádku</value>
+  </data>
+  <data name="cboxDarkTitleBar.Text" xml:space="preserve">
+    <value>Použít tmavé záhlaví okna (pouze Win10)</value>
+  </data>
+  <data name="cboxDarkScrollBars.Text" xml:space="preserve">
+    <value>Používat tmavé posuvníky (pouze Win10)</value>
+  </data>
+  <data name="cboxDefaultStyle.Text" xml:space="preserve">
+    <value>Použít výchozí vzhled ovládacích prvků</value>
+  </data>
+  <data name="exGroupBox1.Text" xml:space="preserve">
+    <value>Nastavení položky</value>
+  </data>
+  <data name="exGroupBox2.Text" xml:space="preserve">
+    <value>Nastavení stylu</value>
+  </data>
+  <data name="exGroupBox3.Text" xml:space="preserve">
+    <value>Nastavení skupiny</value>
+  </data>
+</root>
