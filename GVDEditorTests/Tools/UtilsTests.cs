@@ -27,7 +27,7 @@ namespace GVDEditorTests.Tools
         }
 
         [TestMethod]
-        public void ANSItoUTF_Bytes_NotNull()
+        public void ANSItoUTF_Bytes_NotNull() //TODO
         {
             byte[] bytes = {0x20,0x40,0x60};
 
@@ -52,10 +52,9 @@ namespace GVDEditorTests.Tools
         }
 
         [TestMethod]
-        public void ANSItoUTF_String_NotNull()
+        public void ANSItoUTF_String_NotNull() //TODO
         {
             string input = "č š ř";
-
             string res = input.ANSItoUTF();
             
             Assert.AreEqual("č š ř", res);
@@ -77,7 +76,7 @@ namespace GVDEditorTests.Tools
         }
 
         [TestMethod]
-        public void UTFtoANSI_Bytes_NotNull()
+        public void UTFtoANSI_Bytes_NotNull() //TODO
         {
             byte[] bytes = {0x20,0x40,0x60};
 
@@ -102,7 +101,7 @@ namespace GVDEditorTests.Tools
         }
 
         [TestMethod]
-        public void UTFtoANSI_String_NotNull()
+        public void UTFtoANSI_String_NotNull() //TODO
         {
             string input = "č š ř";
 

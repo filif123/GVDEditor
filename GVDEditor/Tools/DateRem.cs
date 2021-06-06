@@ -188,20 +188,21 @@ namespace GVDEditor.Tools
             ""
         };
 
-        private readonly List<ParseData> _parsedData;
-        private readonly bool pbAllowRunsDaily;
-        private readonly bool pbFromToday;
-        private readonly bool pbInsertMarks;
-        private readonly bool pbMonthRoman;
-        private readonly bool pbSkipDateRangeCheck;
-        private readonly bool pbSpecDays;
-        private readonly int piMaxDays;
         private readonly StringBuilder _builder;
-        private int piDecorLength;
-        private int _position;
+
+        private readonly List<ParseData> _parsedData;
+        private readonly bool _allowRunsDaily;
+        private readonly bool _fromToday;
+        private readonly bool _insertMarks;
+        private readonly bool _monthRoman;
+        private readonly bool _skipDateRangeCheck;
+        private readonly bool _specDays;
+        private readonly int _maxDays;
         private BitArray _bits;
-        private string psLastMonth;
+        private int _position;
         private string _text;
+        private int _decorLength;
+        private string _lastMonth;
 
         /// <summary>
         ///     Konstruktor
@@ -221,22 +222,22 @@ namespace GVDEditor.Tools
             bool bFromToday = false, bool bInsertMarks = true, int iMaxDays = 0, bool bMonthRoman = true,
             bool bSkipDateRangeCheck = false, bool bAltForm = false, DateTime? dtToday = null)
         {
-            pbSpecDays = true;
-            pbAllowRunsDaily = true;
-            pbMonthRoman = true;
+            _specDays = true;
+            _allowRunsDaily = true;
+            _monthRoman = true;
             _builder = new StringBuilder();
             _parsedData = new List<ParseData>();
             DateFrom = dtFrom;
             DateTo = dtTo;
-            pbSpecDays = bSpecDays;
-            pbAllowRunsDaily = bAllowRunsDaily;
-            pbFromToday = bFromToday;
+            _specDays = bSpecDays;
+            _allowRunsDaily = bAllowRunsDaily;
+            _fromToday = bFromToday;
             DateTime dtTodayE = dtToday ?? DateTime.Now;
-            Today = dtTodayE == DateTime.MinValue? DateTime.Today : dtTodayE;
-            pbInsertMarks = bInsertMarks;
-            piMaxDays = iMaxDays;
-            pbMonthRoman = bMonthRoman;
-            pbSkipDateRangeCheck = bSkipDateRangeCheck;
+            Today = dtTodayE == DateTime.MinValue ? DateTime.Today : dtTodayE;
+            _insertMarks = bInsertMarks;
+            _maxDays = iMaxDays;
+            _monthRoman = bMonthRoman;
+            _skipDateRangeCheck = bSkipDateRangeCheck;
             AltForm = bAltForm;
             if (DateTo < DateFrom)
                 throw new Exception($"Dátum do {dtTo} je menší ako dátum od {dtFrom}.");
@@ -308,7 +309,7 @@ namespace GVDEditor.Tools
         }
 
         /// <summary>
-        ///     Vzdialenost medzi datumami ako <see cref="int"/>
+        ///     Vzdialenost medzi datumami ako <see cref="int" />
         /// </summary>
         public static int DateDiff(DateTime dtFrom, DateTime dtTo)
         {
@@ -337,15 +338,15 @@ namespace GVDEditor.Tools
                     DateFrom = DateFrom.AddDays(iCycle);
                     DateTo = DateTo.AddDays(iCycle);
                     var iMaxIndex = MaxDay;
-                    if (piMaxDays > 0 && DateTime.Compare(DateTo, Today.AddDays(piMaxDays)) > 0)
+                    if (_maxDays > 0 && DateTime.Compare(DateTo, Today.AddDays(_maxDays)) > 0)
                     {
-                        DateTo = Today.AddDays(piMaxDays);
+                        DateTo = Today.AddDays(_maxDays);
                         if (DateTime.Compare(DateTo, DateFrom) < 0) return MsgText(MSG.RUNSNEXT);
                         iMaxIndex = DateDiff(DateFrom, DateTo);
                     }
 
                     var iMinIndex = 0;
-                    if (pbFromToday)
+                    if (_fromToday)
                     {
                         if (DateTime.Compare(Today, DateTo) > 0) return AltMsgText(MSG.RUNSNEVER, MSG.RUNSNEVER_ALT);
                         if (DateTime.Compare(Today, DateFrom) > 0)
@@ -369,8 +370,7 @@ namespace GVDEditor.Tools
                     if (!bHasData)
                     {
                         if (!bData) return AltMsgText(MSG.RUNSNEVER, MSG.RUNSNEVER_ALT);
-                        if (pbAllowRunsDaily) return MsgText(MSG.RUNSDAILY);
-                        return MsgText(MSG.EMPTY);
+                        return MsgText(_allowRunsDaily ? MSG.RUNSDAILY : MSG.EMPTY);
                     }
                     else
                     {
@@ -382,9 +382,7 @@ namespace GVDEditor.Tools
                             {
                                 oValidBits2 = new BitArray(iMaxIndex - iMinIndex + 1);
                                 j = 0;
-                                var num3 = iMinIndex;
-                                var num4 = iMaxIndex;
-                                for (var k = num3; k <= num4; k++)
+                                for (var k = iMinIndex; k <= iMaxIndex; k++)
                                 {
                                     oValidBits2[j] = oValidBits[k];
                                     j++;
@@ -393,9 +391,7 @@ namespace GVDEditor.Tools
 
                             var oBits2 = new BitArray(iMaxIndex - iMinIndex + 1);
                             j = 0;
-                            var num5 = iMinIndex;
-                            var num6 = iMaxIndex;
-                            for (var l = num5; l <= num6; l++)
+                            for (var l = iMinIndex; l <= iMaxIndex; l++)
                             {
                                 oBits2[j] = oBits[l];
                                 j++;
@@ -415,7 +411,7 @@ namespace GVDEditor.Tools
 
                         var sNegative = BitArrayToTxt(true, ref drLenNeg, ref iLenNegative, oValidBits2);
 
-                        if (iLenNegative + (iLenPositive > 40 ? 20 : 25) < iLenPositive || iLenNegative < iLenPositive && drLenNeg < drLenPos) 
+                        if (iLenNegative + (iLenPositive > 40 ? 20 : 25) < iLenPositive || iLenNegative < iLenPositive && drLenNeg < drLenPos)
                             return sNegative;
 
                         return sPositive;
@@ -512,12 +508,16 @@ namespace GVDEditor.Tools
         public string TxtAnd(params string[] texts)
         {
             BitArray arr;
-            if (texts.Length > 1)
-                arr = TxtToBitArray(texts[0]);
-            else if (texts.Length == 1)
-                return texts[0];
-            else
-                return string.Empty;
+            switch (texts.Length)
+            {
+                case > 1:
+                    arr = TxtToBitArray(texts[0]);
+                    break;
+                case 1:
+                    return texts[0];
+                default:
+                    return string.Empty;
+            }
 
             for (var i = 1; i < texts.Length; i++) arr.And(TxtToBitArray(texts[i]));
 
@@ -573,9 +573,9 @@ namespace GVDEditor.Tools
                 for (var i = aoDatumoveObmedzenie.Count - 1; i >= 0; i += -1)
                 {
                     DateRemInfo dateRemInfo = aoDatumoveObmedzenie[i];
-                    if (dateRemInfo.aoRuns != null && dateRemInfo.aoRuns.Count > 0)
+                    if (dateRemInfo.aoRuns is {Count: > 0})
                         ReduceDates(dateRemInfo.aoRuns, oValidBits);
-                    if (dateRemInfo.aoRunsNot != null && dateRemInfo.aoRunsNot.Count > 0)
+                    if (dateRemInfo.aoRunsNot is {Count: > 0})
                         ReduceDates(dateRemInfo.aoRunsNot, oValidBits);
                     if (dateRemInfo.type == DAYTYPE.NONE && dateRemInfo.from > 0 &&
                         dateRemInfo.from == dateRemInfo.to &&
@@ -584,21 +584,20 @@ namespace GVDEditor.Tools
             }
         }
 
-        private string BitArrayToTxt(bool bIsNot, ref int iDatumoveObmedzenieLen, ref int iLen, BitArray oValidBits)
+        private string BitArrayToTxt(bool bIsNot, ref int lDateRemlen, ref int iLen, BitArray oValidBits)
         {
             if (bIsNot) _bits.Not();
             string BitArrayToTxt = null;
             try
             {
-                var aoDatumoveObmedzenie = ProcessInterval(MINCOUNT3, 0, MaxDay);
-                if (oValidBits != null && oValidBits.Length == _bits.Length && aoDatumoveObmedzenie != null &&
-                    aoDatumoveObmedzenie.Count > 0) ReduceDates(aoDatumoveObmedzenie, oValidBits);
+                var lDateRem = ProcessInterval(MINCOUNT3, 0, MaxDay);
+                if (oValidBits != null && oValidBits.Length == _bits.Length && lDateRem is {Count: > 0}) ReduceDates(lDateRem, oValidBits);
 
-                if (aoDatumoveObmedzenie != null)
+                if (lDateRem != null)
                 {
-                    iDatumoveObmedzenieLen = aoDatumoveObmedzenie.Count;
-                    piDecorLength = 0;
-                    var s = FormatDatumoveObmedzenie(aoDatumoveObmedzenie, bIsNot);
+                    lDateRemlen = lDateRem.Count;
+                    _decorLength = 0;
+                    var s = FormatDatumoveObmedzenie(lDateRem, bIsNot);
                     if (string.IsNullOrEmpty(s))
                     {
                         iLen = 0;
@@ -613,7 +612,7 @@ namespace GVDEditor.Tools
                             s = s.Replace(MsgText(MSG.RUNSNOT_ALT) + MsgText(MSG.ON), MsgText(MSG.RUNSNOT_ALT));
                         }
 
-                        iLen = checked(s.Length - piDecorLength);
+                        iLen = checked(s.Length - _decorLength);
                     }
 
                     BitArrayToTxt = s;
@@ -656,7 +655,7 @@ namespace GVDEditor.Tools
                     }
 
                     IL_B8:
-                    for (;;)
+                    while(true)
                     {
                         daterem = ScanWeekDays(iMinCount3, iFrom, iTo);
                         if (daterem != null) break;
@@ -718,8 +717,7 @@ namespace GVDEditor.Tools
                         l++;
                         if (l >= iMinCount3 && i >= 0)
                         {
-                            var k = 0;
-                            AppendDatumoveObmedzenie(ref daterem, ProcessInterval(iMinCount3, i, k));
+                            AppendDatumoveObmedzenie(ref daterem, ProcessInterval(iMinCount3, i, 0));
                             i = -1;
                         }
                     }
@@ -874,7 +872,9 @@ namespace GVDEditor.Tools
                                     }
                                 }
                                 else
+                                {
                                     i++;
+                                }
 
                             if (j + k <= 13 || iTo2 - iFrom > 350 && j + k <= 19)
                             {
@@ -899,10 +899,10 @@ namespace GVDEditor.Tools
 
                                 IL_18F:
                                 if ((j != 0 || k != 0) && iTo2 < iTo - 21 && iTo2 > 13 &&
-                                    (EqualPatt(iTo2 - 6, iTo2 + 1) && EqualPatt(iTo2 - 6, iTo2 + 8) &&
-                                     EqualPatt(iTo2 - 6, iTo2 + 15) ||
-                                     EqualPatt(iTo2 - 13, iTo2 + 1) && EqualPatt(iTo2 - 13, iTo2 + 8) &&
-                                     EqualPatt(iTo2 - 13, iTo2 + 15))) continue;
+                                    (EqualPattern(iTo2 - 6, iTo2 + 1) && EqualPattern(iTo2 - 6, iTo2 + 8) &&
+                                     EqualPattern(iTo2 - 6, iTo2 + 15) ||
+                                     EqualPattern(iTo2 - 13, iTo2 + 1) && EqualPattern(iTo2 - 13, iTo2 + 8) &&
+                                     EqualPattern(iTo2 - 13, iTo2 + 15))) continue;
                                 if (j + k > 3 && iTo2 - iFrom > 35)
                                 {
                                     var aiOKCount2 = new int[9];
@@ -912,10 +912,8 @@ namespace GVDEditor.Tools
                                     if (ScanDays(iFrom, iFrom + 20, aiOKCount2, aiBadCount2, ref iIsFC2) &&
                                         GetDayType(aiOKCount) != GetDayType(aiOKCount2))
                                     {
-                                        var num4 = iFrom + 20;
-                                        var num5 = iTo2 - 1;
-                                        i = num4;
-                                        while (i <= num5 && ScanDays(iFrom, i, aiOKCount2, aiBadCount2, ref iIsFC2))
+                                        i = iFrom + 20;
+                                        while (i <= iTo2 - 1 && ScanDays(iFrom, i, aiOKCount2, aiBadCount2, ref iIsFC2))
                                             i++;
                                         iTo2 = i - 1;
                                         AppendDatumoveObmedzenie(ref aoDatumoveObmedzenie, ProcessInterval(iMinCount3, iFrom, iTo2));
@@ -958,7 +956,9 @@ namespace GVDEditor.Tools
                                                 ref aoDatumoveObmedzenie[aoDatumoveObmedzenie.Count - 1].aoRuns, j, l);
                                         }
                                         else
+                                        {
                                             i++;
+                                        }
                                 }
 
                                 if (k > 0)
@@ -1005,7 +1005,9 @@ namespace GVDEditor.Tools
                                             }
                                         }
                                         else
+                                        {
                                             i++;
+                                        }
                                 }
                             }
                         }
@@ -1135,7 +1137,7 @@ namespace GVDEditor.Tools
             }
         }
 
-        private void AppendDatumoveObmedzenie(ref List<DateRemInfo> aoList, List<DateRemInfo> aoList2)
+        private static void AppendDatumoveObmedzenie(ref List<DateRemInfo> aoList, List<DateRemInfo> aoList2)
         {
             if (aoList == null)
             {
@@ -1152,7 +1154,7 @@ namespace GVDEditor.Tools
             aoList.Add(oInfo);
         }
 
-        private void AppendDayDatumoveObmedzenie(ref List<DateRemInfo> aoRuns, int iDay)
+        private static void AppendDayDatumoveObmedzenie(ref List<DateRemInfo> aoRuns, int iDay)
         {
             AppendPeriodDatumoveObmedzenie(ref aoRuns, iDay, iDay);
         }
@@ -1185,51 +1187,45 @@ namespace GVDEditor.Tools
                     if (Runs(i))
                     {
                         ref var ptr = ref aiOKCount[7];
-                        if (pbSpecDays)
+                        if (_specDays)
                         {
                             DAYTYPE iType = GetDayType(i);
                             if ((iType & DAYTYPE.WORKDAY) != DAYTYPE.NONE)
                             {
-                                var num = 7;
-                                ptr = ref aiOKCount[num];
-                                aiOKCount[num] = ptr + 1;
+                                ptr = ref aiOKCount[7];
+                                aiOKCount[7] = ptr + 1;
                             }
                             else if ((iType & DAYTYPE.HOLIDAY) != DAYTYPE.NONE)
                             {
-                                var num2 = 8;
-                                ptr = ref aiOKCount[num2];
-                                aiOKCount[num2] = ptr + 1;
+                                ptr = ref aiOKCount[8];
+                                aiOKCount[8] = ptr + 1;
                                 if (iDayIndex == DAYINDEX.SATURDAY) iSaturdays++;
                             }
                         }
 
-                        DAYINDEX dayindex = iDayIndex;
-                        ptr = ref aiOKCount[(int) dayindex];
-                        aiOKCount[(int) dayindex] = ptr + 1;
+                        ptr = ref aiOKCount[(int) iDayIndex];
+                        aiOKCount[(int) iDayIndex] = ptr + 1;
                     }
                     else
                     {
                         ref var ptr = ref aiBadCount[7];
-                        if (pbSpecDays)
+                        if (_specDays)
                         {
                             DAYTYPE iType2 = GetDayType(i);
                             if ((iType2 & DAYTYPE.WORKDAY) != DAYTYPE.NONE)
                             {
-                                var num3 = 7;
-                                ptr = ref aiBadCount[num3];
-                                aiBadCount[num3] = ptr + 1;
+                                ptr = ref aiBadCount[7];
+                                aiBadCount[7] = ptr + 1;
                             }
                             else if ((iType2 & DAYTYPE.HOLIDAY) != DAYTYPE.NONE)
                             {
-                                var num4 = 8;
-                                ptr = ref aiBadCount[num4];
-                                aiBadCount[num4] = ptr + 1;
+                                ptr = ref aiBadCount[8];
+                                aiBadCount[8] = ptr + 1;
                             }
                         }
 
-                        DAYINDEX dayindex2 = iDayIndex;
-                        ptr = ref aiBadCount[(int) dayindex2];
-                        aiBadCount[(int) dayindex2] = ptr + 1;
+                        ptr = ref aiBadCount[(int) iDayIndex];
+                        aiBadCount[(int) iDayIndex] = ptr + 1;
                         iTotalBad++;
                     }
 
@@ -1238,13 +1234,12 @@ namespace GVDEditor.Tools
 
                 if (iTotalBad != 0)
                 {
-                    if (pbSpecDays)
+                    if (_specDays)
                     {
                         if (aiOKCount[5] > 2 * aiBadCount[5] && aiOKCount[8] < 2 * aiBadCount[8])
                         {
-                            var num5 = 8;
-                            ref var ptr = ref aiOKCount[num5];
-                            aiOKCount[num5] = ptr - iSaturdays;
+                            ref var ptr = ref aiOKCount[8];
+                            aiOKCount[8] = ptr - iSaturdays;
                         }
 
                         var j = DAYINDEX.MONDAY;
@@ -1255,7 +1250,7 @@ namespace GVDEditor.Tools
                             if (aiOKCount[(int) j] > 0 && aiOKCount[(int) j] > aiBadCount[(int) j])
                             {
                                 if (j <= DAYINDEX.SUNDAY) iCount += aiOKCount[(int) j] - aiBadCount[(int) j];
-                                if (j == DAYINDEX.SATURDAY || j == DAYINDEX.WORKDAY || j == DAYINDEX.HOLIDAY)
+                                if (j is DAYINDEX.SATURDAY or DAYINDEX.WORKDAY or DAYINDEX.HOLIDAY)
                                     iCount2 += aiOKCount[(int) j] - aiBadCount[(int) j];
                             }
 
@@ -1285,9 +1280,8 @@ namespace GVDEditor.Tools
 
                             if (aiOKCount[8] > 2 * aiBadCount[8] && aiOKCount[5] < 2 * aiBadCount[5])
                             {
-                                var num6 = 5;
-                                ref var ptr = ref aiOKCount[num6];
-                                aiOKCount[num6] = ptr - iSaturdays;
+                                ref var ptr = ref aiOKCount[5];
+                                aiOKCount[5] = ptr - iSaturdays;
                             }
                             else
                             {
@@ -1318,7 +1312,7 @@ namespace GVDEditor.Tools
             }
         }
 
-        private int GetBetterDayFrom(int iFrom, int[] aiOKCount, int iIsFC)
+        private int GetBetterDayFrom(int iFrom, IReadOnlyList<int> aiOKCount, int iIsFC)
         {
             var iFrom2 = iFrom;
             checked
@@ -1341,7 +1335,7 @@ namespace GVDEditor.Tools
             }
         }
 
-        private int GetBetterDayTo(int iTo, int[] aiOKCount, int iIsFC)
+        private int GetBetterDayTo(int iTo, IReadOnlyList<int> aiOKCount, int iIsFC)
         {
             var iTo2 = iTo;
             var iDays = MaxDay;
@@ -1365,13 +1359,13 @@ namespace GVDEditor.Tools
             }
         }
 
-        private static bool AllSet(int[] aiCount)
+        private static bool AllSet(IReadOnlyList<int> aiCount)
         {
             DAYTYPE iDayType = GetDayType(aiCount);
             return (iDayType & DAYTYPE.ALL1) == DAYTYPE.ALL1 || (iDayType & DAYTYPE.ALL2) == DAYTYPE.ALL2;
         }
 
-        private static bool NoBad(int[] aiCount)
+        private static bool NoBad(IEnumerable<int> aiCount)
         {
             foreach (var t in aiCount)
                 if (t != 0)
@@ -1390,7 +1384,7 @@ namespace GVDEditor.Tools
             return !Runs(iDay);
         }
 
-        private bool EqualPatt(int iFrom, int iTo)
+        private bool EqualPattern(int iFrom, int iTo)
         {
             var i = 0;
             checked
@@ -1405,7 +1399,7 @@ namespace GVDEditor.Tools
             }
         }
 
-        private string FormatDatumoveObmedzenie(List<DateRemInfo> daterem, bool bIsNot)
+        private string FormatDatumoveObmedzenie(IList<DateRemInfo> daterem, bool bIsNot)
         {
             checked
             {
@@ -1436,7 +1430,7 @@ namespace GVDEditor.Tools
         private void FormatDatumoveObmedzenie1(DateRemInfo daterem, DateRemInfo dateremInfo, bool bIsNot, ref LEVEL iLevel)
         {
             AppendComma();
-            psLastMonth = null;
+            _lastMonth = null;
             if (daterem.AllSet && daterem.from == 0 && daterem.to == MaxDay && !daterem.RunsNot)
             {
                 _builder.Append(MsgText(MSG.RUNSDAILY));
@@ -1449,8 +1443,7 @@ namespace GVDEditor.Tools
                 if (daterem.HaveDays || daterem.from != 0 || daterem.to != 0)
                 {
                     AppendPeriod(daterem.from, daterem.to);
-                    if (daterem.HaveDays && dateremInfo != null && dateremInfo.type == daterem.type && !daterem.Runs &&
-                        !daterem.RunsNot)
+                    if (daterem.HaveDays && dateremInfo != null && dateremInfo.type == daterem.type && !daterem.Runs && !daterem.RunsNot)
                         _builder.Append(MsgText(MSG.AND));
                     else if (daterem.HaveDays) AppendDays(daterem.type);
                     if (_builder.Length > iBaseLength)
@@ -1506,7 +1499,7 @@ namespace GVDEditor.Tools
                     AppendPeriod(daterem.aoRuns[i].from, daterem.aoRuns[i].to);
                 }
 
-                psLastMonth = null;
+                _lastMonth = null;
                 var num2 = daterem.aoRunsNot.Count - 1;
                 for (var j = 0; j <= num2; j++)
                 {
@@ -1611,7 +1604,7 @@ namespace GVDEditor.Tools
                         _builder.Append(MsgText(MSG.TO)).Append(FormatDay(iDayTo));
                     }
 
-                    psLastMonth = null;
+                    _lastMonth = null;
                 }
             }
         }
@@ -1627,17 +1620,17 @@ namespace GVDEditor.Tools
             DateTime dtDate = DateFrom.AddDays(iDay);
             var s = MsgMonth(dtDate.Month) + ".";
             if (!DateUnique(dtDate)) s += Conversions.ToString(dtDate.Year);
-            if (!string.IsNullOrEmpty(psLastMonth) && Operators.CompareString(psLastMonth, s, false) == 0)
+            if (!string.IsNullOrEmpty(_lastMonth) && Operators.CompareString(_lastMonth, s, false) == 0)
             {
-                var i = _builder.ToString().LastIndexOf(psLastMonth, StringComparison.Ordinal);
-                _builder.Remove(i, psLastMonth.Length);
+                var i = _builder.ToString().LastIndexOf(_lastMonth, StringComparison.Ordinal);
+                _builder.Remove(i, _lastMonth.Length);
             }
             else
             {
-                psLastMonth = s;
+                _lastMonth = s;
             }
 
-            return $"{dtDate.Day}.{psLastMonth}";
+            return $"{dtDate.Day}.{_lastMonth}";
         }
 
         private bool DateUnique(DateTime dtDate)
@@ -1745,10 +1738,14 @@ namespace GVDEditor.Tools
                                     dtTo = dtLastDate;
                                 }
                                 else
+                                {
                                     dtTo = dtLastDate;
+                                }
                             }
                             else
+                            {
                                 dtFrom = dtLastDate;
+                            }
                         }
 
                         ptr = ref _position;
@@ -1842,14 +1839,12 @@ namespace GVDEditor.Tools
                 {
                     ParseData parseData = _parsedData[i];
                     if (i == 0 && parseData.iLevel == LEVEL.RUNSNOT)
-                    {
-                        for (var j = 0; j <= MaxDay; j++) 
+                        for (var j = 0; j <= MaxDay; j++)
                             _bits[j] = true;
-                    }
 
-                    if (parseData.dtFrom == DateTime.MinValue) 
+                    if (parseData.dtFrom == DateTime.MinValue)
                         parseData.dtFrom = DateFrom;
-                    if (parseData.dtTo == DateTime.MinValue) 
+                    if (parseData.dtTo == DateTime.MinValue)
                         parseData.dtTo = DateTo;
 
                     for (var k = DateDiff(DateFrom, parseData.dtFrom); k <= DateDiff(DateFrom, parseData.dtTo); k++)
@@ -1861,10 +1856,7 @@ namespace GVDEditor.Tools
 
         private bool SkipWhiteSpace()
         {
-            while (_position < _text.Length && _text[_position] <= ' ')
-            {
-                _position += 1;
-            }
+            while (_position < _text.Length && _text[_position] <= ' ') _position += 1;
 
             return _position < _text.Length;
         }
@@ -1904,9 +1896,15 @@ namespace GVDEditor.Tools
             }
         }
 
-        private static bool IsDayType(string sToken) => sToken.ToUpper().TrimEnd(pconstDayType.ToCharArray()).Length == 0;
+        private static bool IsDayType(string sToken)
+        {
+            return sToken.ToUpper().TrimEnd(pconstDayType.ToCharArray()).Length == 0;
+        }
 
-        private static bool IsDayRange(string sToken) => sToken.Length == 3 && sToken[1] == '-' && char.IsDigit(sToken[0]) && char.IsDigit(sToken[2]);
+        private static bool IsDayRange(string sToken)
+        {
+            return sToken.Length == 3 && sToken[1] == '-' && char.IsDigit(sToken[0]) && char.IsDigit(sToken[2]);
+        }
 
         private DAYTYPE GetDayType(string sToken)
         {
@@ -1918,7 +1916,7 @@ namespace GVDEditor.Tools
                     var i = pconstDayType.IndexOf(sToken[0]);
                     if (sToken.Length == 1)
                     {
-                        if (i >= 0) 
+                        if (i >= 0)
                             return (DAYTYPE) (1 << i);
                     }
                     else if (sToken.Length == 3 && sToken[1] == '-' && i < 6)
@@ -1941,7 +1939,7 @@ namespace GVDEditor.Tools
                 }
 
                 var iDayType2 = DAYTYPE.NONE;
-                foreach (var c in sToken) 
+                foreach (var c in sToken)
                     iDayType2 |= (DAYTYPE) (1 << pconstDayType.IndexOf(c));
 
                 return iDayType2;
@@ -1956,7 +1954,7 @@ namespace GVDEditor.Tools
             var i = sToken.IndexOf('.');
             checked
             {
-                if (i >= 0 && int.TryParse(sToken.Substring(0, i), out var iDay) && iDay > 0 && iDay <= 31)
+                if (i >= 0 && int.TryParse(sToken.Substring(0, i), out var iDay) && iDay is > 0 and <= 31)
                 {
                     string s;
                     if (i + 1 < sToken.Length)
@@ -1980,7 +1978,7 @@ namespace GVDEditor.Tools
                     {
                         DateTime dtLastDateOrig = dtLastDate;
                         var iMonth = GetMonth(s.Substring(0, j));
-                        var bYearSet = int.TryParse(s.Substring(j + 1), out var iYear) && iYear >= 2000 && iYear < 2100;
+                        var bYearSet = int.TryParse(s.Substring(j + 1), out var iYear) && iYear is >= 2000 and < 2100;
                         if (!bYearSet)
                         {
                             if (DateTime.Compare(dtLastDate, DateTime.MinValue) == 0) dtLastDate = DateFrom;
@@ -2004,7 +2002,7 @@ namespace GVDEditor.Tools
                         {
                             if (bCheckLast)
                             {
-                                if (pbSkipDateRangeCheck) return DateTo;
+                                if (_skipDateRangeCheck) return DateTo;
                                 throw new ParseException(
                                     $"Koncový dátum {FormatDate(dtDate)} je mimo rozsahu platnosti grafikonu.", _position);
                             }
@@ -2021,7 +2019,7 @@ namespace GVDEditor.Tools
 
                         if (DateTime.Compare(dtDate, DateFrom) < 0 || DateTime.Compare(dtDate, DateTo) > 0)
                         {
-                            if (!pbSkipDateRangeCheck)
+                            if (!_skipDateRangeCheck)
                                 throw new ParseException($"Dátum {FormatDate(dtDate)} je mimo rozsahu platnosti grafikonu.", _position);
 
                             if (dtLastDateOrig == DateTime.MinValue && !bYearSet && dtDate < DateFrom &&
@@ -2043,20 +2041,22 @@ namespace GVDEditor.Tools
                 return iMonth;
 
             var i = Array.IndexOf(messagesCZ, sMonth.ToUpper(), 23);
-            if (i < 23 || i > 34) 
+            if (i is < 23 or > 34)
                 throw new ParseException($"Neplatný mesiac {sMonth}.", _position);
             return checked(i - 23 + 1);
         }
 
-        private string MsgMonth(int iMonth) => pbMonthRoman ? MsgText(checked(MSG.JAN + iMonth - 1)) : iMonth.ToString();
+        private string MsgMonth(int iMonth)
+        {
+            return _monthRoman ? MsgText(checked(MSG.JAN + iMonth - 1)) : iMonth.ToString();
+        }
 
         private string MsgDayType(MSG iMsg)
         {
             string MsgDayType;
-            if (pbInsertMarks)
+            if (_insertMarks)
             {
-                ref var ptr = ref piDecorLength;
-                piDecorLength = checked(ptr + 2);
+                _decorLength = checked(_decorLength + 2);
                 MsgDayType = "{" + MsgText(iMsg) + "}";
             }
             else
@@ -2070,7 +2070,7 @@ namespace GVDEditor.Tools
         private DAYTYPE GetDayType(DateTime dtDate, bool bForceSpecDays = false)
         {
             var iDayType = (DAYTYPE) (1 << (int) GetDayIndex(dtDate));
-            if (pbSpecDays || bForceSpecDays)
+            if (_specDays || bForceSpecDays)
             {
                 if (IsHoliday(dtDate))
                     iDayType |= DAYTYPE.HOLIDAY;
@@ -2081,7 +2081,10 @@ namespace GVDEditor.Tools
             return iDayType;
         }
 
-        private DAYTYPE GetDayType(int iDay, bool bForceSpecDays = false) => GetDayType(DateFrom.AddDays(iDay), bForceSpecDays);
+        private DAYTYPE GetDayType(int iDay, bool bForceSpecDays = false)
+        {
+            return GetDayType(DateFrom.AddDays(iDay), bForceSpecDays);
+        }
 
         private static DAYTYPE GetDayType(IReadOnlyList<int> aiOKCount)
         {
@@ -2110,13 +2113,16 @@ namespace GVDEditor.Tools
             }
         }
 
-        private static DAYINDEX GetDayIndex(DateTime dtDate) => (DAYINDEX) dtDate.AddDays(-1.0).DayOfWeek;
+        private static DAYINDEX GetDayIndex(DateTime dtDate)
+        {
+            return (DAYINDEX) dtDate.AddDays(-1.0).DayOfWeek;
+        }
 
         private DAYINDEX GetDayIndex(int iDay, int iIsFC)
         {
             DateTime dtDate = DateFrom.AddDays(iDay);
             DAYINDEX iIndex = GetDayIndex(dtDate);
-            if (iIsFC == 0 || !pbSpecDays)
+            if (iIsFC == 0 || !_specDays)
                 return iIndex;
             if (iIndex == DAYINDEX.SATURDAY && (iIsFC & 32) != 0)
                 return iIndex;
@@ -2135,10 +2141,7 @@ namespace GVDEditor.Tools
 
         public static bool IsHoliday(DateTime dtDate)
         {
-            if (dtDate.DayOfWeek == DayOfWeek.Sunday)
-            {
-                return true;
-            }
+            if (dtDate.DayOfWeek == DayOfWeek.Sunday) return true;
 
             var d = dtDate.Day;
             var m = dtDate.Month;
@@ -2148,7 +2151,7 @@ namespace GVDEditor.Tools
                     if (d == 1 && m == 1 || d == 1 && m == 5 || d == 8 && m == 5 ||
                         d == 5 && m == 7 || d == 6 && m == 7 || d == 28 && m == 9 ||
                         d == 28 && m == 10 || d == 17 && m == 11 || d == 24 && m == 12 ||
-                        d == 25 && m == 12 || d == 26 && m == 12) 
+                        d == 25 && m == 12 || d == 26 && m == 12)
                         return true;
                     break;
                 case LOCALE.SLOVAK:
@@ -2156,20 +2159,20 @@ namespace GVDEditor.Tools
                         d == 8 && m == 5 || d == 5 && m == 7 || d == 29 && m == 8 ||
                         d == 1 && m == 9 || d == 15 && m == 9 || d == 1 && m == 11 ||
                         d == 17 && m == 11 || d == 24 && m == 12 || d == 25 && m == 12 ||
-                        d == 26 && m == 12) 
+                        d == 26 && m == 12)
                         return true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (dtDate.DayOfWeek == DayOfWeek.Friday && (m == 3 || m == 4))
+            if (dtDate.DayOfWeek == DayOfWeek.Friday && m is 3 or 4)
             {
                 GetEasterMonday(dtDate.Year, out var iDay3, out var iMonth3);
                 return dtDate.AddDays(3.0).Day == iDay3 && dtDate.AddDays(3.0).Month == iMonth3;
             }
 
-            if (dtDate.DayOfWeek == DayOfWeek.Monday && (m == 3 || m == 4))
+            if (dtDate.DayOfWeek == DayOfWeek.Monday && m is 3 or 4)
             {
                 GetEasterMonday(dtDate.Year, out var iDay4, out var iMonth4);
                 return d == iDay4 && m == iMonth4;
@@ -2229,11 +2232,11 @@ namespace GVDEditor.Tools
 
             public List<DateRemInfo> aoRunsNot;
 
-            public DAYTYPE type;
-
             public int from;
 
             public int to;
+
+            public DAYTYPE type;
 
             public DateRemInfo()
             {

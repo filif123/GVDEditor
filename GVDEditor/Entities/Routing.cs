@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using GVDEditor.Properties;
 
 namespace GVDEditor.Entities
@@ -98,48 +97,9 @@ namespace GVDEditor.Entities
         }
 
         /// <inheritdoc />
-        public override bool Equals(object s1)
-        {
-            if (s1 is Routing sm) return CharSymbol == sm.CharSymbol;
-
-            return false;
-        }
-
-        /// <inheritdoc />
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = Name != null ? Name.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ (Symbol != null ? Symbol.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (CharSymbol != null ? CharSymbol.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Image != null ? Image.GetHashCode() : 0);
-                return hashCode;
-            }
-        }
-
-        /// <inheritdoc />
         public override string ToString()
         {
             return Symbol;
-        }
-
-        /// <summary>Returns a value that indicates whether the values of two <see cref="T:GVDEditor.Entities.Routing" /> objects are equal.</summary>
-        /// <param name="left">The first value to compare.</param>
-        /// <param name="right">The second value to compare.</param>
-        /// <returns>true if the <paramref name="left" /> and <paramref name="right" /> parameters have the same value; otherwise, false.</returns>
-        public static bool operator ==(Routing left, Routing right)
-        {
-            return Equals(left, right);
-        }
-
-        /// <summary>Returns a value that indicates whether two <see cref="T:GVDEditor.Entities.Routing" /> objects have different values.</summary>
-        /// <param name="left">The first value to compare.</param>
-        /// <param name="right">The second value to compare.</param>
-        /// <returns>true if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise, false.</returns>
-        public static bool operator !=(Routing left, Routing right)
-        {
-            return !Equals(left, right);
         }
     }
 }

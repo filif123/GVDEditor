@@ -6,7 +6,7 @@ namespace GVDEditor.Entities
     /// <summary>
     ///     Trieda reprezentujuca kolaj
     /// </summary>
-    public sealed class Track
+    public sealed record Track
     {
 
         /// <summary>
@@ -93,19 +93,6 @@ namespace GVDEditor.Entities
             return tracks.FirstOrDefault(kolaj => kolaj.Key == id);
         }
 
-        /// <inheritdoc />
-        public override bool Equals(object obj)
-        {
-            return obj is Track track &&
-                   Key == track.Key &&
-                   Name == track.Name &&
-                   FullName == track.FullName &&
-                   EqualityComparer<Platform>.Default.Equals(Nastupiste, track.Nastupiste) &&
-                   TrackName == track.TrackName &&
-                   SoundName == track.SoundName &&
-                   NastupisteCelyNazov == track.NastupisteCelyNazov;
-        }
-
         /// <summary>
         ///     Porovna identifikatory kolaji
         /// </summary>
@@ -117,45 +104,9 @@ namespace GVDEditor.Entities
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
-        {
-            int hashCode = 1716701147;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Key);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FullName);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Platform>.Default.GetHashCode(Nastupiste);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(TrackName);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SoundName);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(NastupisteCelyNazov);
-            return hashCode;
-        }
-
-        /// <inheritdoc />
         public override string ToString()
         {
             return Key;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
-        public static bool operator ==(Track left, Track right)
-        {
-            return EqualityComparer<Track>.Default.Equals(left, right);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
-        public static bool operator !=(Track left, Track right)
-        {
-            return !(left == right);
         }
     }
 }

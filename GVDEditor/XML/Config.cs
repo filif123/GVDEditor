@@ -227,7 +227,7 @@ namespace GVDEditor.XML
                 {
                     config = (Config) XMLSerialization.Deserialize(text, typeof(Config));
 
-                    if (config.PlayerWordPause > 10000 || config.PlayerWordPause < 0)
+                    if (config.PlayerWordPause is > 10000 or < 0)
                     {
                         var error =
                             $"Chyba v konfiguračnom súbore: Nastavenie {nameof(PlayerWordPause)} obsahuje nesprávnu hodnotu {config.PlayerWordPause}.";

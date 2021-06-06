@@ -521,7 +521,7 @@ namespace GVDEditor.Forms
 
         private void cbFont_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbFont.SelectedIndex != -1)
+            if (cbFont.SelectedIndex != -1 && actualFontSize > 0)
             {
                 actualColorSettingsFont = new Font(cbFont.SelectedItem as string, actualFontSize, FontStyle.Regular,
                     GraphicsUnit.Point);

@@ -124,10 +124,12 @@ namespace GVDEditor.Forms
             backgroundWorker1.RunWorkerCompleted += BackgroundWorker1_RunWorkerCompleted;
 
             var dirs = AppRegistry.GetRecentDirs();
+
             foreach (var recentDir in dirs)
             {
                 ToolStripItem item1 = new ToolStripMenuItem(recentDir);
                 ToolStripItem item2 = new ToolStripMenuItem(recentDir);
+
                 item1.Click += nedavneDirsClick;
                 item2.Click += nedavneDirsClick;
                 tsmiRecent.DropDownItems.Add(item1);
@@ -185,6 +187,8 @@ namespace GVDEditor.Forms
 
         private void ProccessData(PathAndGVD pathgvd)
         {
+            //BeginInvoke(new Action(() => { MessageBox.Show(this, "TEST block"); })).AsyncWaitHandle.WaitOne();//TODO test
+
             TXTParser.ReadCustomStations(pathgvd.Path, pathgvd.Gvd);
 
             TXTParser.ReadTables(pathgvd.Path);
@@ -225,6 +229,7 @@ namespace GVDEditor.Forms
         {
             waitForm.Close();
             Application.UseWaitCursor = false;
+            Application.UseWaitCursor = false; //Sometimes only first doesnt work
 
             if (!error)
             {
@@ -500,8 +505,8 @@ namespace GVDEditor.Forms
         private void UpdateMainUI()
         {
             Config.DesktopMenu menu = GlobData.Config.DesktopMenuMode;
-            hlavneMenu.Visible = menu == Config.DesktopMenu.TS_MS || menu == Config.DesktopMenu.MS_ONLY;
-            toolMenu.Visible = menu == Config.DesktopMenu.TS_MS || menu == Config.DesktopMenu.TS_ONLY;
+            hlavneMenu.Visible = menu is Config.DesktopMenu.TS_MS or Config.DesktopMenu.MS_ONLY;
+            toolMenu.Visible = menu is Config.DesktopMenu.TS_MS or Config.DesktopMenu.TS_ONLY;
             statusStrip.Visible = GlobData.Config.ShowStateRow;
             dgvTrains.RowHeadersVisible = GlobData.Config.ShowRowsHeader;
 
@@ -1375,7 +1380,7 @@ namespace GVDEditor.Forms
             }
         }
 
-        private int CountTrainVariants()
+        private static int CountTrainVariants()
         {
             HashSet<(string num, TrainType type, string name)> trains = new HashSet<(string num, TrainType type, string name)>();
             foreach (Train t in Trains)
@@ -1638,7 +1643,7 @@ namespace GVDEditor.Forms
             tsmiAudio.ShortcutKeys = (Keys) GlobData.Config.Shortcuts.GSAudio.Shortcut.ThisShortcut;
         }
 
-        private void CheckAutoTrainVariants(int index)
+        private static void CheckAutoTrainVariants(int index)
         {
             if (!GlobData.Config.AutoVariant) return;
 

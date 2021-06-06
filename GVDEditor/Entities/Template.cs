@@ -27,7 +27,7 @@ namespace GVDEditor.Entities
         public List<Station> Stations { get; set; }
 
         /// <summary>
-        ///     Vlaky, ktore tuto trasu
+        ///     Vlaky, ktore maju tuto trasu
         /// </summary>
         public List<Train> Trains { get; set; }
     }

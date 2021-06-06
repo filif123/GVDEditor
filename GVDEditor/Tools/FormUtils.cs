@@ -45,7 +45,7 @@ namespace GVDEditor.Tools
 
             SetColorMenuItems(strip.Items);
 
-            void SetColorMenuItems(ToolStripItemCollection coll)
+            void SetColorMenuItems(IEnumerable coll)
             {
                 foreach (ToolStripItem toolStripItem in coll)
                 {

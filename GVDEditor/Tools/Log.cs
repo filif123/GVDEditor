@@ -134,8 +134,7 @@ namespace GVDEditor.Tools
             private readonly int MaxSize;
             private DateTime LastDate;
 
-            public LogFile([NotNull] string fileName, DateType dateType, string dateSeparator = "\t",
-                int maxsize = 1000000)
+            public LogFile([NotNull] string fileName, DateType dateType, string dateSeparator = "\t", int maxsize = 1000000)
             {
                 FileName = fileName;
                 DateTypeStamp = dateType;

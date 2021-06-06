@@ -104,9 +104,9 @@ namespace GVDEditor.Tools
                     dirList.DirName = dirName;
                     dirList.FullPath = GlobData.DATADir + Path.DirectorySeparatorChar + dirName;
 
-                    dirList.TablePort = ParseIntOrNull(row[1]);
-                    dirList.HlaseniePort = ParseIntOrNull(row[2]);
-                    dirList.Farba = TryParseHEX(row[4]);
+                    dirList.TablePort = ParseIntOrNull(row.ElementAtOrDefault(1));
+                    dirList.HlaseniePort = ParseIntOrNull(row.ElementAtOrDefault(2));
+                    dirList.Farba = TryParseHEX(row.ElementAtOrDefault(4));
 
                     dirs.Add(dirList);
                 }
@@ -997,7 +997,7 @@ namespace GVDEditor.Tools
                             TrainType vlakTyp = GlobData.TrainsTypes.Find(t => t.Key == vlakTypS);
                             if (vlakTyp == null) throw new FormatException($"Neznámy typ vlaku {vlakTypS}.");
 
-                            Train vlak = Train.GetVlak(vlaky, cisloVlaku, vlakNazov, vlakTyp, varianta);
+                            var vlak = Train.GetTrain(vlaky, cisloVlaku, vlakNazov, vlakTyp, varianta);
                             if (vlak == null)
                                 throw new FormatException($"Neznámy vlak {cisloVlaku} {vlakTyp.Key} (nemá definíciu v EXPORT3A.txt).");
 
@@ -1595,12 +1595,16 @@ namespace GVDEditor.Tools
                     };
 
                     for (var i = 0; i < ParseIntOrDefault(row[8]); i++)
+                    {
                         foreach (TableLogical table in GlobData.TableLogicals)
+                        {
                             if (table.Key == row[i + 9])
                             {
                                 kolaj.Tabule.Add(table);
                                 break;
                             }
+                        }
+                    }
 
                     tracks.Add(kolaj);
                     

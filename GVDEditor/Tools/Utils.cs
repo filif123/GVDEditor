@@ -8,7 +8,6 @@ using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -213,6 +212,11 @@ namespace GVDEditor.Tools
         /// <returns>objekt Color</returns>
         public static Color? TryParseHEX(string hex)
         {
+            if (hex == null)
+            {
+                return null;
+            }
+
             try
             {
                 return ParseHEX(hex);

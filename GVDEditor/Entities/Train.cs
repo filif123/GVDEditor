@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+
 namespace GVDEditor.Entities
 {
     /// <summary>
@@ -84,12 +86,12 @@ namespace GVDEditor.Entities
         /// <summary>
         ///     Stanice zo smeru
         /// </summary>
-        public List<Station> StaniceZoSmeru { get; set; }
+        public List<Station> StaniceZoSmeru { get; }
 
         /// <summary>
         ///     Stanice do smeru
         /// </summary>
-        public List<Station> StaniceDoSmeru { get; set; }
+        public List<Station> StaniceDoSmeru { get; }
 
         /// <summary>
         ///     Prichod vlaku do stanice (nullable)
@@ -198,7 +200,7 @@ namespace GVDEditor.Entities
         /// <summary>
         ///     Radenie vlaku
         /// </summary>
-        public List<Radenie> Radenia { get; set; }
+        public List<Radenie> Radenia { get; }
 
         /// <summary>
         ///     Vrati prvy vyskyt vlaku v zozname so specifikovanymi vlastnostami
@@ -209,8 +211,7 @@ namespace GVDEditor.Entities
         /// <param name="trainType">typ vlaku</param>
         /// <param name="variant">variant vlaku</param>
         /// <returns></returns>
-        public static Train GetVlak(List<Train> trains, string trainNum, string trainName, TrainType trainType,
-            int variant)
+        public static Train GetTrain(IEnumerable<Train> trains, string trainNum, string trainName, TrainType trainType, int variant)
         {
             return trains.FirstOrDefault(train => train.Number == trainNum && train.Name == trainName && train.Type == trainType && train.Variant == variant);
         }
@@ -226,7 +227,7 @@ namespace GVDEditor.Entities
             var max = 0;
             var pos = -1;
 
-            if (allvariants.Count == 0 || allvariants.Count == 1)
+            if (allvariants.Count is 0 or 1)
             {
                 index = -1;
                 return null;
@@ -260,17 +261,30 @@ namespace GVDEditor.Entities
 
         private bool Equals(Train other)
         {
-            return ID == other.ID && Number == other.Number && Equals(Type, other.Type) && Name == other.Name &&
-                   Equals(StaniceZoSmeru, other.StaniceZoSmeru) && Equals(StaniceDoSmeru, other.StaniceDoSmeru) &&
-                   Nullable.Equals(Arrival, other.Arrival) && Nullable.Equals(Departure, other.Departure) &&
-                   Equals(Track, other.Track) && Equals(Operator, other.Operator) &&
-                   DateremText == other.DateremText && Equals(Languages, other.Languages) &&
-                   IsMedzistatny == other.IsMedzistatny && IsDialkovy == other.IsDialkovy &&
-                   IsMimoriadny == other.IsMimoriadny && IsMiestenkovy == other.IsMiestenkovy &&
-                   IsIbaLozkovy == other.IsIbaLozkovy && IsNizkopodlazny == other.IsNizkopodlazny &&
-                   ZaciatokPlatnosti.Equals(other.ZaciatokPlatnosti) && KoniecPlatnosti.Equals(other.KoniecPlatnosti) &&
-                   LineArrival == other.LineArrival && LineDeparture == other.LineDeparture &&
-                   Equals(Doplnky, other.Doplnky) && Variant == other.Variant;
+            return ID == other.ID && 
+                   Number == other.Number && 
+                   Equals(Type, other.Type) && 
+                   Name == other.Name &&
+                   Equals(StaniceZoSmeru, other.StaniceZoSmeru) &&
+                   Equals(StaniceDoSmeru, other.StaniceDoSmeru) &&
+                   Nullable.Equals(Arrival, other.Arrival) &&
+                   Nullable.Equals(Departure, other.Departure) &&
+                   Equals(Track, other.Track) &&
+                   Equals(Operator, other.Operator) &&
+                   DateremText == other.DateremText &&
+                   Equals(Languages, other.Languages) &&
+                   IsMedzistatny == other.IsMedzistatny &&
+                   IsDialkovy == other.IsDialkovy &&
+                   IsMimoriadny == other.IsMimoriadny &&
+                   IsMiestenkovy == other.IsMiestenkovy &&
+                   IsIbaLozkovy == other.IsIbaLozkovy &&
+                   IsNizkopodlazny == other.IsNizkopodlazny &&
+                   ZaciatokPlatnosti.Equals(other.ZaciatokPlatnosti) &&
+                   KoniecPlatnosti.Equals(other.KoniecPlatnosti) &&
+                   LineArrival == other.LineArrival &&
+                   LineDeparture == other.LineDeparture &&
+                   Equals(Doplnky, other.Doplnky) &&
+                   Variant == other.Variant;
         }
 
         /// <inheritdoc />

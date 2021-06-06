@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using ScintillaNET;
 
 namespace GVDEditor.Controls
@@ -27,9 +28,9 @@ namespace GVDEditor.Controls
             get => _hScrollBar;
             set
             {
+                value = false;
                 _hScrollBar = value;
-                _hScrollBar = false;
-                HScrollBarControl.Visible = false;
+                HScrollBarControl.Visible = value;
             }
         }
 
@@ -39,7 +40,7 @@ namespace GVDEditor.Controls
             base.VScrollBar = false;
             
             VScrollBarControl = new VScrollBar();
-            HScrollBarControl = new HScrollBar {Visible = false}; //TODO Horizontal scrollbar NOT WORKING
+            HScrollBarControl = new HScrollBar(); //TODO Horizontal scrollbar NOT WORKING
 
             VScrollBarControl.Scroll += VScrollBarControlOnScroll;
             HScrollBarControl.Scroll += HScrollBarControlOnScroll;
@@ -53,6 +54,7 @@ namespace GVDEditor.Controls
             VScrollBarControl.Cursor = Cursors.Default;
             HScrollBarControl.Cursor = Cursors.Default;
 
+            //BUG this part doesnt work
             Padding padding = HScrollBarControl.Padding;
             padding.Right = HScrollBarControl.Height;
             HScrollBarControl.Margin = padding;
@@ -90,8 +92,15 @@ namespace GVDEditor.Controls
                 int textareaW = GetColumn(Lines[largest].EndPosition - 1);
 
                 HScrollBarControl.Minimum = 0;
-                HScrollBarControl.Maximum = larW - textareaW;
-                HScrollBarControl.Value = XOffset;*/
+                HScrollBarControl.Maximum = larW - textareaW + 20;
+                if (XOffset > textareaW)
+                {
+                    HScrollBarControl.Value = larW - XOffset;
+                }
+                else
+                {
+                    HScrollBarControl.Value = 0;
+                }*/
             }
 
             if ((e.Change & UpdateChange.Content) != 0)
@@ -109,6 +118,7 @@ namespace GVDEditor.Controls
                     VScrollBarControl.Value = FirstVisibleLine;
                 }
 
+                //not working
                 /*int largest = LargestLine();
                 int larW = Lines[largest].Length;
                 int textareaW = GetColumn(Lines[largest].EndPosition - 1);
@@ -121,9 +131,16 @@ namespace GVDEditor.Controls
                 {
                     HScrollBarControl.Visible = true;
                     HScrollBarControl.Minimum = 0;
-                    HScrollBarControl.Maximum = larW - textareaW;
-                    
-                    HScrollBarControl.Value = XOffset;
+                    HScrollBarControl.Maximum = larW - textareaW + 20;
+
+                    if (XOffset > textareaW)
+                    {
+                        HScrollBarControl.Value = larW - XOffset;
+                    }
+                    else
+                    {
+                        HScrollBarControl.Value = 0;
+                    }
                 }*/
             }
         }

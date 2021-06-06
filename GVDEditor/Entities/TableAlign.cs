@@ -49,17 +49,13 @@ namespace GVDEditor.Entities
         /// <returns><see cref="TableAlign" /> alebo <see langword="null" /> ak sa nenašla žiadna zhoda</returns>
         public static TableAlign Parse(int s)
         {
-            switch (s)
+            return s switch
             {
-                case 0:
-                    return Left;
-                case 1:
-                    return Center;
-                case 2:
-                    return Right;
-                default:
-                    return null;
-            }
+                0 => Left,
+                1 => Center,
+                2 => Right,
+                _ => null
+            };
         }
 
         /// <inheritdoc />

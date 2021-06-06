@@ -1258,7 +1258,7 @@ namespace GVDEditor.Forms
                 dgv.Rows[i].Cells[j].Value = false;
         }
 
-        private static List<ChosenReportType> GetFromTable(DataGridView dgv, List<ReportType> allReportTypes)
+        private static List<ChosenReportType> GetFromTable(DataGridView dgv, IReadOnlyList<ReportType> allReportTypes)
         {
             var reportTypes = new List<ChosenReportType>();
 
@@ -1266,7 +1266,7 @@ namespace GVDEditor.Forms
             {
                 for (var j = 0; j < GlobData.ReportVariants.Count; j++)
                 {
-                    if (dgv.Rows[i].Cells[j + 1].Value is bool val && val)
+                    if (dgv.Rows[i].Cells[j + 1].Value is true)
                     {
                         var found = false;
                         foreach (ChosenReportType t in reportTypes)

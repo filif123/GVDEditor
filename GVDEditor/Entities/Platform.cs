@@ -3,7 +3,7 @@
     /// <summary>
     ///     Nástupište na stanici
     /// </summary>
-    public sealed class Platform
+    public sealed record Platform
     {
         /// <summary>
         ///     Predvolené nástupište
@@ -57,46 +57,6 @@
         public override string ToString()
         {
             return Key;
-        }
-
-        /// <summary>
-        ///     Porovná nástupišťa vo všetkých vlastnostiach
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            return obj is Platform nast && nast.Key == Key && nast.FullName == FullName && nast.SoundName == SoundName;
-        }
-
-        /// <inheritdoc />
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = Key != null ? Key.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ (FullName != null ? FullName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (SoundName != null ? SoundName.GetHashCode() : 0);
-                return hashCode;
-            }
-        }
-
-        /// <summary>Returns a value that indicates whether the values of two <see cref="T:GVDEditor.Entities.Platform" /> objects are equal.</summary>
-        /// <param name="left">The first value to compare.</param>
-        /// <param name="right">The second value to compare.</param>
-        /// <returns>true if the <paramref name="left" /> and <paramref name="right" /> parameters have the same value; otherwise, false.</returns>
-        public static bool operator ==(Platform left, Platform right)
-        {
-            return Equals(left, right);
-        }
-
-        /// <summary>Returns a value that indicates whether two <see cref="T:GVDEditor.Entities.Platform" /> objects have different values.</summary>
-        /// <param name="left">The first value to compare.</param>
-        /// <param name="right">The second value to compare.</param>
-        /// <returns>true if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise, false.</returns>
-        public static bool operator !=(Platform left, Platform right)
-        {
-            return !Equals(left, right);
         }
     }
 }
