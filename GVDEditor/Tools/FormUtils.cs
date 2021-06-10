@@ -18,7 +18,7 @@ namespace GVDEditor.Tools
         /// <param name="c">form alobo ovladaci prvok</param>
         public static void ApplyTheme(this Control c)
         {
-            XML.Style style = GlobData.UsingStyle;
+            var style = GlobData.UsingStyle;
             c.BackColor = style.ControlsColorScheme.Panel.BackColor;
             if (c is Form f && style.DarkTitleBar)
             {

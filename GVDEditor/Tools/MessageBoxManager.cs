@@ -133,7 +133,7 @@ namespace GVDEditor.Tools
                 return CallNextHookEx(hHook, nCode, wParam, lParam);
 
             var msg = (CWPRETSTRUCT) Marshal.PtrToStructure(lParam, typeof(CWPRETSTRUCT));
-            IntPtr hook = hHook;
+            var hook = hHook;
 
             if (msg.message == WM_INITDIALOG)
             {
@@ -145,7 +145,7 @@ namespace GVDEditor.Tools
                     EnumChildWindows(msg.hwnd, enumProc, IntPtr.Zero);
                     if (nButton == 1)
                     {
-                        IntPtr hButton = GetDlgItem(msg.hwnd, MBCancel);
+                        var hButton = GetDlgItem(msg.hwnd, MBCancel);
                         if (hButton != IntPtr.Zero)
                             SetWindowText(hButton, OK);
                     }

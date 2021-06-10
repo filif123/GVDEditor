@@ -39,7 +39,7 @@ namespace GVDEditor.Tools
 
         private void ReadWorksheet()
         {
-            Range range = worksheet.UsedRange;
+            var range = worksheet.UsedRange;
             RowCount = range.Rows.Count;
             ColumnCount = range.Columns.Count;
 

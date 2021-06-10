@@ -26,7 +26,7 @@ namespace GVDEditor.Forms
 
         private void bBrowse_Click(object sender, EventArgs e)
         {
-            DialogResult result = dOpenELIS.ShowDialog();
+            var result = dOpenELIS.ShowDialog();
             if (result == DialogResult.OK)
             {
                 tbPath.Text = dOpenELIS.FileName;

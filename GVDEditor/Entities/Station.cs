@@ -66,9 +66,9 @@ namespace GVDEditor.Entities
         /// <returns><see cref="Station" /> alebo <see langword="null" /> ak nenašlo žiadnu zhodu</returns>
         public static Station GetStationFromID(string id)
         {
-            foreach (Station st in GlobData.Stations.Where(st => st.ID == id)) return new Station(st.ID, st.Name);
+            foreach (var st in GlobData.Stations.Where(st => st.ID == id)) return new Station(st.ID, st.Name);
 
-            foreach (Station customStation in GlobData.CustomStations.Where(customStation => customStation.ID == id)) 
+            foreach (var customStation in GlobData.CustomStations.Where(customStation => customStation.ID == id)) 
                 return new Station(customStation.ID, customStation.Name);
 
             return new Station(id, id);
@@ -84,14 +84,14 @@ namespace GVDEditor.Entities
             name = name.Replace(".", "").Replace("-", "").ToLower();
             name = Utils.RemoveDiacritics(name);
 
-            foreach (Station st in GlobData.Stations)
+            foreach (var st in GlobData.Stations)
             {
                 var ns = st.Name.Replace(".", "").Replace("-", "").ToLower();
                 ns = Utils.RemoveDiacritics(ns);
                 if (ns == name) return new Station(st.ID, st.Name);
             }
 
-            foreach (Station customStation in GlobData.CustomStations)
+            foreach (var customStation in GlobData.CustomStations)
             {
                 var ns = customStation.Name.Replace(".", "").Replace("-", "").ToLower();
                 ns = Utils.RemoveDiacritics(ns);
@@ -108,7 +108,7 @@ namespace GVDEditor.Entities
         public static List<Station> GetStations()
         {
             List<Station> list = new List<Station>();
-            foreach (FyzZvuk soundE in GlobData.Sounds)
+            foreach (var soundE in GlobData.Sounds)
             {
                 if (soundE.Dir.Name == "R1") 
                     list.Add(new Station(soundE.Name, soundE.Text.Replace(",", "")));
@@ -126,7 +126,7 @@ namespace GVDEditor.Entities
         {
             var result = new List<Station>();
 
-            foreach (Station station in stations)
+            foreach (var station in stations)
                 result.Add(new Station(station.ID, station.Name, station.IsInShortReport, station.IsInLongReport));
 
             return result;
@@ -166,7 +166,7 @@ namespace GVDEditor.Entities
 
             foreach (var s in stationsStringArr)
             {
-                Station station = GetStationFromName(s);
+                var station = GetStationFromName(s);
 
                 if (station == null) throw new ArgumentException($"Stanica \"{s}\" neexistuje.");
 

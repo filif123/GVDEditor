@@ -174,7 +174,7 @@ namespace GVDEditor.XML
         /// <returns>predvoleny tmavy styl</returns>
         public static Style SetDarkStyle()
         {
-            Style style = SetDefaultStyle();
+            var style = SetDefaultStyle();
             style.Name = DARK_STYLE_NAME;
             style.ControlsDefaultStyle = false;
             style.DarkScrollBar = true;

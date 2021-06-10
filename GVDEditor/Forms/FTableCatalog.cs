@@ -126,7 +126,7 @@ namespace GVDEditor.Forms
                 return;
             }
 
-            foreach (TableItem col in Columns)
+            foreach (var col in Columns)
                 if (col.Key == tbColumnKey.Text)
                 {
                     Utils.ShowError(Resources.FTableCatalog_Zadaný_kľúč_stĺpca_už_existuje);
@@ -191,8 +191,8 @@ namespace GVDEditor.Forms
                 }
 
                 var div = (TableDivType) cbDivType.SelectedItem;
-                var tab1 = (TableTabTab)cbTab1.SelectedItem;
-                var tab2 = (TableTabTab)cbTab2.SelectedItem;
+                var tab1 = (TableTabTab) cbTab1.SelectedItem;
+                var tab2 = (TableTabTab) cbTab2.SelectedItem;
 
                 if (!CheckDivType(div, tab1, tab2))
                     return;
@@ -200,14 +200,14 @@ namespace GVDEditor.Forms
                 int start = decimal.ToInt32(nudStart.Value);
                 int end = decimal.ToInt32(nudEnd.Value);
                 int line = decimal.ToInt32(nudLine.Value);
-                
+
                 if (start >= end)
                 {
                     Utils.ShowError(Resources.FTableCatalog_Posledný_pixel_stĺpca_je_menší_alebo_rovný_ako_počiatočný);
                     return;
                 }
 
-                TableItem item = Columns[listColumns.SelectedIndex];
+                var item = Columns[listColumns.SelectedIndex];
                 item.Key = tbColumnKey.Text;
                 item.Name = tbColumnName.Text;
 
@@ -308,7 +308,7 @@ namespace GVDEditor.Forms
         {
             if (listRows.SelectedIndex != -1)
             {
-                TableSegment segment = Rows[listRows.SelectedIndex];
+                var segment = Rows[listRows.SelectedIndex];
                 segment.Width = decimal.ToInt32(nudWidth.Value);
                 segment.Height = decimal.ToInt32(nudHeight.Value);
                 segment.Size = decimal.ToInt32(nudSize.Value);
@@ -353,17 +353,17 @@ namespace GVDEditor.Forms
         private void bSetColumnOrder_Click(object sender, EventArgs e)
         {
             var etcof = new FTableColumnOrder(Columns.ToList(), ViewTypeTabs.ToList());
-            DialogResult result = etcof.ShowDialog();
+            var result = etcof.ShowDialog();
             if (result.Equals(DialogResult.OK))
             {
                 ViewTypeTabs.Clear();
-                foreach (TableViewTypeTab tab in etcof.ItemsTypeTabs) ViewTypeTabs.Add(tab);
+                foreach (var tab in etcof.ItemsTypeTabs) ViewTypeTabs.Add(tab);
             }
         }
 
         private void bSave_Click(object sender, EventArgs e)
         {
-            TableCatalog table = copy ? new TableCatalog() : ThisTable;
+            var table = copy ? new TableCatalog() : ThisTable;
 
             if (string.IsNullOrEmpty(tbKey.Text) || string.IsNullOrEmpty(tbName.Text))
             {
@@ -372,7 +372,7 @@ namespace GVDEditor.Forms
                 return;
             }
 
-            foreach (TableCatalog t in FLocalSettings.TCatalogs)
+            foreach (var t in FLocalSettings.TCatalogs)
                 if (t.Key == tbName.Text && !table.Equals(t))
                 {
                     Utils.ShowError(Resources.Tables_Zadaný_kľúč_tabule_už_existuje);
@@ -380,8 +380,43 @@ namespace GVDEditor.Forms
                     return;
                 }
 
+            int end = 0;
+            int line = 0;
+            for (var i = 0; i < Columns.Count; i++)
+            {
+                if (Columns[i].Line != line)
+                {
+                    if (Columns[i].Line != line + 1)
+                    {
+                        Utils.ShowError(string.Format(Resources.FTableCatalog_Definované_stĺpce_nie_sú_zotriedené_podľa_zobrazovaného_riadka_záznamu, Columns[i - 1].Key, Columns[i - 1].Line, Columns[i].Key, Columns[i].Line));
+                        DialogResult = DialogResult.None;
+                        return;
+                    }
+
+                    end = 0;
+                    line = Columns[i].Line;
+                }
+
+                if (Columns[i].End <= end)
+                {
+                    Utils.ShowError(string.Format(Resources.FTableCatalog_Definované_stĺpce_nie_sú_zotriedené_podľa_pozície, Columns[i - 1].Key, Columns[i - 1].End, Columns[i].Key, Columns[i].End));
+                    DialogResult = DialogResult.None;
+                    return;
+                }
+
+                end = Columns[i].End;
+            }
+
+            var manufacturer = cbManufacturer.SelectedItem as TableManufacturer;
+            if (manufacturer == TableManufacturer.ELEN && end > 512)
+            {
+                Utils.ShowError(Resources.FTableCatalog_Tabula_ELEN_moze_mat_max_poziciu_512);
+                DialogResult = DialogResult.None;
+                return;
+            }
+
             int modesCount = TableViewMode.GetValues().Count;
-            foreach (TableViewTypeTab tab in ViewTypeTabs)
+            foreach (var tab in ViewTypeTabs)
             {
                 int c = tab.TypeModeItems.Count;
                 if (c != modesCount)
@@ -395,7 +430,7 @@ namespace GVDEditor.Forms
             table.Key = tbKey.Text;
             table.Name = tbName.Text;
             table.Items = Columns.ToList();
-            table.Manufacturer = cbManufacturer.SelectedItem as TableManufacturer;
+            table.Manufacturer = manufacturer;
             table.MaxRecCount = decimal.ToInt32(nudMaxRecCount.Value);
             table.Segments = Rows.ToList();
             table.ViewTypeTabs = ViewTypeTabs.ToList();
@@ -452,6 +487,38 @@ namespace GVDEditor.Forms
         private void FTableCatalog_HelpButtonClicked(object sender, CancelEventArgs e)
         {
             Process.Start(LinkConsts.LINK_TCATALOG);
+        }
+
+        private void bUp_Click(object sender, EventArgs e)
+        {
+            if (listColumns.SelectedIndex > 0)
+            {
+                var sel = listColumns.SelectedIndex;
+                var item = Columns[sel];
+
+                if (sel - 1 >= 0)
+                {
+                    Columns.RemoveAt(sel);
+                    Columns.Insert(sel - 1, item);
+                    listColumns.SelectedIndex = sel - 1;
+                }
+            }
+        }
+
+        private void bDown_Click(object sender, EventArgs e)
+        {
+            if (listColumns.SelectedIndex > 0)
+            {
+                var sel = listColumns.SelectedIndex;
+                var item = Columns[sel];
+
+                if (sel + 1 < Columns.Count)
+                {
+                    Columns.RemoveAt(sel);
+                    Columns.Insert(sel + 1, item);
+                    listColumns.SelectedIndex = sel + 1;
+                }
+            }
         }
     }
 }

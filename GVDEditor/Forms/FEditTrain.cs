@@ -106,12 +106,12 @@ namespace GVDEditor.Forms
             dtpRadenieOd.Value = gvd.StartValidTimeTable.Date;
             dtpRadenieDo.Value = gvd.EndValidTimeTable.Date;
 
-            foreach (Language jazyk in GlobData.Languages)
+            foreach (var jazyk in GlobData.Languages)
                 if (!jazyk.IsBasic)
                     clbJazyky.Items.Add(jazyk);
 
             var lenDoplnky = new List<FyzZvuk>();
-            foreach (FyzZvuk snd in GlobData.Sounds)
+            foreach (var snd in GlobData.Sounds)
                 if (snd.Dir.Name.EqualsIgnoreCase("DODATKY"))
                     lenDoplnky.Add(snd);
 
@@ -201,8 +201,8 @@ namespace GVDEditor.Forms
 
             nudVarianta.Value = ThisTrain.Variant;
 
-            foreach (Station st in ThisTrain.StaniceZoSmeru) StaniceZo.Add(st);
-            foreach (Station st in ThisTrain.StaniceDoSmeru) StaniceDo.Add(st);
+            foreach (var st in ThisTrain.StaniceZoSmeru) StaniceZo.Add(st);
+            foreach (var st in ThisTrain.StaniceDoSmeru) StaniceDo.Add(st);
 
             StaniceZo.RaiseListChangedEvents = true;
             StaniceDo.RaiseListChangedEvents = true;
@@ -211,12 +211,12 @@ namespace GVDEditor.Forms
             StaniceCountChanged();
             initialization = true;
 
-            foreach (Language jazyk in ThisTrain.Languages)
+            foreach (var jazyk in ThisTrain.Languages)
                 if (!jazyk.IsBasic) clbJazyky.SetItemChecked(clbJazyky.Items.IndexOf(jazyk), true);
 
-            foreach (Dodatok doplnok in ThisTrain.Doplnky) Doplnky.Add(doplnok);
+            foreach (var doplnok in ThisTrain.Doplnky) Doplnky.Add(doplnok);
 
-            foreach (Radenie radenie in ThisTrain.Radenia) Radenia.Add(radenie);
+            foreach (var radenie in ThisTrain.Radenia) Radenia.Add(radenie);
 
             if (StaniceZo.Count == 0) mtPrichod.Enabled = false;
 
@@ -242,7 +242,7 @@ namespace GVDEditor.Forms
 
         private void bSave_Click(object sender, EventArgs e)
         {
-            Train train = (copy ? new Train() : ThisTrain) ?? new Train();
+            var train = (copy ? new Train() : ThisTrain) ?? new Train();
 
             if (!string.IsNullOrEmpty(tbCislo.Text))
             {
@@ -275,8 +275,8 @@ namespace GVDEditor.Forms
                     return;
                 }
 
-                DateTime pr = DateTime.Parse(mtPrichod.Text);
-                DateTime od = DateTime.Parse(mtOdchod.Text);
+                var pr = DateTime.Parse(mtPrichod.Text);
+                var od = DateTime.Parse(mtOdchod.Text);
                 if (od.CompareTo(pr) < 0)
                 {
                     Utils.ShowError(Resources.FEditTrain_bSave_Click_Čas_príchodu_je_neskôr_ako_čas_odchodu);
@@ -350,7 +350,7 @@ namespace GVDEditor.Forms
 
             for (var index = 0; index < dgvTrasaZo.Rows.Count; index++)
             {
-                DataGridViewRow selectedRow = dgvTrasaZo.Rows[index];
+                var selectedRow = dgvTrasaZo.Rows[index];
                 var st = (Station) selectedRow.DataBoundItem;
 
                 train.StaniceZoSmeru.Add(st);
@@ -358,7 +358,7 @@ namespace GVDEditor.Forms
 
             for (var index = 0; index < dgvTrasaDo.Rows.Count; index++)
             {
-                DataGridViewRow selectedRow = dgvTrasaDo.Rows[index];
+                var selectedRow = dgvTrasaDo.Rows[index];
                 var st = (Station) selectedRow.DataBoundItem;
 
                 train.StaniceDoSmeru.Add(st);
@@ -366,10 +366,10 @@ namespace GVDEditor.Forms
 
             train.Languages.Clear();
 
-            foreach (Language item in clbJazyky.CheckedItems.OfType<Language>()) train.Languages.Add(item);
+            foreach (var item in clbJazyky.CheckedItems.OfType<Language>()) train.Languages.Add(item);
 
-            DateTime platnostOd = dtpPlatnostOd.Value;
-            DateTime platnostDo = dtpPlatnostDo.Value;
+            var platnostOd = dtpPlatnostOd.Value;
+            var platnostDo = dtpPlatnostDo.Value;
 
             if (platnostOd.CompareTo(platnostDo) > 0)
             {
@@ -404,7 +404,7 @@ namespace GVDEditor.Forms
 
             var id = 0;
             var seltrains = new List<Train>();
-            foreach (Train vlak in FMain.Trains)
+            foreach (var vlak in FMain.Trains)
             {
                 if (Train.IsSameVariant(train,vlak) && Row != id)
                 {
@@ -444,19 +444,19 @@ namespace GVDEditor.Forms
                 }
             }
 
-            foreach (Train seltrain in seltrains)
+            foreach (var seltrain in seltrains)
                 if (seltrain.ZaciatokPlatnosti == train.ZaciatokPlatnosti && seltrain.KoniecPlatnosti == train.KoniecPlatnosti)
                     if (dateRem.Overlap(seltrain.DateremText, train.DateremText))
                     {
                         var obmand = dateRem.TxtAnd(seltrain.DateremText, train.DateremText);
 
-                        DialogResult result = Utils.ShowQuestion(string.Format(Resources.FEditTrain_DateRem_zasahuje_do_ineho_vlaku, train.Type,
+                        var result = Utils.ShowQuestion(string.Format(Resources.FEditTrain_DateRem_zasahuje_do_ineho_vlaku, train.Type,
                             train.Number, train.Name, obmand));
                         
                         if (result == DialogResult.Yes)
                         {
                             var fDateRemEdit = new FDateRemEdit(train, seltrain.DateremText, platnostOd, platnostDo);
-                            DialogResult result2 = fDateRemEdit.ShowDialog();
+                            var result2 = fDateRemEdit.ShowDialog();
                             if (result2 == DialogResult.OK)
                                 seltrain.DateremText = fDateRemEdit.DateRemEdited;
                         }
@@ -479,7 +479,7 @@ namespace GVDEditor.Forms
                 }
 
             var newrads = new List<Radenie>();
-            foreach (Radenie rad in Radenia)
+            foreach (var rad in Radenia)
                 if (!GlobData.Radenia.Contains(rad))
                 {
                     rad.CisloVlaku = train.Number;
@@ -492,15 +492,15 @@ namespace GVDEditor.Forms
 
             GlobData.Radenia.AddRange(newrads);
 
-            foreach (Train vlak in FMain.Trains)
+            foreach (var vlak in FMain.Trains)
                 if (train.Number == vlak.Number)
                 {
                     vlak.Radenia.AddRange(newrads);
 
-                    foreach (Radenie r in RemovedRadenia) vlak.Radenia.Remove(r);
+                    foreach (var r in RemovedRadenia) vlak.Radenia.Remove(r);
                 }
 
-            foreach (Radenie r in RemovedRadenia) GlobData.Radenia.Remove(r);
+            foreach (var r in RemovedRadenia) GlobData.Radenia.Remove(r);
 
             if (copy || ThisTrain == null) ThisTrain = train;
 
@@ -547,7 +547,7 @@ namespace GVDEditor.Forms
                 if (!string.IsNullOrEmpty(tbCislo.Text))
                 {
                     var i = 0;
-                    foreach (Train train in FMain.Trains)
+                    foreach (var train in FMain.Trains)
                     {
                         var cislo = tbCislo.Text;
                         if (train.Number == cislo && train.Radenia.Count != 0 && Row != i && !copy && !initialization)
@@ -555,7 +555,7 @@ namespace GVDEditor.Forms
                             Utils.ShowWarning(Resources.FEditTrain_Číslo_vlaku_sa_zhoduje_s_iným_vlakom_a_preto_bude_aj_jeho_radenie_priradené_k_tomuto_vlaku);
                             
                             Radenia.Clear();
-                            foreach (Radenie rad in train.Radenia) Radenia.Add(rad);
+                            foreach (var rad in train.Radenia) Radenia.Add(rad);
                             break;
                         }
 
@@ -570,7 +570,7 @@ namespace GVDEditor.Forms
             if (dgvTrasaZo.CurrentRow != null)
             {
                 var sel = dgvTrasaZo.SelectedRows[0].Index;
-                Station stationPov = StaniceZo[sel];
+                var stationPov = StaniceZo[sel];
 
                 if (sel - 1 >= 0)
                 {
@@ -587,7 +587,7 @@ namespace GVDEditor.Forms
             if (dgvTrasaZo.CurrentRow != null)
             {
                 var sel = dgvTrasaZo.SelectedRows[0].Index;
-                Station stationPov = StaniceZo[sel];
+                var stationPov = StaniceZo[sel];
 
                 if (sel + 1 < StaniceZo.Count)
                 {
@@ -619,7 +619,7 @@ namespace GVDEditor.Forms
             if (dgvTrasaDo.CurrentRow != null)
             {
                 var sel = dgvTrasaDo.SelectedRows[0].Index;
-                Station stationPov = StaniceDo[sel];
+                var stationPov = StaniceDo[sel];
 
                 if (sel - 1 >= 0)
                 {
@@ -636,7 +636,7 @@ namespace GVDEditor.Forms
             if (dgvTrasaDo.CurrentRow != null)
             {
                 var sel = dgvTrasaDo.SelectedRows[0].Index;
-                Station stationPov = StaniceDo[sel];
+                var stationPov = StaniceDo[sel];
 
                 if (sel + 1 < StaniceDo.Count)
                 {
@@ -768,7 +768,7 @@ namespace GVDEditor.Forms
         {
             if (listVybrateDoplnky.SelectedIndex != -1)
             {
-                Dodatok doplnok = Doplnky[listVybrateDoplnky.SelectedIndex];
+                var doplnok = Doplnky[listVybrateDoplnky.SelectedIndex];
                 tbTextDoplnku.Text = doplnok.Sound.Text;
 
                 if (!initialization) DoplnkyIndexChanged(doplnok);
@@ -781,11 +781,11 @@ namespace GVDEditor.Forms
 
             for (var i = 0; i < dgvDoplnokSet.Rows.Count; i++)
             for (var j = 0; j < GlobData.ReportVariants.Count; j++)
-                foreach (ChosenReportType reportType in doplnok.ChosenReports)
+                foreach (var reportType in doplnok.ChosenReports)
                     if (reportType.Type == VybraneReporty[i])
                     {
                         var found = false;
-                        foreach (ReportVariant variant in reportType.Variants)
+                        foreach (var variant in reportType.Variants)
                             if (variant == GlobData.ReportVariants[j])
                             {
                                 dgvDoplnokSet.Rows[i].Cells[j + 1].Value = true;
@@ -886,7 +886,7 @@ namespace GVDEditor.Forms
                 if (listVybrateDoplnky.SelectedIndex != -1) 
                     DoplnkyIndexChanged(Doplnky[listVybrateDoplnky.SelectedIndex]);
 
-                foreach (Dodatok dodatok in Doplnky)
+                foreach (var dodatok in Doplnky)
                     for (var i = 0; i < dodatok.ChosenReports.Count; i++)
                         if (!VybraneReporty.Contains(dodatok.ChosenReports[i].Type))
                             dodatok.ChosenReports.RemoveAt(i);
@@ -907,7 +907,7 @@ namespace GVDEditor.Forms
         {
             if (listRadenia.SelectedIndex != -1)
             {
-                Radenie radenie = Radenia[listRadenia.SelectedIndex];
+                var radenie = Radenia[listRadenia.SelectedIndex];
                 tbRadenie.Text = radenie.Text;
                 dtpRadenieOd.Value = radenie.ZacPlatnosti;
                 dtpRadenieDo.Value = radenie.KonPlatnosti;
@@ -918,11 +918,11 @@ namespace GVDEditor.Forms
 
                 for (var i = 0; i < dgvRadenieSet.Rows.Count; i++)
                 for (var j = 0; j < GlobData.ReportVariants.Count; j++)
-                    foreach (ChosenReportType reportType in radenie.ChosenReports)
+                    foreach (var reportType in radenie.ChosenReports)
                         if (reportType.Type == GlobData.ReportTypes[i])
                         {
                             var found = false;
-                            foreach (ReportVariant variant in reportType.Variants)
+                            foreach (var variant in reportType.Variants)
                                 if (variant == GlobData.ReportVariants[j])
                                 {
                                     dgvRadenieSet.Rows[i].Cells[j + 1].Value = true;
@@ -937,8 +937,8 @@ namespace GVDEditor.Forms
         private void bRadenieAdd_Click(object sender, EventArgs e)
         {
             var radenie = new Radenie();
-            DateTime odP = dtpRadenieOd.Value.Date;
-            DateTime doP = dtpRadenieDo.Value.Date;
+            var odP = dtpRadenieOd.Value.Date;
+            var doP = dtpRadenieDo.Value.Date;
 
             if (doP.CompareTo(odP) <= 0)
             {
@@ -957,7 +957,7 @@ namespace GVDEditor.Forms
                 return;
             }
 
-            foreach (Radenie rad in Radenia)
+            foreach (var rad in Radenia)
             {
                 var rem = new DateRem(rad.ZacPlatnosti, rad.KonPlatnosti, bInsertMarks: false);
                 var and = rem.TxtAnd(rad.DatObm, tbDateRemRadenie.Text);
@@ -992,9 +992,9 @@ namespace GVDEditor.Forms
         {
             if (listRadenia.SelectedIndex != -1)
             {
-                Radenie radenie = Radenia[listRadenia.SelectedIndex];
-                DateTime odP = dtpRadenieOd.Value.Date;
-                DateTime doP = dtpRadenieDo.Value.Date;
+                var radenie = Radenia[listRadenia.SelectedIndex];
+                var odP = dtpRadenieOd.Value.Date;
+                var doP = dtpRadenieDo.Value.Date;
 
                 if (doP.CompareTo(odP) <= 0)
                 {
@@ -1014,7 +1014,7 @@ namespace GVDEditor.Forms
                 }
 
                 var j = 0;
-                foreach (Radenie rad in Radenia)
+                foreach (var rad in Radenia)
                 {
                     var rem = new DateRem(rad.ZacPlatnosti, rad.KonPlatnosti, bInsertMarks: false);
                     var and = rem.TxtAnd(rad.DatObm, tbDateRemRadenie.Text);
@@ -1066,7 +1066,7 @@ namespace GVDEditor.Forms
             if (listRadenia.SelectedIndex == -1)
             {
                 fRadenie = new FRadenie(new List<FyzZvuk>());
-                DialogResult result = fRadenie.ShowDialog();
+                var result = fRadenie.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     selSounds = new List<FyzZvuk>(fRadenie.SelSounds);
@@ -1076,7 +1076,7 @@ namespace GVDEditor.Forms
             else
             {
                 fRadenie = new FRadenie(new List<FyzZvuk>(Radenia[listRadenia.SelectedIndex].Sounds));
-                DialogResult result = fRadenie.ShowDialog();
+                var result = fRadenie.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     selSounds = new List<FyzZvuk>(fRadenie.SelSounds);
@@ -1101,11 +1101,11 @@ namespace GVDEditor.Forms
         {
             var soundsS = new List<string>();
             if (selSounds != null)
-                foreach (FyzZvuk fyzZvuk in selSounds)
+                foreach (var fyzZvuk in selSounds)
                     soundsS.Add(GlobData.RAWBANKDir + "\\" + fyzZvuk.Language.RelativePath +
                                 fyzZvuk.Dir.RelativePath + fyzZvuk.FileName);
             else if (listRadenia.SelectedIndex != -1)
-                foreach (FyzZvuk fyzZvuk in Radenia[listRadenia.SelectedIndex].Sounds)
+                foreach (var fyzZvuk in Radenia[listRadenia.SelectedIndex].Sounds)
                     soundsS.Add(GlobData.RAWBANKDir + "\\" + fyzZvuk.Language.RelativePath +
                                 fyzZvuk.Dir.RelativePath + fyzZvuk.FileName);
 
@@ -1137,13 +1137,13 @@ namespace GVDEditor.Forms
 
         private void listStaniceZo_KeyPress(object sender, KeyPressEventArgs e)
         {
-            DateTime newDate = DateTime.Now;
-            TimeSpan diff = newDate - _lastKeyPressZo;
+            var newDate = DateTime.Now;
+            var diff = newDate - _lastKeyPressZo;
             if (diff.TotalSeconds >= 1.5)
                 _searchStringZo = string.Empty;
             _searchStringZo += e.KeyChar;
 
-            Station found = listStaniceZo.Items.Cast<Station>()
+            var found = listStaniceZo.Items.Cast<Station>()
                 .FirstOrDefault(item => item.Name.ToLower().StartsWith(_searchStringZo));
             if (found != null)
                 listStaniceZo.SelectedItem = found;
@@ -1154,13 +1154,13 @@ namespace GVDEditor.Forms
 
         private void listStaniceDo_KeyPress(object sender, KeyPressEventArgs e)
         {
-            DateTime newDate = DateTime.Now;
-            TimeSpan diff = newDate - _lastKeyPressDo;
+            var newDate = DateTime.Now;
+            var diff = newDate - _lastKeyPressDo;
             if (diff.TotalSeconds >= 1.5)
                 _searchStringDo = string.Empty;
             _searchStringDo += e.KeyChar;
 
-            Station found = listStaniceDo.Items.Cast<Station>().FirstOrDefault(item => item.Name.ToLower().StartsWith(_searchStringDo));
+            var found = listStaniceDo.Items.Cast<Station>().FirstOrDefault(item => item.Name.ToLower().StartsWith(_searchStringDo));
             if (found != null) listStaniceDo.SelectedItem = found;
 
             _lastKeyPressDo = newDate;
@@ -1178,7 +1178,7 @@ namespace GVDEditor.Forms
             };
             dt.Columns.Add(header);
 
-            foreach (ReportVariant variant in GlobData.ReportVariants)
+            foreach (var variant in GlobData.ReportVariants)
             {
                 var dc = new DataColumn(variant.Name, typeof(bool))
                 {
@@ -1187,16 +1187,16 @@ namespace GVDEditor.Forms
                 dt.Columns.Add(dc);
             }
 
-            foreach (ReportType reportType in reportTypes)
+            foreach (var reportType in reportTypes)
             {
-                DataRow row = dt.NewRow();
+                var row = dt.NewRow();
                 row[0] = reportType.Name;
                 dt.Rows.Add(row);
             }
 
             dgvDoplnokSet.DataSource = dt;
 
-            DataGridViewColumn cheader = dgvDoplnokSet.Columns[0];
+            var cheader = dgvDoplnokSet.Columns[0];
             cheader.HeaderText = dt.Columns[0].Caption;
             cheader.SortMode = DataGridViewColumnSortMode.NotSortable;
             cheader.Width = 120;
@@ -1222,22 +1222,22 @@ namespace GVDEditor.Forms
             var header = new DataColumn {DataType = typeof(string), Caption = "Typ", ReadOnly = true};
             dt.Columns.Add(header);
 
-            foreach (ReportVariant variant in GlobData.ReportVariants)
+            foreach (var variant in GlobData.ReportVariants)
             {
                 var dc = new DataColumn {DataType = typeof(bool), Caption = variant.Name};
                 dt.Columns.Add(dc);
             }
 
-            foreach (ReportType reportType in GlobData.ReportTypes)
+            foreach (var reportType in GlobData.ReportTypes)
             {
-                DataRow row = dt.NewRow();
+                var row = dt.NewRow();
                 row[0] = reportType.Name;
                 dt.Rows.Add(row);
             }
 
             dgvRadenieSet.DataSource = dt;
 
-            DataGridViewColumn cheader = dgvRadenieSet.Columns[0];
+            var cheader = dgvRadenieSet.Columns[0];
             cheader.HeaderText = dt.Columns[cheader.HeaderText].Caption;
             cheader.SortMode = DataGridViewColumnSortMode.NotSortable;
             cheader.Width = 120;
@@ -1269,7 +1269,7 @@ namespace GVDEditor.Forms
                     if (dgv.Rows[i].Cells[j + 1].Value is true)
                     {
                         var found = false;
-                        foreach (ChosenReportType t in reportTypes)
+                        foreach (var t in reportTypes)
                             if (t.Type == allReportTypes[i])
                             {
                                 t.Variants.Add(GlobData.ReportVariants[j]);

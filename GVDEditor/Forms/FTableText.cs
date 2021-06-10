@@ -37,7 +37,7 @@ namespace GVDEditor.Forms
         /// <param name="catalogs">dostupne katalogove tabule</param>
         /// <param name="gvd">aktualny grafikon</param>
         /// <param name="row">id riadku v liste</param>
-        public FTableText(TableText tableText, List<TableCatalog> catalogs, GVDInfo gvd, int row)
+        public FTableText(TableText tableText, IReadOnlyCollection<TableCatalog> catalogs, GVDInfo gvd, int row)
         {
             InitializeComponent();
             FormUtils.SetFormFont(this);
@@ -82,7 +82,7 @@ namespace GVDEditor.Forms
             if (row != -1)
             {
                 var i = 0;
-                foreach (TableText t in FLocalSettings.TTexts)
+                foreach (var t in FLocalSettings.TTexts)
                 {
                     if (t.Key == tbKey.Text && row != i)
                     {
@@ -96,7 +96,7 @@ namespace GVDEditor.Forms
             }
             else
             {
-                foreach (TableText t in FLocalSettings.TTexts)
+                foreach (var t in FLocalSettings.TTexts)
                     if (t.Key == tbKey.Text)
                     {
                         Utils.ShowError(Resources.Tables_Zadaný_kľúč_tabule_už_existuje);
@@ -106,7 +106,7 @@ namespace GVDEditor.Forms
             }
 
 
-            foreach (TableTrain tt in TextTrains) tt.Text = Regex.Replace(tt.Text, @"\t|\n|\r", "");
+            foreach (var tt in TextTrains) tt.Text = Regex.Replace(tt.Text, @"\t|\n|\r", "");
 
             ttext.Key = tbKey.Text;
             ttext.Name = tbName.Text;
@@ -162,7 +162,7 @@ namespace GVDEditor.Forms
             if (listRealisations.SelectedItem is TableTextRealization realization &&
                 cbCatalogTable.SelectedItem is TableCatalog catalog)
             {
-                foreach (TableItem t in catalog.Items) TableItems.Add(t);
+                foreach (var t in catalog.Items) TableItems.Add(t);
 
                 cbCatalogItem.SelectedItem = realization.Item;
             }
@@ -170,7 +170,7 @@ namespace GVDEditor.Forms
             {
                 var tableItems = (cbCatalogTable.SelectedItem as TableCatalog)?.Items;
                 if (tableItems != null)
-                    foreach (TableItem t in tableItems)
+                    foreach (var t in tableItems)
                         TableItems.Add(t);
 
                 cbCatalogItem.SelectedIndex = 0;
@@ -191,7 +191,7 @@ namespace GVDEditor.Forms
         {
             if (listRealisations.SelectedIndex != -1)
             {
-                TableTextRealization realization = TRealizations[listRealisations.SelectedIndex];
+                var realization = TRealizations[listRealisations.SelectedIndex];
                 realization.Catalog = (TableCatalog) cbCatalogTable.SelectedItem;
                 realization.Item = (TableItem) cbCatalogItem.SelectedItem;
 
@@ -216,7 +216,7 @@ namespace GVDEditor.Forms
 
         private void bGenerate_Click(object sender, EventArgs e)
         {
-            DialogResult result = Utils.ShowQuestion(Resources.FTableText_Generate_TTexts_Info);
+            var result = Utils.ShowQuestion(Resources.FTableText_Generate_TTexts_Info);
             if (result == DialogResult.Yes)
             {
                 TableItem item;
@@ -243,7 +243,7 @@ namespace GVDEditor.Forms
 
                 TextTrains.Clear();
 
-                foreach (Train vlak in FMain.Trains)
+                foreach (var vlak in FMain.Trains)
                 {
                     var tableTrain = new TableTrain {FontId = -1, Train = vlak};
 
@@ -270,7 +270,7 @@ namespace GVDEditor.Forms
                         {
                             var staniceDo = new List<Station>();
 
-                            foreach (Station t in vlak.StaniceDoSmeru)
+                            foreach (var t in vlak.StaniceDoSmeru)
                                 if (t.IsInShortReport)
                                     staniceDo.Add(t);
 
@@ -302,7 +302,7 @@ namespace GVDEditor.Forms
                         {
                             var staniceZo = new List<Station>();
 
-                            foreach (Station t in vlak.StaniceZoSmeru)
+                            foreach (var t in vlak.StaniceZoSmeru)
                                 if (t.IsInShortReport)
                                     staniceZo.Add(t);
 

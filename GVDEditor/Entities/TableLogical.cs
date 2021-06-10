@@ -5,7 +5,7 @@ namespace GVDEditor.Entities
     /// <summary>
     ///     Definuje logicku tabulu
     /// </summary>
-    public sealed class TableLogical
+    public sealed class TableLogical : ITable
     {
         /// <summary>
         ///     Konstruktor

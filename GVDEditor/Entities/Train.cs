@@ -235,7 +235,7 @@ namespace GVDEditor.Entities
 
             for (var i = 0; i < allvariants.Count; i++)
             {
-                Train train = allvariants[i];
+                var train = allvariants[i];
                 var stcount = train.StaniceZoSmeru.Count + train.StaniceDoSmeru.Count;
                 if (stcount > max)
                 {

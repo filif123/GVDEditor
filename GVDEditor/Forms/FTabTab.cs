@@ -29,10 +29,12 @@ namespace GVDEditor.Forms
 
         internal readonly BindingList<TabTabDoc> documents = new();
 
+        private readonly TableTabTab SelectedTab;
+
         /// <summary>
         ///     Konstruktor
         /// </summary>
-        public FTabTab()
+        public FTabTab(TableTabTab tab = null)
         {
             InitializeComponent();
             FormUtils.SetFormFont(this);
@@ -44,7 +46,7 @@ namespace GVDEditor.Forms
 
             acMenu.TargetControlWrapper = new ScintillaWrapper(scText);
 
-            foreach (TableTabTab tabTab in FLocalSettings.TabTabs)
+            foreach (var tabTab in FLocalSettings.TabTabs)
             {
                 documents.Add(new TabTabDoc{ Document = CreateDocument(tabTab.Text) , TabTab = tabTab});
             }
@@ -59,6 +61,8 @@ namespace GVDEditor.Forms
             tsbRedo.Enabled = false;
 
             ShowNumberLines();
+
+            SelectedTab = tab;
         }
 
         private void FTabTab_Load(object sender, EventArgs e)
@@ -122,6 +126,17 @@ namespace GVDEditor.Forms
             scText.Styles[Style.BraceBad].ForeColor = GlobData.UsingStyle.TabTabEditorScheme.SelBraceBad.ForeColor;
             scText.Styles[Style.BraceBad].BackColor = GlobData.UsingStyle.TabTabEditorScheme.SelBraceBad.BackColor;
             scText.Styles[Style.BraceBad].Bold = GlobData.UsingStyle.TabTabEditorScheme.SelBraceBad.Bold;
+
+            if (SelectedTab is not null)
+            {
+                for (int i = 0; i < documents.Count; i++)
+                {
+                    if (documents[i].TabTab == SelectedTab)
+                    {
+                        lbTabTabs.SelectedIndex = i;
+                    }
+                }
+            }
         }
 
         private void FTabTab_FormClosing(object sender, FormClosingEventArgs e)
@@ -130,7 +145,7 @@ namespace GVDEditor.Forms
 
             if (unsaved)
             {
-                DialogResult result = Utils.ShowQuestion(Resources.FMain_Save_Changes, MessageBoxButtons.YesNoCancel);
+                var result = Utils.ShowQuestion(Resources.FMain_Save_Changes, MessageBoxButtons.YesNoCancel);
                 switch (result)
                 {
                     case DialogResult.Yes:
@@ -161,9 +176,9 @@ namespace GVDEditor.Forms
 
         private void DoSaveAll()
         {
-            Document current = scText.Document;
+            var current = scText.Document;
 
-            foreach (TabTabDoc doc in documents)
+            foreach (var doc in documents)
             {
                 SwitchDocument(doc.Document);
                 doc.TabTab.Text = scText.Text;
@@ -204,11 +219,11 @@ namespace GVDEditor.Forms
                 bool delete = true;
                 string where = " ";
                 int index = lbTabTabs.SelectedIndex;
-                TableTabTab tab = FLocalSettings.TabTabs[index];
+                var tab = FLocalSettings.TabTabs[index];
 
-                foreach (TableCatalog tc in FLocalSettings.TCatalogs)
+                foreach (var tc in FLocalSettings.TCatalogs)
                 {
-                    foreach (TableItem ti in tc.Items)
+                    foreach (var ti in tc.Items)
                     {
                         if (ti.Tab1 == tab)
                         {
@@ -491,7 +506,7 @@ namespace GVDEditor.Forms
 
         private void SwitchDocument(Document nextDocument)
         {
-            Document prevDocument = scText.Document;
+            var prevDocument = scText.Document;
             scText.AddRefDocument(prevDocument);
 
             scText.Document = nextDocument;
@@ -500,7 +515,7 @@ namespace GVDEditor.Forms
 
         private Document CreateDocument(string text)
         {
-            ILoader l = scText.CreateLoader(256);
+            var l = scText.CreateLoader(256);
             char[] chars = text.ToCharArray();
             if (chars.Length != 0) l.AddData(chars, text.Length);
             return l.ConvertToDocument();

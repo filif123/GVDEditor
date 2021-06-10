@@ -142,7 +142,7 @@ namespace GVDEditor.Forms
             listKolaje.DataSource = Kolaje;
             cbNastupistia.DataSource = Nastupistia;
 
-            foreach (TableLogical logical in TLogicals) clbKolajTables.Items.Add(logical);
+            foreach (var logical in TLogicals) clbKolajTables.Items.Add(logical);
             cbFontType.DataSource = TFontsTypes;
 
             listFyzTabule.DataSource = TPhysicals;
@@ -229,7 +229,7 @@ namespace GVDEditor.Forms
 
         private void bSave_Click(object sender, EventArgs e)
         {
-            GVDInfo gvdInfo = ThisDir.GVD;
+            var gvdInfo = ThisDir.GVD;
             gvdInfo.StartValidData = dtpDataOd.Value.Date;
             gvdInfo.EndValidData = dtpDataDo.Value.Date;
             gvdInfo.StartValidTimeTable = dtpGVDOd.Value.Date;
@@ -348,7 +348,7 @@ namespace GVDEditor.Forms
         private void bDopravcaAdd_Click(object sender, EventArgs e)
         {
             var dopravca = new Operator(Dopravcovia.Count, tbDopravca.Text);
-            foreach (Operator dop in Dopravcovia)
+            foreach (var dop in Dopravcovia)
                 if (dop.Name == dopravca.Name)
                 {
                     Utils.ShowError(Resources.FLocalSettings_Zadaný_dopravca_už_existuje);
@@ -365,10 +365,10 @@ namespace GVDEditor.Forms
         {
             if (listDopravcovia.SelectedIndex != -1)
             {
-                Operator dopravca = Dopravcovia[listDopravcovia.SelectedIndex];
+                var dopravca = Dopravcovia[listDopravcovia.SelectedIndex];
                 dopravca.Name = tbDopravca.Text;
                 var i = 0;
-                foreach (Operator test in Dopravcovia)
+                foreach (var test in Dopravcovia)
                 {
                     if (dopravca.Name == test.Name && i != listDopravcovia.SelectedIndex)
                     {
@@ -386,8 +386,8 @@ namespace GVDEditor.Forms
             if (listDopravcovia.SelectedIndex != -1)
             {
                 int index = listDopravcovia.SelectedIndex;
-                Operator op = Dopravcovia[index];
-                foreach (Train train in FMain.Trains)
+                var op = Dopravcovia[index];
+                foreach (var train in FMain.Trains)
                 {
                     if (train.Operator == op)
                     {
@@ -435,7 +435,7 @@ namespace GVDEditor.Forms
         private void bNastAdd_Click(object sender, EventArgs e)
         {
             var nastupiste = new Platform(tbNastOznacenie.Text, tbNastFullName.Text, tbNastSound.Text);
-            foreach (Platform test in Nastupistia)
+            foreach (var test in Nastupistia)
                 if (nastupiste.EqualsKeys(test))
                 {
                     Utils.ShowError(Resources.FLocalSettings_Zadaný_kľúč_nástupišťa_už_existuje);
@@ -466,7 +466,7 @@ namespace GVDEditor.Forms
                         return;
                     }
 
-                Platform platform = Nastupistia[listNastupistia.SelectedIndex];
+                var platform = Nastupistia[listNastupistia.SelectedIndex];
                 platform.Key = tbNastOznacenie.Text;
                 platform.FullName = tbNastFullName.Text;
                 platform.SoundName = tbNastSound.Text;
@@ -482,9 +482,9 @@ namespace GVDEditor.Forms
                 bool delete = true;
                 string where = " ";
                 int index = listNastupistia.SelectedIndex;
-                Platform nast = Nastupistia[index];
+                var nast = Nastupistia[index];
 
-                foreach (Track tr in Kolaje)
+                foreach (var tr in Kolaje)
                 {
                     if (tr.Nastupiste == nast)
                     {
@@ -537,7 +537,7 @@ namespace GVDEditor.Forms
                     for (var i = 0; i < TLogicals.Count; i++)
                         clbKolajTables.SetItemChecked(i, false);
 
-                foreach (TableLogical table in kolaj.Tabule)
+                foreach (var table in kolaj.Tabule)
                     clbKolajTables.SetItemChecked(clbKolajTables.Items.IndexOf(table), true);
             }
         }
@@ -564,7 +564,7 @@ namespace GVDEditor.Forms
                 Nastupiste = (Platform) cbNastupistia.SelectedItem
             };
 
-            foreach (Track test in Kolaje)
+            foreach (var test in Kolaje)
                 if (kolaj.EqualsKeys(test))
                 {
                     Utils.ShowError(Resources.FLocalSettings_Zadaný_kľúč_koľaje_už_existuje);
@@ -595,7 +595,7 @@ namespace GVDEditor.Forms
                         return;
                     }
 
-                Track track = Kolaje[listKolaje.SelectedIndex];
+                var track = Kolaje[listKolaje.SelectedIndex];
                 track.Key = tbKolajOznacenie.Text;
                 track.FullName = tbKolajFullName.Text;
                 track.SoundName = tbKolajSound.Text;
@@ -610,8 +610,8 @@ namespace GVDEditor.Forms
             if (listKolaje.SelectedIndex != -1)
             {
                 int index = listKolaje.SelectedIndex;
-                Track kolaj = Kolaje[index];
-                foreach (Train train in FMain.Trains)
+                var kolaj = Kolaje[index];
+                foreach (var train in FMain.Trains)
                 {
                     if (train.Track == kolaj)
                     {
@@ -632,7 +632,7 @@ namespace GVDEditor.Forms
         private void bFyzTabAdd_Click(object sender, EventArgs e)
         {
             var eptf = new FTablePhysical(new TablePhysical(), TCatalogs);
-            DialogResult result = eptf.ShowDialog();
+            var result = eptf.ShowDialog();
             if (result == DialogResult.OK)
             {
                 TPhysicals.Add(eptf.ThisTable);
@@ -648,7 +648,7 @@ namespace GVDEditor.Forms
             if (listFyzTabule.SelectedIndex != -1)
             {
                 var eptf = new FTablePhysical(TPhysicals[listFyzTabule.SelectedIndex], TCatalogs, true);
-                DialogResult result = eptf.ShowDialog();
+                var result = eptf.ShowDialog();
                 if (result == DialogResult.OK) TPhysicals.Add(eptf.ThisTable);
             }
         }
@@ -658,7 +658,7 @@ namespace GVDEditor.Forms
             if (listFyzTabule.SelectedIndex != -1)
             {
                 var eptf = new FTablePhysical(TPhysicals[listFyzTabule.SelectedIndex], TCatalogs);
-                DialogResult result = eptf.ShowDialog();
+                var result = eptf.ShowDialog();
                 if (result == DialogResult.OK) TPhysicals.ResetBindings();
             }
         }
@@ -670,11 +670,11 @@ namespace GVDEditor.Forms
                 bool delete = true;
                 string where = " ";
                 int index = listFyzTabule.SelectedIndex;
-                TablePhysical tp = TPhysicals[index];
+                var tp = TPhysicals[index];
 
-                foreach (TableLogical tl in TLogicals)
+                foreach (var tl in TLogicals)
                 {
-                    foreach (TableRecord trecord in tl.Records)
+                    foreach (var trecord in tl.Records)
                     {
                         foreach (TablePosition position in trecord)
                         {
@@ -713,7 +713,7 @@ namespace GVDEditor.Forms
         private void bLogTabAdd_Click(object sender, EventArgs e)
         {
             var eltf = new FTableLogical(new TableLogical(), TPhysicals.ToList());
-            DialogResult result = eltf.ShowDialog();
+            var result = eltf.ShowDialog();
             if (result == DialogResult.OK)
             {
                 TLogicals.Add(eltf.ThisTable);
@@ -729,7 +729,7 @@ namespace GVDEditor.Forms
             if (listLogTabule.SelectedIndex != -1)
             {
                 var eltf = new FTableLogical(TLogicals[listLogTabule.SelectedIndex], TPhysicals.ToList(), true);
-                DialogResult result = eltf.ShowDialog();
+                var result = eltf.ShowDialog();
                 if (result == DialogResult.OK) TLogicals.Add(eltf.ThisTable);
             }
         }
@@ -739,7 +739,7 @@ namespace GVDEditor.Forms
             if (listLogTabule.SelectedIndex != -1)
             {
                 var eltf = new FTableLogical(TLogicals[listLogTabule.SelectedIndex], TPhysicals.ToList());
-                DialogResult result = eltf.ShowDialog();
+                var result = eltf.ShowDialog();
                 if (result == DialogResult.OK) TLogicals.ResetBindings();
             }
         }
@@ -751,11 +751,11 @@ namespace GVDEditor.Forms
                 bool delete = true;
                 string where = " ";
                 int index = listLogTabule.SelectedIndex;
-                TableLogical tlog = TLogicals[index];
+                var tlog = TLogicals[index];
                 
-                foreach (Track tr in Kolaje)
+                foreach (var tr in Kolaje)
                 {
-                    foreach (TableLogical logical in tr.Tabule)
+                    foreach (var logical in tr.Tabule)
                     {
                         if (logical == tlog)
                         {
@@ -790,7 +790,7 @@ namespace GVDEditor.Forms
         private void bKatTabAdd_Click(object sender, EventArgs e)
         {
             var ectf = new FTableCatalog(new TableCatalog(), TabTabs.ToList());
-            DialogResult result = ectf.ShowDialog();
+            var result = ectf.ShowDialog();
             if (result == DialogResult.OK)
             {
                 TCatalogs.Add(ectf.ThisTable);
@@ -806,7 +806,7 @@ namespace GVDEditor.Forms
             if (listKatTabule.SelectedIndex != -1)
             {
                 var ectf = new FTableCatalog(TCatalogs[listKatTabule.SelectedIndex], TabTabs.ToList(), true);
-                DialogResult result = ectf.ShowDialog();
+                var result = ectf.ShowDialog();
                 if (result == DialogResult.OK) TCatalogs.Add(ectf.ThisTable);
             }
         }
@@ -816,7 +816,7 @@ namespace GVDEditor.Forms
             if (listKatTabule.SelectedIndex != -1)
             {
                 var ectf = new FTableCatalog(TCatalogs[listKatTabule.SelectedIndex], TabTabs.ToList());
-                DialogResult result = ectf.ShowDialog();
+                var result = ectf.ShowDialog();
                 if (result == DialogResult.OK) TCatalogs.ResetBindings();
             }
         }
@@ -828,9 +828,9 @@ namespace GVDEditor.Forms
                 bool delete = true;
                 string where = " ";
                 int index = listKatTabule.SelectedIndex;
-                TableCatalog tcat = TCatalogs[index];
+                var tcat = TCatalogs[index];
                 
-                foreach (TablePhysical ph in TPhysicals)
+                foreach (var ph in TPhysicals)
                 {
                     if (ph.TableCatalog == tcat)
                     {
@@ -842,9 +842,9 @@ namespace GVDEditor.Forms
 
                 if (delete)
                 {
-                    foreach (TableText tt in TTexts)
+                    foreach (var tt in TTexts)
                     {
-                        foreach (TableTextRealization realization in tt.Realizations)
+                        foreach (var realization in tt.Realizations)
                         {
                             if (realization.Catalog == tcat)
                             {
@@ -880,11 +880,11 @@ namespace GVDEditor.Forms
         private void bOpenEditorTab_Click(object sender, EventArgs e)
         {
             var ettf = new FTabTab();
-            DialogResult result = ettf.ShowDialog();
+            var result = ettf.ShowDialog();
             if (result == DialogResult.OK)
             {
                 TabTabs.Clear();
-                foreach (FTabTab.TabTabDoc doc in ettf.documents)
+                foreach (var doc in ettf.documents)
                 {
                     TabTabs.Add(doc.TabTab);
                 }
@@ -901,11 +901,11 @@ namespace GVDEditor.Forms
                 bool delete = true;
                 string where = " ";
                 int index = listLogTabule.SelectedIndex;
-                TableTabTab tab = TabTabs[index];
+                var tab = TabTabs[index];
 
-                foreach (TableCatalog tc in TCatalogs)
+                foreach (var tc in TCatalogs)
                 {
-                    foreach (TableItem ti in tc.Items)
+                    foreach (var ti in tc.Items)
                     {
                         if (ti.Tab1 == tab)
                         {
@@ -946,7 +946,7 @@ namespace GVDEditor.Forms
         private void bTextAdd_Click(object sender, EventArgs e)
         {
             var ettf = new FTableText(new TableText(), TCatalogs.ToList(), ThisDir.GVD, -1);
-            DialogResult result = ettf.ShowDialog();
+            var result = ettf.ShowDialog();
             if (result == DialogResult.OK)
             {
                 TTexts.Add(ettf.ThisTableText);
@@ -962,7 +962,7 @@ namespace GVDEditor.Forms
             {
                 var index = listTexty.SelectedIndex;
                 var ettf = new FTableText(TTexts[index], TCatalogs.ToList(), ThisDir.GVD, index);
-                DialogResult result = ettf.ShowDialog();
+                var result = ettf.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     TTexts.RemoveAt(index);
@@ -1044,7 +1044,7 @@ namespace GVDEditor.Forms
                 return;
             }
 
-            TableFont tfont = TFonts[index];
+            var tfont = TFonts[index];
             tfont.Name = tbFontName.Text;
             tfont.FontID = decimal.ToInt32(nudFontID.Value);
             tfont.Type = (TableFontType) cbFontType.SelectedItem;
@@ -1107,7 +1107,7 @@ namespace GVDEditor.Forms
         private void bOpenFontDir_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(tbFontDir.Text)) fdbFontsDir.SelectedPath = fdbFontsDir.SelectedPath;
-            DialogResult result = fdbFontsDir.ShowDialog();
+            var result = fdbFontsDir.ShowDialog();
             if (result == DialogResult.OK)
             {
                 tbFontDir.Text = fdbFontsDir.SelectedPath;
@@ -1119,7 +1119,7 @@ namespace GVDEditor.Forms
         {
             if (listCustomStations.SelectedIndex != -1)
             {
-                Station st = CustomStations[listCustomStations.SelectedIndex];
+                var st = CustomStations[listCustomStations.SelectedIndex];
                 nudIDStanice.Value = int.Parse(st.ID);
                 tbStationName.Text = st.Name;
             }
@@ -1131,11 +1131,11 @@ namespace GVDEditor.Forms
 
             var id = decimal.ToInt32(nudIDStanice.Value);
 
-            foreach (Station station in GlobData.Stations)
+            foreach (var station in GlobData.Stations)
                 if (station.ID == id.ToString())
                     err = true;
 
-            foreach (Station station in CustomStations)
+            foreach (var station in CustomStations)
                 if (station.ID == id.ToString())
                     err = true;
 
@@ -1168,11 +1168,11 @@ namespace GVDEditor.Forms
 
                 var id = decimal.ToInt32(nudFontID.Value);
 
-                foreach (Station station in GlobData.Stations)
+                foreach (var station in GlobData.Stations)
                     if (station.ID == id.ToString())
                         err = true;
 
-                foreach (Station station in CustomStations)
+                foreach (var station in CustomStations)
                     if (station.ID == id.ToString())
                         err = true;
 
@@ -1190,7 +1190,7 @@ namespace GVDEditor.Forms
 
                 var name = tbStationName.Text;
 
-                Station st = CustomStations[listCustomStations.SelectedIndex];
+                var st = CustomStations[listCustomStations.SelectedIndex];
                 st.ID = id.ToString();
                 st.Name = name;
                 st.IsCustom = true;

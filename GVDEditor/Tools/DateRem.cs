@@ -232,7 +232,7 @@ namespace GVDEditor.Tools
             _specDays = bSpecDays;
             _allowRunsDaily = bAllowRunsDaily;
             _fromToday = bFromToday;
-            DateTime dtTodayE = dtToday ?? DateTime.Now;
+            var dtTodayE = dtToday ?? DateTime.Now;
             Today = dtTodayE == DateTime.MinValue ? DateTime.Today : dtTodayE;
             _insertMarks = bInsertMarks;
             _maxDays = iMaxDays;
@@ -329,8 +329,8 @@ namespace GVDEditor.Tools
         {
             if (oBits == null || oBits.Length != TotalDays)
                 throw new ArgumentException(@"Bitové pole na vstupu chýba alebo neodpovedá jeho dĺžka.", nameof(oBits));
-            DateTime dtFromSave = DateFrom;
-            DateTime dtToSave = DateTo;
+            var dtFromSave = DateFrom;
+            var dtToSave = DateTo;
             checked
             {
                 try
@@ -374,7 +374,7 @@ namespace GVDEditor.Tools
                     }
                     else
                     {
-                        BitArray oValidBits2 = oValidBits;
+                        var oValidBits2 = oValidBits;
                         if (iMinIndex > 0 || iMaxIndex != oBits.Length - 1)
                         {
                             int j;
@@ -572,7 +572,7 @@ namespace GVDEditor.Tools
             {
                 for (var i = aoDatumoveObmedzenie.Count - 1; i >= 0; i += -1)
                 {
-                    DateRemInfo dateRemInfo = aoDatumoveObmedzenie[i];
+                    var dateRemInfo = aoDatumoveObmedzenie[i];
                     if (dateRemInfo.aoRuns is {Count: > 0})
                         ReduceDates(dateRemInfo.aoRuns, oValidBits);
                     if (dateRemInfo.aoRunsNot is {Count: > 0})
@@ -1177,7 +1177,7 @@ namespace GVDEditor.Tools
         {
             Array.Clear(aiOKCount, 0, aiOKCount.Length);
             Array.Clear(aiBadCount, 0, aiBadCount.Length);
-            DAYINDEX iDayIndex = GetDayIndex(iFrom, 0);
+            var iDayIndex = GetDayIndex(iFrom, 0);
             checked
             {
                 var iSaturdays = 0;
@@ -1189,7 +1189,7 @@ namespace GVDEditor.Tools
                         ref var ptr = ref aiOKCount[7];
                         if (_specDays)
                         {
-                            DAYTYPE iType = GetDayType(i);
+                            var iType = GetDayType(i);
                             if ((iType & DAYTYPE.WORKDAY) != DAYTYPE.NONE)
                             {
                                 ptr = ref aiOKCount[7];
@@ -1211,7 +1211,7 @@ namespace GVDEditor.Tools
                         ref var ptr = ref aiBadCount[7];
                         if (_specDays)
                         {
-                            DAYTYPE iType2 = GetDayType(i);
+                            var iType2 = GetDayType(i);
                             if ((iType2 & DAYTYPE.WORKDAY) != DAYTYPE.NONE)
                             {
                                 ptr = ref aiBadCount[7];
@@ -1361,7 +1361,7 @@ namespace GVDEditor.Tools
 
         private static bool AllSet(IReadOnlyList<int> aiCount)
         {
-            DAYTYPE iDayType = GetDayType(aiCount);
+            var iDayType = GetDayType(aiCount);
             return (iDayType & DAYTYPE.ALL1) == DAYTYPE.ALL1 || (iDayType & DAYTYPE.ALL2) == DAYTYPE.ALL2;
         }
 
@@ -1617,7 +1617,7 @@ namespace GVDEditor.Tools
 
         private string FormatDay(int iDay)
         {
-            DateTime dtDate = DateFrom.AddDays(iDay);
+            var dtDate = DateFrom.AddDays(iDay);
             var s = MsgMonth(dtDate.Month) + ".";
             if (!DateUnique(dtDate)) s += Conversions.ToString(dtDate.Year);
             if (!string.IsNullOrEmpty(_lastMonth) && Operators.CompareString(_lastMonth, s, false) == 0)
@@ -1826,7 +1826,7 @@ namespace GVDEditor.Tools
         {
             if (_parsedData.Count == 0)
             {
-                DateTime dtFrom = DateFrom;
+                var dtFrom = DateFrom;
                 var dtTo = new DateTime();
                 DAYTYPE iDays = 0;
                 DATELEVEL iDateLevel = 0;
@@ -1837,7 +1837,7 @@ namespace GVDEditor.Tools
             {
                 for (var i = 0; i < _parsedData.Count; i++)
                 {
-                    ParseData parseData = _parsedData[i];
+                    var parseData = _parsedData[i];
                     if (i == 0 && parseData.iLevel == LEVEL.RUNSNOT)
                         for (var j = 0; j <= MaxDay; j++)
                             _bits[j] = true;
@@ -1878,7 +1878,7 @@ namespace GVDEditor.Tools
             {
                 while (i < aiMsg.Length)
                 {
-                    MSG iMsg = aiMsg[i];
+                    var iMsg = aiMsg[i];
                     if (string.Compare(sToken, MsgText(iMsg).Trim(), StringComparison.OrdinalIgnoreCase) != 0)
                     {
                         var s = messagesRegex[(int) iMsg];
@@ -1964,7 +1964,7 @@ namespace GVDEditor.Tools
                     else
                     {
                         s = _text.Substring(_position + sToken.Length);
-                        Match oMatch = Regex.Match(s, "\\.[0-9IXV]+\\.");
+                        var oMatch = Regex.Match(s, "\\.[0-9IXV]+\\.");
                         if (oMatch.Success)
                             s = oMatch.Index + oMatch.Value.Length + 4 > s.Length
                                 ? oMatch.Value.Substring(1)
@@ -1976,7 +1976,7 @@ namespace GVDEditor.Tools
                     var j = s.IndexOf('.');
                     if (j >= 0)
                     {
-                        DateTime dtLastDateOrig = dtLastDate;
+                        var dtLastDateOrig = dtLastDate;
                         var iMonth = GetMonth(s.Substring(0, j));
                         var bYearSet = int.TryParse(s.Substring(j + 1), out var iYear) && iYear is >= 2000 and < 2100;
                         if (!bYearSet)
@@ -2120,8 +2120,8 @@ namespace GVDEditor.Tools
 
         private DAYINDEX GetDayIndex(int iDay, int iIsFC)
         {
-            DateTime dtDate = DateFrom.AddDays(iDay);
-            DAYINDEX iIndex = GetDayIndex(dtDate);
+            var dtDate = DateFrom.AddDays(iDay);
+            var iIndex = GetDayIndex(dtDate);
             if (iIsFC == 0 || !_specDays)
                 return iIndex;
             if (iIndex == DAYINDEX.SATURDAY && (iIsFC & 32) != 0)
@@ -2272,7 +2272,7 @@ namespace GVDEditor.Tools
                         if (oRem.to != 0 || oRem.from != 0)
                         {
                             if (Runs)
-                                foreach (DateRemInfo o in aoRuns)
+                                foreach (var o in aoRuns)
                                     if (o.from > to && o.from < oRem.from || o.to > to && o.to < oRem.from)
                                         return false;
 

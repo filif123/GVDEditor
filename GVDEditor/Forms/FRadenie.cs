@@ -38,7 +38,7 @@ namespace GVDEditor.Forms
 
             SelSounds = sounds;
 
-            foreach (Language lang in GlobData.Languages)
+            foreach (var lang in GlobData.Languages)
                 AllSoundsLangs.Add(lang,
                     lang.IsBasic ? GlobData.Sounds : RawBankReader.ReadFyzZvukFile(GlobData.RAWBANKDir, lang));
 
@@ -47,7 +47,7 @@ namespace GVDEditor.Forms
             listAllSounds.DataSource = SoundInDir;
             listRadenie.DataSource = SelectedSounds;
 
-            foreach (FyzZvuk sound in sounds) SelectedSounds.Add(sound);
+            foreach (var sound in sounds) SelectedSounds.Add(sound);
 
             cbSoundDir.DataSource = FyzZvukDirType.GetValues();
             cbLanguage.DataSource = GlobData.Languages;
@@ -74,7 +74,7 @@ namespace GVDEditor.Forms
             {
                 var list = new List<FyzZvuk>(AllSoundsLangs[(Language) cbLanguage.SelectedItem]);
                 SoundInDir = new BindingList<FyzZvuk>();
-                foreach (FyzZvuk zvuk in list)
+                foreach (var zvuk in list)
                     if (zvuk.Dir.DirType.Equals(cbSoundDir.SelectedItem))
                         SoundInDir.Add(zvuk);
 
@@ -88,7 +88,7 @@ namespace GVDEditor.Forms
             {
                 var list = new List<FyzZvuk>(AllSoundsLangs[(Language) cbLanguage.SelectedItem]);
                 SoundInDir = new BindingList<FyzZvuk>();
-                foreach (FyzZvuk zvuk in list)
+                foreach (var zvuk in list)
                     if (zvuk.Dir.DirType.Equals(cbSoundDir.SelectedItem))
                         SoundInDir.Add(zvuk);
                 listAllSounds.DataSource = SoundInDir;
@@ -132,7 +132,7 @@ namespace GVDEditor.Forms
             if (listRadenie.SelectedIndex != -1)
             {
                 var sel = listRadenie.SelectedIndex;
-                FyzZvuk sound = SelectedSounds[sel];
+                var sound = SelectedSounds[sel];
 
                 if (sel - 1 >= 0)
                 {
@@ -148,7 +148,7 @@ namespace GVDEditor.Forms
             if (listRadenie.SelectedIndex != -1)
             {
                 var sel = listRadenie.SelectedIndex;
-                FyzZvuk sound = SelectedSounds[sel];
+                var sound = SelectedSounds[sel];
 
                 if (sel + 1 < SelectedSounds.Count)
                 {
@@ -162,7 +162,7 @@ namespace GVDEditor.Forms
         private void SelectedSounds_ListChanged(object sender, ListChangedEventArgs e)
         {
             var sb = new StringBuilder();
-            foreach (FyzZvuk zvuk in SelectedSounds) sb.Append(zvuk.Text + " ");
+            foreach (var zvuk in SelectedSounds) sb.Append(zvuk.Text + " ");
 
             tbTextRadenie.Text = sb.ToString().Trim();
         }
@@ -180,7 +180,7 @@ namespace GVDEditor.Forms
 
         private void listRadenie_DragDrop(object sender, DragEventArgs e)
         {
-            Point point = listRadenie.PointToClient(new Point(e.X, e.Y));
+            var point = listRadenie.PointToClient(new Point(e.X, e.Y));
             var index = listRadenie.IndexFromPoint(point);
             if (index < 0) index = listRadenie.Items.Count - 1;
             object data = e.Data.GetData(typeof(FyzZvuk));
@@ -203,7 +203,7 @@ namespace GVDEditor.Forms
         {
             if (e.ListItem is FyzZvuk zvuk)
             {
-                FyzZvukDirType type = zvuk.Dir.DirType;
+                var type = zvuk.Dir.DirType;
                 if (
                     type == FyzZvukDirType.K1 ||
                     type == FyzZvukDirType.K2 ||
@@ -264,7 +264,7 @@ namespace GVDEditor.Forms
         {
             var soundsS = new List<string>();
 
-            foreach (FyzZvuk fyzZvuk in SelectedSounds)
+            foreach (var fyzZvuk in SelectedSounds)
                 soundsS.Add(GlobData.RAWBANKDir + "\\" + fyzZvuk.Language.RelativePath + fyzZvuk.Dir.RelativePath + fyzZvuk.FileName);
 
             var player = new WAVPlayer(soundsS.ToArray(), GlobData.Config.PlayerWordPause);

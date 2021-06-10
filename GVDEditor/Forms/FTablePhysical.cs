@@ -69,7 +69,7 @@ namespace GVDEditor.Forms
 
         private void bSave_Click(object sender, EventArgs e)
         {
-            TablePhysical table = copy ? new TablePhysical() : ThisTable;
+            var table = copy ? new TablePhysical() : ThisTable;
 
             if (string.IsNullOrEmpty(tbKey.Text) || string.IsNullOrEmpty(tbName.Text))
             {
@@ -78,7 +78,7 @@ namespace GVDEditor.Forms
                 return;
             }
 
-            foreach (TablePhysical t in FLocalSettings.TPhysicals)
+            foreach (var t in FLocalSettings.TPhysicals)
                 if (t.Key == tbKey.Text && table != t)
                 {
                     Utils.ShowError(Resources.Tables_Zadaný_kľúč_tabule_už_existuje);

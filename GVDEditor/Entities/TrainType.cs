@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using GVDEditor.Tools;
 
 namespace GVDEditor.Entities
 {
     /// <summary>
     ///     Reprezentuje typ vlaku
     /// </summary>
-    public sealed class TrainType
+    public sealed class TrainType : IFixable
     {
         /// <summary>
         ///     Konstruktor pre definovanie predvoleneho typu vlaku

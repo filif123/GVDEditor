@@ -5,7 +5,7 @@ namespace GVDEditor.Entities
     /// <summary>
     ///     Definuje katalogovu tabulu
     /// </summary>
-    public sealed class TableCatalog
+    public sealed class TableCatalog : ITable
     {
         /// <summary>
         ///     Konstruktor

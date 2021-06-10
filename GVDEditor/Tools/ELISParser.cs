@@ -55,7 +55,7 @@ namespace GVDEditor.Tools
                     var train = new Train();
 
                     //typ vlaku
-                    foreach (TrainType type in trainTypes.Where(type => row[0] == type.Key)) train.Type = type;
+                    foreach (var type in trainTypes.Where(type => row[0] == type.Key)) train.Type = type;
                     if (train.Type == null) throw new ArgumentException($"Neexistujúci typ vlaku {row[0]}");
 
                     //cislo vlaku
@@ -111,7 +111,7 @@ namespace GVDEditor.Tools
                         {
                             thisst = true;
 
-                            if (Utils.TryParseTime(rowsts[count2 - 3], out DateTime prichod)) 
+                            if (Utils.TryParseTime(rowsts[count2 - 3], out var prichod)) 
                                 train.Arrival = prichod;
 
                             try
@@ -137,8 +137,8 @@ namespace GVDEditor.Tools
                     }
 
                     //nastavenie vychdzej/konecnej stanice
-                    Station firstZo = train.StaniceZoSmeru.FirstOrDefault();
-                    Station lastDo = train.StaniceDoSmeru.LastOrDefault();
+                    var firstZo = train.StaniceZoSmeru.FirstOrDefault();
+                    var lastDo = train.StaniceDoSmeru.LastOrDefault();
                     if (firstZo != null)
                     {
                         firstZo.IsInShortReport = true;
@@ -248,14 +248,14 @@ namespace GVDEditor.Tools
 
             for (var i = 0; i < trains.Count; i++)
             {
-                Train t1 = trains[i];
+                var t1 = trains[i];
                 if (t1.Variant != -2) continue;
 
                 var variants = trains.Where((t2, j) => Train.IsSameVariant(t1, t2) && i != j).ToList();
 
                 variants.Add(t1);
 
-                Train main = Train.FindMainVariant(variants, out var pos);
+                var main = Train.FindMainVariant(variants, out var pos);
                 if (main != null)
                 {
                     main.Variant = 1;
@@ -264,7 +264,7 @@ namespace GVDEditor.Tools
                     for (var k = 0; k < variants.Count; k++)
                         if (k != pos)
                         {
-                            Train var = variants[k];
+                            var var = variants[k];
                             var.DateremText = rem.TxtNot(main.DateremText);
                             var.Variant = varID;
                             varID++;

@@ -49,8 +49,8 @@ namespace GVDEditor.Forms
         {
             var gvd = new GVDInfo();
 
-            DateTime odD = dtpDataOd.Value.Date;
-            DateTime doD = dtpDataDo.Value.Date;
+            var odD = dtpDataOd.Value.Date;
+            var doD = dtpDataDo.Value.Date;
             if (doD.CompareTo(odD) <= 0)
             {
                 Utils.ShowError(Resources.FNewGrafikon_Čas_konca_platnosti_dát_má_byť_neskôr_ako_začiatok_platnosti);
@@ -58,8 +58,8 @@ namespace GVDEditor.Forms
                 return;
             }
 
-            DateTime odG = dtpDataOd.Value.Date;
-            DateTime doG = dtpDataDo.Value.Date;
+            var odG = dtpDataOd.Value.Date;
+            var doG = dtpDataDo.Value.Date;
             if (doG.CompareTo(odG) <= 0)
             {
                 Utils.ShowError(Resources.FNewGrafikon_Čas_konca_platnosti_grafikonu_má_byť_neskôr_ako_začiatok_platnosti);
@@ -79,7 +79,7 @@ namespace GVDEditor.Forms
                     return;
                 }
 
-                foreach (Station stanica in GlobData.Stations)
+                foreach (var stanica in GlobData.Stations)
                     if (stanica.ID == id.ToString())
                     {
                         Utils.ShowError(Resources.FNewGrafikon_Zadané_ID_vlastnej_stanice_už_patrí_inej_stanici);
@@ -129,7 +129,7 @@ namespace GVDEditor.Forms
                 var o = false;
                 var interval = new Interval(odG, doG);
 
-                foreach (GVDDirectory obd in FMain.ObdobiaList)
+                foreach (var obd in FMain.ObdobiaList)
                 {
                     var compare = new Interval(obd.GVD.StartValidTimeTable, obd.GVD.EndValidTimeTable);
 
@@ -145,7 +145,7 @@ namespace GVDEditor.Forms
             }
             else
             {
-                foreach (GVDDirectory obd in FMain.ObdobiaList)
+                foreach (var obd in FMain.ObdobiaList)
                     if (obd.GVD.ThisStation.Name == gvd.ThisStation.Name)
                     {
                         Utils.ShowError(Resources.FNewGrafikon_Zadaná_stanica_pre_tento_INISS_už_existuje);
@@ -211,7 +211,7 @@ namespace GVDEditor.Forms
             {
                 cbStationName.DataSource = null;
                 var st = new List<Station>();
-                foreach (Station s in GlobData.Stations)
+                foreach (var s in GlobData.Stations)
                 foreach (var ss in FMain.Stanice)
                     if (ss == s.Name)
                         st.Add(s);
@@ -222,7 +222,7 @@ namespace GVDEditor.Forms
 
         private void bEditColor_Click(object sender, EventArgs e)
         {
-            DialogResult result = colorDialogFarba.ShowDialog();
+            var result = colorDialogFarba.ShowDialog();
             if (result == DialogResult.OK)
             {
                 vybrataFarba = colorDialogFarba.Color;

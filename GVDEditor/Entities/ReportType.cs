@@ -122,12 +122,12 @@ namespace GVDEditor.Entities
         {
             var reports = new List<ChosenReportType>();
 
-            foreach (ReportType reportType in allTypes)
+            foreach (var reportType in allTypes)
             {
                 if (toparse.Contains(reportType.Char.ToUpper()))
                 {
                     var found = false;
-                    foreach (ChosenReportType chosenReportType in reports.Where(chosenReportType => reportType.Equals(chosenReportType.Type)))
+                    foreach (var chosenReportType in reports.Where(chosenReportType => reportType.Equals(chosenReportType.Type)))
                     {
                         chosenReportType.Variants.Add(GlobData.ReportVariants.ElementAtOrDefault(0));
                         found = true;
@@ -144,7 +144,7 @@ namespace GVDEditor.Entities
                 if (toparse.Contains(reportType.Char.ToLower()))
                 {
                     var found = false;
-                    foreach (ChosenReportType chosenReportType in reports.Where(chosenReportType => reportType.Equals(chosenReportType.Type)))
+                    foreach (var chosenReportType in reports.Where(chosenReportType => reportType.Equals(chosenReportType.Type)))
                     {
                         chosenReportType.Variants.Add(GlobData.ReportVariants.ElementAtOrDefault(1));
                         found = true;

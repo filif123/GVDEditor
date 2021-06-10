@@ -200,8 +200,8 @@ namespace GVDEditor.Tools
         public static Color ParseHEX(string hex)
         {
             var replaced = hex.Replace("0x", "#");
-            Color color = ColorTranslator.FromHtml(replaced);
-            Color newColor = Color.FromArgb(color.B, color.G, color.R);
+            var color = ColorTranslator.FromHtml(replaced);
+            var newColor = Color.FromArgb(color.B, color.G, color.R);
             return newColor;
         }
 
@@ -369,7 +369,7 @@ namespace GVDEditor.Tools
         /// <returns></returns>
         public static bool ValidateShortcut(Keys keys)
         {
-            Array values = Enum.GetValues(typeof(Shortcut));
+            var values = Enum.GetValues(typeof(Shortcut));
             return values.Cast<object>().Any(val => (int) val == (int) keys);
         }
 
@@ -405,7 +405,7 @@ namespace GVDEditor.Tools
 
             foreach (var c in normalizedString)
             {
-                UnicodeCategory unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
                 if (unicodeCategory != UnicodeCategory.NonSpacingMark) stringBuilder.Append(c);
             }
 

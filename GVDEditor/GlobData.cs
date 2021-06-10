@@ -96,7 +96,7 @@ namespace GVDEditor
             INISSExeFiles = new List<string>();
             var di = new DirectoryInfo(INISSDir);
             FileInfo[] subFiles = di.GetFiles("*.exe");
-            foreach (FileInfo file in subFiles)
+            foreach (var file in subFiles)
             {
                 INISSExeFiles.Add(file.Name);
             }

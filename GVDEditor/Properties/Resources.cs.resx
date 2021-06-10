@@ -499,4 +499,13 @@ Mám ji nuceně vypnout? </value>
   <data name="FAppSettings_Zmeny_sa_prejavia_po_reštarte_programu" xml:space="preserve">
     <value>Změny se projeví po restartu programu.</value>
   </data>
+  <data name="FTableCatalog_Tabula_ELEN_moze_mat_max_poziciu_512" xml:space="preserve">
+    <value>Tabule ELEN může mít max. pozici 512.</value>
+  </data>
+  <data name="FTableCatalog_Definované_stĺpce_nie_sú_zotriedené_podľa_zobrazovaného_riadka_záznamu" xml:space="preserve">
+    <value>Definované sloupce nejsou setříděny podle zobrazovaného řádku záznamu: "{0}" - Line: {1} -&gt; "{2}" - Line: {3}</value>
+  </data>
+  <data name="FTableCatalog_Definované_stĺpce_nie_sú_zotriedené_podľa_pozície" xml:space="preserve">
+    <value>Definované sloupce nejsou setříděny podle pozice: "{0}" - End: {1} -&gt; "{2}" - End: {3}</value>
+  </data>
 </root>

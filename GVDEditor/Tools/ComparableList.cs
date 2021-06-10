@@ -20,7 +20,7 @@ namespace GVDEditor.Tools
             var hash = 43;
             unchecked
             {
-                foreach (T item in this) hash = 19 * hash + item.GetHashCode();
+                foreach (var item in this) hash = 19 * hash + item.GetHashCode();
             }
 
             return hash;

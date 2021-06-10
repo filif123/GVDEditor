@@ -62,14 +62,14 @@ namespace GVDEditor.Forms
 
             OrderedItems.Clear();
 
-            foreach (TableViewTypeTab tab in ItemsTypeTabs)
+            foreach (var tab in ItemsTypeTabs)
                 if (tab.ViewType == cbViewType.SelectedItem as TableViewType)
                 {
                     nudTypeCountLines.Value = int.Parse(tab.CountLinesRecord);
                     foreach (TableTypeModeItem item in tab)
                         if (item.ViewMode == cbViewMode.SelectedItem as TableViewMode)
                             foreach (string s in item)
-                            foreach (TableItem i in AllItems)
+                            foreach (var i in AllItems)
                                 if (i.Key == s)
                                     OrderedItems.Add(i);
                 }
@@ -84,14 +84,14 @@ namespace GVDEditor.Forms
 
             OrderedItems.Clear();
 
-            foreach (TableViewTypeTab tab in ItemsTypeTabs)
+            foreach (var tab in ItemsTypeTabs)
                 if (tab.ViewType == cbViewType.SelectedItem as TableViewType)
                 {
                     nudTypeCountLines.Value = int.Parse(tab.CountLinesRecord);
                     foreach (TableTypeModeItem item in tab)
                         if (item.ViewMode == cbViewMode.SelectedItem as TableViewMode)
                             foreach (string s in item)
-                            foreach (TableItem i in AllItems)
+                            foreach (var i in AllItems)
                                 if (i.Key == s)
                                     OrderedItems.Add(i);
                 }
@@ -123,7 +123,7 @@ namespace GVDEditor.Forms
         private void bSetForAll_Click(object sender, EventArgs e)
         {
             var items = new List<string>();
-            foreach (TableItem i in OrderedItems) items.Add(i.Key);
+            foreach (var i in OrderedItems) items.Add(i.Key);
 
             var types = ItemsTypeTabs.Select(tt => tt.ViewType).ToList();
 
@@ -132,7 +132,7 @@ namespace GVDEditor.Forms
                 var indexT = types.IndexOf(selectedType);
                 ItemsTypeTabs[indexT].TypeModeItems.Clear();
 
-                foreach (TableViewMode tableViewMode in TableViewMode.GetValues())
+                foreach (var tableViewMode in TableViewMode.GetValues())
                 {
                     var ti = new TableTypeModeItem {ViewMode = tableViewMode, ItemsKeys = items};
                     ItemsTypeTabs[indexT].TypeModeItems.Add(ti);
@@ -173,7 +173,7 @@ namespace GVDEditor.Forms
 
         private void listOrder_DragDrop(object sender, DragEventArgs e)
         {
-            Point point = listOrder.PointToClient(new Point(e.X, e.Y));
+            var point = listOrder.PointToClient(new Point(e.X, e.Y));
             var index = listOrder.IndexFromPoint(point);
             if (index < 0) index = listOrder.Items.Count - 1;
             var data = (TableItem) e.Data.GetData(typeof(TableItem));
@@ -197,13 +197,13 @@ namespace GVDEditor.Forms
                     ItemsTypeTabs[indexT].CountLinesRecord = decimal.ToInt32(nudTypeCountLines.Value).ToString();
                     ItemsTypeTabs[indexT].TypeModeItems[indexM].ItemsKeys.Clear();
 
-                    foreach (TableItem i in OrderedItems)
+                    foreach (var i in OrderedItems)
                         ItemsTypeTabs[indexT].TypeModeItems[indexM].ItemsKeys.Add(i.Key);
                 }
                 else
                 {
                     var keys = new List<string>();
-                    foreach (TableItem i in OrderedItems) keys.Add(i.Key);
+                    foreach (var i in OrderedItems) keys.Add(i.Key);
 
                     ItemsTypeTabs[indexT].CountLinesRecord = decimal.ToInt32(nudTypeCountLines.Value).ToString();
 
@@ -214,7 +214,7 @@ namespace GVDEditor.Forms
             else
             {
                 var keys = new List<string>();
-                foreach (TableItem i in OrderedItems) keys.Add(i.Key);
+                foreach (var i in OrderedItems) keys.Add(i.Key);
 
                 var tmi = new TableTypeModeItem {ItemsKeys = keys, ViewMode = selectedMode};
 

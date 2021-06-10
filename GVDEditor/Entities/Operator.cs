@@ -46,7 +46,7 @@ namespace GVDEditor.Entities
         /// <returns>dopravcu, ak ho nenájde, vráti <see langword="null" /></returns>
         public static Operator GetOperatorFromId(IEnumerable<Operator> operators, int id)
         {
-            foreach (Operator dopravca in operators)
+            foreach (var dopravca in operators)
                 if (dopravca.Id == id)
                     return dopravca;
 
@@ -61,7 +61,7 @@ namespace GVDEditor.Entities
         /// <returns>dopravcu, ak ho nenájde, vráti <see langword="null" /></returns>
         public static Operator GetOperatorFromName(IEnumerable<Operator> operators, string name)
         {
-            foreach (Operator dopravca in operators)
+            foreach (var dopravca in operators)
                 if (dopravca.Name == name)
                     return dopravca;
 
