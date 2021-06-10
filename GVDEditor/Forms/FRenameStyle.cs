@@ -48,7 +48,7 @@ namespace GVDEditor.Forms
 
             for (var i = 0; i < styles.Count; i++)
             {
-                Style style = styles[i];
+                var style = styles[i];
                 if (style.Name == tbStyleName.Text && i != currentIndex)
                 {
                     Utils.ShowError(Resources.FRenameStyle_Zadaný_názov_štýlu_už_existuje);

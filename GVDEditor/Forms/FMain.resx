@@ -126,20 +126,20 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="tsmiNew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="tsmiNew.Text" xml:space="preserve">
     <value>Nové...</value>
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 6</value>
+    <value>221, 6</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tsmiOpen.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+O</value>
   </data>
   <data name="tsmiOpen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="tsmiOpen.Text" xml:space="preserve">
     <value>Otvoriť...</value>
@@ -172,13 +172,13 @@
 </value>
   </data>
   <data name="tsmiRecent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="tsmiRecent.Text" xml:space="preserve">
     <value>Nedávne</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 6</value>
+    <value>221, 6</value>
   </data>
   <data name="tsmiImportData.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+I</value>
@@ -205,13 +205,13 @@
     <value>False</value>
   </data>
   <data name="tsmiImport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="tsmiImport.Text" xml:space="preserve">
     <value>Importovať</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 6</value>
+    <value>221, 6</value>
   </data>
   <data name="tsmiSave.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -220,10 +220,22 @@
     <value>Ctrl+S</value>
   </data>
   <data name="tsmiSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="tsmiSave.Text" xml:space="preserve">
     <value>Uložiť</value>
+  </data>
+  <data name="toolStripSeparator18.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 6</value>
+  </data>
+  <data name="tsmiAnalyze.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tsmiAnalyze.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="tsmiAnalyze.Text" xml:space="preserve">
+    <value>Analyzovať</value>
   </data>
   <data name="tsmiSubor.Size" type="System.Drawing.Size, System.Drawing">
     <value>62, 24</value>
@@ -301,7 +313,7 @@
     <value />
   </data>
   <data name="tsmiGrafikon.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>211, 26</value>
   </data>
   <data name="tsmiGrafikon.Text" xml:space="preserve">
     <value>Grafikon</value>
@@ -310,7 +322,7 @@
     <value>False</value>
   </data>
   <data name="tsmiStanice.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>211, 26</value>
   </data>
   <data name="tsmiStanice.Text" xml:space="preserve">
     <value>Stanice</value>
@@ -319,19 +331,19 @@
     <value>False</value>
   </data>
   <data name="tsmiDopravcovia.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>211, 26</value>
   </data>
   <data name="tsmiDopravcovia.Text" xml:space="preserve">
     <value>Dopravcovia</value>
   </data>
   <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 6</value>
+    <value>208, 6</value>
   </data>
   <data name="tsmiPlatforms.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="tsmiPlatforms.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>211, 26</value>
   </data>
   <data name="tsmiPlatforms.Text" xml:space="preserve">
     <value>Nástupištia</value>
@@ -340,19 +352,19 @@
     <value>False</value>
   </data>
   <data name="tsmiKolaje.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>211, 26</value>
   </data>
   <data name="tsmiKolaje.Text" xml:space="preserve">
     <value>Koľaje</value>
   </data>
   <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 6</value>
+    <value>208, 6</value>
   </data>
   <data name="tsmiTPhysical.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="tsmiTPhysical.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>211, 26</value>
   </data>
   <data name="tsmiTPhysical.Text" xml:space="preserve">
     <value>Fyzické tabule</value>
@@ -361,7 +373,7 @@
     <value>False</value>
   </data>
   <data name="tsmiTLogical.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>211, 26</value>
   </data>
   <data name="tsmiTLogical.Text" xml:space="preserve">
     <value>Logické tabule</value>
@@ -370,7 +382,7 @@
     <value>False</value>
   </data>
   <data name="tsmiTCatalog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>211, 26</value>
   </data>
   <data name="tsmiTCatalog.Text" xml:space="preserve">
     <value>Katalóg tabúľ</value>
@@ -379,7 +391,7 @@
     <value>False</value>
   </data>
   <data name="tsmiTabTab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>211, 26</value>
   </data>
   <data name="tsmiTabTab.Text" xml:space="preserve">
     <value>TabTab</value>
@@ -388,7 +400,7 @@
     <value>False</value>
   </data>
   <data name="tsmiTTexts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>211, 26</value>
   </data>
   <data name="tsmiTTexts.Text" xml:space="preserve">
     <value>Texty na tabuliach</value>
@@ -397,19 +409,19 @@
     <value>False</value>
   </data>
   <data name="tsmiTFonts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>211, 26</value>
   </data>
   <data name="tsmiTFonts.Text" xml:space="preserve">
     <value>Písma tabúľ</value>
   </data>
   <data name="toolStripSeparator17.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 6</value>
+    <value>208, 6</value>
   </data>
   <data name="tsmiTabTabEditor.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="tsmiTabTabEditor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>224, 26</value>
+    <value>211, 26</value>
   </data>
   <data name="tsmiTabTabEditor.Text" xml:space="preserve">
     <value>Editor TabTab</value>
@@ -928,15 +940,15 @@
   <data name="tssbStartINISS.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAHwSURBVGhD7Zm7S8NQFMaDgrj4GFRw8LkUm+S2UHAQxEkE
-        966OIsU2uS3Ssf4Ljm7i2FFxKtjFQpvetA4izoKTj8lFQesNnCKFQ7VtkuZAfvANSZPzfQeS9txbJSQk
-        pDtM8FKsZqpwSA/ZQGv+gn+yOj9NiOwMnKaD08CvUq+6MI1kMTkKHwefzgZAFr9nwtiBS4IN2gBIt8xL
-        Vs2twKXBBAveoXLqQzZyErk5moBbggUaGpFWM59029xXWoURuDUYYGG7SRfcUq3sBtw+fLCQf+qMfzNh
-        FqMiswhlhgca8J9arRy863V+vFQujEM5/8GC9a70o/wh3IOS/oIH6k+6ZVxrdoZBaX/Aggyk8vaXfNHP
-        2W1uDiy8BQ3hhizzTavzfPSuMAZW3oCau6sH2cgu2LkPYuiVSvFGLgq27oEYeSZnbHfGkoTIT4H94GBG
-        PujFtbEdKe6fatyWjWxClP5AC/ssZ2yPNY1liNQbWEG/RbcBqo+QVjl8JvkSt79G16vpSbAfHMzII5VU
-        21gDW/dAjNwW0VGC7DAH43S8kZ4FC29BQ/QpwgsaoktKuot62FZRrewClBkeaMAuIruxRXdrkfLmrjPm
-        ktxel895U7P4FlwSbDrDE/2LqT3mylXRNJymAxPGlRwBInAYEhISKBTlB9yx0DUdD3zRAAAAAElFTkSu
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAHwSURBVGhD7Zm7S8NQFMaDgrj4GFRw8LkUm+S2UHAQRJwE
+        966OIsU2uS3Ssf4LjoKTY0fFqWAXC2160zqIOAtOPiYXBa03cIoUDtW2SZoD+cE3JE3O9x1I2nNvlZCQ
+        kO4wwUuxmqnCIT1kA635C/7J6vw0IbIzcJoOTgO/Sr3qwjSSxeQofBx8OhsAWfyeCWMHLgk2aAMg3TIv
+        WTW3ApcGEyx4h8qpD9nISeTmaAJuCRZoaERazXzSbXNfaRVG4NZggIXtJl1wS7WyG3D78MFC/qkz/s2E
+        WYyKzCKUGR5owH9qtXLwrtf58VK5MA7l/AcL1rvSj/KHcA9K+gseqD/plnGt2RkGpf0BCzKQyttf8kU/
+        Z7e5ObDwFjSEG7LMN63O89G7whhYeQNq7q4eZCO7YOc+iKFXKsUbuSjYugdi5Jmcsd0ZSxIiPwX2g4MZ
+        +aAX18Z2pLh/qnFbNrIJUfoDLeyznLE91jSWIVJvYAX9Ft0GqD5CWuXwmeRL3P4aXa+mJ8F+cDAjj1RS
+        bWMNbN0DMXJbREcJssMcjNPxRnoWLLwFDdGnCC9oiC4p6S7qYVtFtbILUGZ4oAG7iOzGFt2tRcqbu86Y
+        S3J7XT7nTc3iW3BJsOkMT/QvpvaYK1dF03CaDkwYV3IEiMBhSEhIoFCUH7ti0CXQOzaKAAAAAElFTkSu
         QmCC
 </value>
   </data>
@@ -3707,6 +3719,18 @@
   <data name="&gt;&gt;tsmiSave.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolStripSeparator18.Name" xml:space="preserve">
+    <value>toolStripSeparator18</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator18.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiAnalyze.Name" xml:space="preserve">
+    <value>tsmiAnalyze</value>
+  </data>
+  <data name="&gt;&gt;tsmiAnalyze.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tsmiUpravit.Name" xml:space="preserve">
     <value>tsmiUpravit</value>
   </data>
@@ -3837,6 +3861,18 @@
     <value>tsmiTFonts</value>
   </data>
   <data name="&gt;&gt;tsmiTFonts.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator17.Name" xml:space="preserve">
+    <value>toolStripSeparator17</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiTabTabEditor.Name" xml:space="preserve">
+    <value>tsmiTabTabEditor</value>
+  </data>
+  <data name="&gt;&gt;tsmiTabTabEditor.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tsmiGlobalSettings.Name" xml:space="preserve">
@@ -4618,18 +4654,6 @@
   </data>
   <data name="&gt;&gt;dataGridViewExComboBoxColumn16.Type" xml:space="preserve">
     <value>ExControls.DataGridViewExComboBoxColumn, ExControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator17.Name" xml:space="preserve">
-    <value>toolStripSeparator17</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator17.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tsmiTabTabEditor.Name" xml:space="preserve">
-    <value>tsmiTabTabEditor</value>
-  </data>
-  <data name="&gt;&gt;tsmiTabTabEditor.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FMain</value>

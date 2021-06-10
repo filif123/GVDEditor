@@ -3,7 +3,7 @@
     /// <summary>
     ///     Definuje fyzicku tabulu
     /// </summary>
-    public sealed class TablePhysical
+    public sealed class TablePhysical : ITable
     {
         /// <summary>
         ///     ID tabule

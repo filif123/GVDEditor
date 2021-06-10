@@ -75,7 +75,7 @@ namespace GVDEditor.Forms
             bColumnUp.Text += $@" {Utils.Arrow(Arrow.UP)}";
             bColumnDown.Text += $@" {Utils.Arrow(Arrow.DOWN)}";
 
-            Config config = GlobData.Config;
+            var config = GlobData.Config;
 
             initialization = true;
 
@@ -189,7 +189,7 @@ namespace GVDEditor.Forms
         {
             get
             {
-                CreateParams cp = base.CreateParams;
+                var cp = base.CreateParams;
                 cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
                 return cp;
             }
@@ -242,7 +242,7 @@ namespace GVDEditor.Forms
                 style.TabTabEditorScheme.SelBraces,
                 style.TabTabEditorScheme.SelBraceBad
             });
-            foreach (ColorSetting t in tesettingsTETabTab) tesettingsTETabTabCP.Add(ColorSetting.Copy(t));
+            foreach (var t in tesettingsTETabTab) tesettingsTETabTabCP.Add(ColorSetting.Copy(t));
             itemTETabTab.Settings = tesettingsTETabTabCP;
             categories.Add(itemTETabTab);
 
@@ -255,7 +255,7 @@ namespace GVDEditor.Forms
                 style.TrainTypeColumnScheme.X,
                 style.TrainTypeColumnScheme.Sl
             });
-            foreach (ColorSetting t in tesettingsDesktopTT) tesettingsDesktopTTCP.Add(ColorSetting.Copy(t));
+            foreach (var t in tesettingsDesktopTT) tesettingsDesktopTTCP.Add(ColorSetting.Copy(t));
             itemDeskopTT.Settings = tesettingsDesktopTTCP;
             categories.Add(itemDeskopTT);
 
@@ -271,7 +271,7 @@ namespace GVDEditor.Forms
                 style.ControlsColorScheme.Mark,
                 style.ControlsColorScheme.Highlight
             });
-            foreach (ColorSetting t in tesettingsControls) tesettingsControlsCP.Add(ColorSetting.Copy(t));
+            foreach (var t in tesettingsControls) tesettingsControlsCP.Add(ColorSetting.Copy(t));
             itemControls.Settings = tesettingsControlsCP;
             categories.Add(itemControls);
 
@@ -448,7 +448,7 @@ namespace GVDEditor.Forms
 
             if (showInfoRestart)
             {
-                DialogResult result = 
+                var result = 
                     Utils.ShowQuestion(Resources.FAppSettings_bSave_Click_Niektoré_zmeny_sa_prejavia_až_po_reštarte_programu);
 
                 if (result == DialogResult.Yes) 
@@ -474,7 +474,7 @@ namespace GVDEditor.Forms
             if (!initialization)
                 if (cbDebugModeGUI.SelectedIndex == 2)
                 {
-                    DialogResult result = 
+                    var result = 
                         Utils.ShowWarning(Resources.FAppSettings_cbDebugModeGUI_SelectedIndexChanged_Not_For_All_Users, MessageBoxButtons.YesNo);
 
                     if (result == DialogResult.No) cbDebugModeGUI.SelectedIndex = 0;
@@ -631,7 +631,7 @@ namespace GVDEditor.Forms
         private void bSetBackgroundColor_Click(object sender, EventArgs e)
         {
             colorDialog.Color = actualColorBackground;
-            DialogResult result = colorDialog.ShowDialog();
+            var result = colorDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
                 pbBackgroundColor.BackColor = colorDialog.Color;
@@ -643,7 +643,7 @@ namespace GVDEditor.Forms
         private void bSetForegroundColor_Click(object sender, EventArgs e)
         {
             colorDialog.Color = actualColorForeground;
-            DialogResult result = colorDialog.ShowDialog();
+            var result = colorDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
                 pbForegroundColor.BackColor = colorDialog.Color;
@@ -714,7 +714,7 @@ namespace GVDEditor.Forms
 
         private void bAppFontDefault_Click(object sender, EventArgs e)
         {
-            ControlFonts fonts = Config.SetAppFontsSettingsDefault();
+            var fonts = Config.SetAppFontsSettingsDefault();
             SettingsNaming.NameAppFontSetting(fonts);
 
             dgvAppFonts.DataSource = null;
@@ -753,7 +753,7 @@ namespace GVDEditor.Forms
             {
                 appFontDialog.Font = AppFonts[index].Font;
 
-                DialogResult result = appFontDialog.ShowDialog();
+                var result = appFontDialog.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     AppFonts[index].Font = appFontDialog.Font;
@@ -767,7 +767,7 @@ namespace GVDEditor.Forms
             if (dgvDesktopColums.CurrentRow != null)
             {
                 var sel = dgvDesktopColums.SelectedRows[0].Index;
-                DesktopColumn col = Columns[sel];
+                var col = Columns[sel];
 
                 if (sel - 1 >= 0)
                 {
@@ -784,7 +784,7 @@ namespace GVDEditor.Forms
             if (dgvDesktopColums.CurrentRow != null)
             {
                 var sel = dgvDesktopColums.SelectedRows[0].Index;
-                DesktopColumn col = Columns[sel];
+                var col = Columns[sel];
 
                 if (sel + 1 < Columns.Count)
                 {
@@ -813,7 +813,7 @@ namespace GVDEditor.Forms
 
         private void bAllShortcutsSetDefault_Click(object sender, EventArgs e)
         {
-            AppShortcuts shortcuts = Config.SetShortcutsSettingsDefault();
+            var shortcuts = Config.SetShortcutsSettingsDefault();
             SettingsNaming.NameShortcutCommands(shortcuts);
             dgvShortcuts.DataSource = null;
             Shortcuts = new BindingList<CommandShortcut>(shortcuts.GetValues());
@@ -846,7 +846,7 @@ namespace GVDEditor.Forms
 
         private void SetDefaultShortcut(int index)
         {
-            AppShortcuts shortcuts = Config.SetShortcutsSettingsDefault();
+            var shortcuts = Config.SetShortcutsSettingsDefault();
             SettingsNaming.NameShortcutCommands(shortcuts);
             Shortcuts[index].Shortcut = shortcuts.GetValues()[index].Shortcut;
             Shortcuts.ResetBindings();
@@ -855,7 +855,7 @@ namespace GVDEditor.Forms
 
         private void FAppSettings_KeyDown(object sender, KeyEventArgs e)
         {
-            Keys keys = e.KeyData;
+            var keys = e.KeyData;
 
             if (Utils.ValidateShortcut(keys))
             {
@@ -1015,10 +1015,10 @@ namespace GVDEditor.Forms
             ResetColorShortcutDuplicates();
             for (var i = 0; i < Shortcuts.Count; i++)
             {
-                Shortcut s1 = Shortcuts[i].Shortcut.ThisShortcut;
+                var s1 = Shortcuts[i].Shortcut.ThisShortcut;
                 for (var j = 0; j < Shortcuts.Count; j++)
                 {
-                    Shortcut s2 = Shortcuts[j].Shortcut.ThisShortcut;
+                    var s2 = Shortcuts[j].Shortcut.ThisShortcut;
                     if (i != j && s1 == s2 && (s1 != Shortcut.None || s2 != Shortcut.None))
                     {
                         dgvShortcuts.Rows[i].Cells[1].Style.ForeColor = Color.Red;

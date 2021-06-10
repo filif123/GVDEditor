@@ -82,7 +82,7 @@ namespace GVDEditor
 
             MessageBoxManager.Register();
 
-            foreach (Style style in GlobData.Styles.StyleList)
+            foreach (var style in GlobData.Styles.StyleList)
             {
                 SettingsNaming.NameColorSettings(style);
             }
@@ -95,7 +95,9 @@ namespace GVDEditor
 
             DateRem.Loc = GlobData.Config.DateRemLocate == Config.AppLanguage.CZ ? DateRem.LOCALE.CZECH : DateRem.LOCALE.SLOVAK;
 
-            Application.Run(new FMain());
+            var main = new FMain();
+            TXTParser.Parent = main;
+            Application.Run(main);
 
             Log.AppInfo("Program sa ukončuje\r\n");
         }

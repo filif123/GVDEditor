@@ -90,11 +90,11 @@ namespace GVDEditor.Forms
             {
                 FMain.Trains.Clear();
 
-                foreach (Train train in trains) FMain.Trains.Add(train);
+                foreach (var train in trains) FMain.Trains.Add(train);
             }
             else if (rbAppend.Checked)
             {
-                foreach (Train train in trains) FMain.Trains.Add(train);
+                foreach (var train in trains) FMain.Trains.Add(train);
             }
 
             DialogResult = DialogResult.OK;
@@ -115,7 +115,7 @@ namespace GVDEditor.Forms
                         }
                         else if (selectedColumnTypes[j] == ImportTrainColumnType.Type)
                         {
-                            foreach (TrainType typ in GlobData.TrainsTypes)
+                            foreach (var typ in GlobData.TrainsTypes)
                                 if (data == typ.Key)
                                     train.Type = typ;
 
@@ -145,7 +145,7 @@ namespace GVDEditor.Forms
                                     throw new ArgumentException(string.Format(fmtException, data, i + 1, j,
                                         selectedColumnTypes[j], typeof(Operator)));
 
-                                Operator oper = Operator.GetOperatorFromId(GlobData.Operators, num);
+                                var oper = Operator.GetOperatorFromId(GlobData.Operators, num);
 
                                 if (oper == null)
                                     throw new ArgumentException(string.Format(fmtException, data, i + 1, j,
@@ -162,7 +162,7 @@ namespace GVDEditor.Forms
                             }
                             else
                             {
-                                Operator oper = Operator.GetOperatorFromName(GlobData.Operators, data);
+                                var oper = Operator.GetOperatorFromName(GlobData.Operators, data);
 
                                 if (oper == null)
                                     throw new ArgumentException(string.Format(fmtException, data, i + 1, j,
@@ -251,10 +251,10 @@ namespace GVDEditor.Forms
 
                             var stationsS = Station.GetStationsFromIDListString(dataS);
 
-                            foreach (Station stZo in train.StaniceZoSmeru.Where(stZo => stationsS.Contains(stZo)))
+                            foreach (var stZo in train.StaniceZoSmeru.Where(stZo => stationsS.Contains(stZo)))
                                 stZo.IsInShortReport = true;
 
-                            foreach (Station stDo in train.StaniceDoSmeru.Where(stDo => stationsS.Contains(stDo)))
+                            foreach (var stDo in train.StaniceDoSmeru.Where(stDo => stationsS.Contains(stDo)))
                                 stDo.IsInShortReport = true;
                         }
 
@@ -265,10 +265,10 @@ namespace GVDEditor.Forms
 
                             var stationsL = Station.GetStationsFromIDListString(dataL);
 
-                            foreach (Station stZo in train.StaniceZoSmeru.Where(stZo => stationsL.Contains(stZo)))
+                            foreach (var stZo in train.StaniceZoSmeru.Where(stZo => stationsL.Contains(stZo)))
                                 stZo.IsInLongReport = true;
 
-                            foreach (Station stDo in train.StaniceDoSmeru.Where(stDo => stationsL.Contains(stDo)))
+                            foreach (var stDo in train.StaniceDoSmeru.Where(stDo => stationsL.Contains(stDo)))
                                 stDo.IsInLongReport = true;
                         }
 
@@ -323,10 +323,10 @@ namespace GVDEditor.Forms
                                                             exception.Message);
                             }
 
-                            foreach (Station stZo in train.StaniceZoSmeru.Where(stZo => stationsS.Contains(stZo)))
+                            foreach (var stZo in train.StaniceZoSmeru.Where(stZo => stationsS.Contains(stZo)))
                                 stZo.IsInShortReport = true;
 
-                            foreach (Station stDo in train.StaniceDoSmeru.Where(stDo => stationsS.Contains(stDo)))
+                            foreach (var stDo in train.StaniceDoSmeru.Where(stDo => stationsS.Contains(stDo)))
                                 stDo.IsInShortReport = true;
                         }
 
@@ -337,10 +337,10 @@ namespace GVDEditor.Forms
 
                             var stationsL = Station.GetStationsFromIDListString(dataL);
 
-                            foreach (Station stZo in train.StaniceZoSmeru.Where(stZo => stationsL.Contains(stZo)))
+                            foreach (var stZo in train.StaniceZoSmeru.Where(stZo => stationsL.Contains(stZo)))
                                 stZo.IsInLongReport = true;
 
-                            foreach (Station stDo in train.StaniceDoSmeru.Where(stDo => stationsL.Contains(stDo)))
+                            foreach (var stDo in train.StaniceDoSmeru.Where(stDo => stationsL.Contains(stDo)))
                                 stDo.IsInLongReport = true;
                         }
 
@@ -351,10 +351,10 @@ namespace GVDEditor.Forms
 
                             var stationsS = Station.GetStationsFromIDListString(dataS);
 
-                            foreach (Station stZo in train.StaniceZoSmeru.Where(stZo => stationsS.Contains(stZo)))
+                            foreach (var stZo in train.StaniceZoSmeru.Where(stZo => stationsS.Contains(stZo)))
                                 stZo.IsInShortReport = true;
 
-                            foreach (Station stDo in train.StaniceDoSmeru.Where(stDo => stationsS.Contains(stDo)))
+                            foreach (var stDo in train.StaniceDoSmeru.Where(stDo => stationsS.Contains(stDo)))
                                 stDo.IsInShortReport = true;
                         }
 
@@ -365,7 +365,7 @@ namespace GVDEditor.Forms
                         var index = selectedColumnTypes.IndexOf(ImportTrainColumnType.Routing);
                         var data = DataTable.Rows[i][index].ToString();
 
-                        if (!Routing.TryParse(data, out Routing routing))
+                        if (!Routing.TryParse(data, out var routing))
                             throw new ArgumentException(string.Format(fmtException, data, i + 1, index,
                                 selectedColumnTypes[index], typeof(Routing)));
 
@@ -392,11 +392,11 @@ namespace GVDEditor.Forms
 
                     if (train.Routing == Routing.Prechadzajuci)
                     {
-                        if (!Utils.TryParseTime(dataPrichod, out DateTime timePrichod))
+                        if (!Utils.TryParseTime(dataPrichod, out var timePrichod))
                             throw new ArgumentException(string.Format(fmtException, dataPrichod, i + 1, iPrichod,
                                 selectedColumnTypes[iPrichod], typeof(DateTime)));
 
-                        if (!Utils.TryParseTime(dataOdchod, out DateTime timeOdchod))
+                        if (!Utils.TryParseTime(dataOdchod, out var timeOdchod))
                             throw new ArgumentException(string.Format(fmtException, dataOdchod, i + 1, iOdchod,
                                 selectedColumnTypes[iOdchod], typeof(DateTime)));
 
@@ -405,7 +405,7 @@ namespace GVDEditor.Forms
                     }
                     else if (train.Routing == Routing.Vychadzajuci)
                     {
-                        if (!Utils.TryParseTime(dataOdchod, out DateTime timeOdchod))
+                        if (!Utils.TryParseTime(dataOdchod, out var timeOdchod))
                             throw new ArgumentException(string.Format(fmtException, dataOdchod, i + 1, iOdchod,
                                 selectedColumnTypes[iOdchod], typeof(DateTime)));
 
@@ -413,7 +413,7 @@ namespace GVDEditor.Forms
                     }
                     else
                     {
-                        if (!Utils.TryParseTime(dataPrichod, out DateTime timePrichod))
+                        if (!Utils.TryParseTime(dataPrichod, out var timePrichod))
                             throw new ArgumentException(string.Format(fmtException, dataPrichod, i + 1, iPrichod,
                                 selectedColumnTypes[iPrichod], typeof(DateTime)));
 
@@ -425,7 +425,7 @@ namespace GVDEditor.Forms
                         var index = selectedColumnTypes.IndexOf(ImportTrainColumnType.PlatnostOd);
                         var data = DataTable.Rows[i][index].ToString();
 
-                        if (!Utils.TryParseDateAlts(data, out DateTime date))
+                        if (!Utils.TryParseDateAlts(data, out var date))
                             throw new ArgumentException(string.Format(fmtException, data, i + 1, index, selectedColumnTypes[index], typeof(DateTime)));
 
                         train.ZaciatokPlatnosti = date;
@@ -436,7 +436,7 @@ namespace GVDEditor.Forms
                         var index = selectedColumnTypes.IndexOf(ImportTrainColumnType.PlatnostDo);
                         var data = DataTable.Rows[i][index].ToString();
 
-                        if (!Utils.TryParseDateAlts(data, out DateTime date))
+                        if (!Utils.TryParseDateAlts(data, out var date))
                             throw new ArgumentException(string.Format(fmtException, data, i + 1, index, selectedColumnTypes[index], typeof(DateTime)));
 
                         train.KoniecPlatnosti = date;
@@ -512,7 +512,7 @@ namespace GVDEditor.Forms
 
         private void bCSV_Click(object sender, EventArgs e)
         {
-            DialogResult result = ofDialogCSV.ShowDialog();
+            var result = ofDialogCSV.ShowDialog();
 
             if (result == DialogResult.Cancel) return;
 
@@ -531,7 +531,7 @@ namespace GVDEditor.Forms
 
         private void bXLS_Click(object sender, EventArgs e)
         {
-            DialogResult result = ofDialogXLS.ShowDialog();
+            var result = ofDialogXLS.ShowDialog();
 
             if (result == DialogResult.Cancel) return;
 
@@ -582,7 +582,7 @@ namespace GVDEditor.Forms
 
                     for (var i = 0; i < dgvData.Columns.Count; i++)
                     {
-                        ImportTrainColumnType type = ImportTrainColumnType.ParseColumnName((string) firstRow[i]);
+                        var type = ImportTrainColumnType.ParseColumnName((string) firstRow[i]);
                         dgvData.Columns[i].HeaderText = type.ColumnName;
                         selectedColumnTypes.Add(type);
                     }
@@ -601,7 +601,7 @@ namespace GVDEditor.Forms
                             selectedColumnTypes.Add(ImportTrainColumnType.None);
                         }
 
-                        DataRow row = DataTable.NewRow();
+                        var row = DataTable.NewRow();
                         row.ItemArray = firstRow;
                         DataTable.Rows.InsertAt(row, 0);
                     }
@@ -614,10 +614,10 @@ namespace GVDEditor.Forms
             var index = e.ColumnIndex;
 
             var fcts = new FColumnTypeSelect();
-            DialogResult result = fcts.ShowDialog();
+            var result = fcts.ShowDialog();
             if (result == DialogResult.OK)
             {
-                ImportTrainColumnType type = fcts.SelectedType;
+                var type = fcts.SelectedType;
                 selectedColumnTypes[index] = fcts.SelectedType;
 
                 dgvData.Columns[index].HeaderText = type.ColumnName;
@@ -646,7 +646,7 @@ namespace GVDEditor.Forms
 
             for (var i = cboxFirstHeader.Checked ? 1 : 0; i < reader.RowCount; i++)
             {
-                DataRow row = DataTable.NewRow();
+                var row = DataTable.NewRow();
                 for (var j = 0; j < reader.ColumnCount; j++) row[j] = reader[i, j];
                 DataTable.Rows.Add(row);
             }
@@ -658,7 +658,7 @@ namespace GVDEditor.Forms
 
             for (var i = 0; i < dgvData.Columns.Count; i++)
             {
-                DataGridViewColumn column = dgvData.Columns[i];
+                var column = dgvData.Columns[i];
                 column.HeaderText = DataTable.Columns[i].Caption;
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
                 column.AutoSizeMode = i == dgvData.Columns.Count - 1
@@ -669,7 +669,7 @@ namespace GVDEditor.Forms
             for (var i = 0; i < dgvData.Columns.Count; i++)
                 if (i != dgvData.Columns.Count - 1)
                 {
-                    DataGridViewColumn column = dgvData.Columns[i];
+                    var column = dgvData.Columns[i];
 
                     var widthCol = column.Width;
                     column.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;

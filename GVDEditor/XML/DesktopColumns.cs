@@ -104,7 +104,7 @@ namespace GVDEditor.XML
             for (var j = 0; j < count - i - 1; j++)
                 if (order[j].Order > order[j + 1].Order)
                 {
-                    DesktopColumn temp = order[j];
+                    var temp = order[j];
                     order[j] = order[j + 1];
                     order[j + 1] = temp;
                 }

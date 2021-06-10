@@ -11,7 +11,7 @@ namespace GVDEditor.Tools
     {
         public static List<string> GetRecentDirs()
         {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{Application.ProductName}");
+            var key = Registry.CurrentUser.OpenSubKey($"SOFTWARE\\{Application.ProductName}");
             var dirs = new HashSet<string>();
 
             if (key?.GetValue("RecentDirs") != null)
@@ -29,7 +29,7 @@ namespace GVDEditor.Tools
 
         public static void SetNewRecentDir(string path)
         {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{Application.ProductName}");
+            var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\{Application.ProductName}");
 
             if (key != null)
             {

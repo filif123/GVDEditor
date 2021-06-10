@@ -41,11 +41,11 @@ namespace GVDEditor.Forms
             var vybrane = new HashSet<TablePhysical>();
             var zostava = new List<TableLogicalZostava>();
 
-            foreach (TableRecord record in ThisTable.Records)
+            foreach (var record in ThisTable.Records)
             foreach (TablePosition position in record)
                 if (vybrane.Contains(position.TablePhysical))
                 {
-                    foreach (TableLogicalZostava logicalZostava in zostava.Where(logicalZostava =>
+                    foreach (var logicalZostava in zostava.Where(logicalZostava =>
                         logicalZostava.Table.Equals(position.TablePhysical)))
                         logicalZostava.EndRow = position.Position + 1;
                 }
@@ -76,7 +76,7 @@ namespace GVDEditor.Forms
 
         private void bSave_Click(object sender, EventArgs e)
         {
-            TableLogical table = copy ? new TableLogical() : ThisTable;
+            var table = copy ? new TableLogical() : ThisTable;
 
             if (string.IsNullOrEmpty(tbName.Text) || string.IsNullOrEmpty(tbKey.Text))
             {
@@ -85,7 +85,7 @@ namespace GVDEditor.Forms
                 return;
             }
 
-            foreach (TableLogical t in FLocalSettings.TLogicals)
+            foreach (var t in FLocalSettings.TLogicals)
                 if (t.Key == tbKey.Text && table != t)
                 {
                     Utils.ShowError(Resources.Tables_Zadaný_kľúč_tabule_už_existuje);
@@ -102,7 +102,7 @@ namespace GVDEditor.Forms
             for (var i = 0; i < nudCountRecords.Value; i++)
             {
                 var positions = new List<TablePosition>();
-                foreach (TableLogicalZostava zostava in TVybrane)
+                foreach (var zostava in TVybrane)
                     if (i >= zostava.StartRow - 1 && i <= zostava.EndRow - 1)
                         positions.Add(new TablePosition
                         {
@@ -133,7 +133,7 @@ namespace GVDEditor.Forms
             {
                 var fyztab = (TablePhysical) listFyzTab.SelectedItem;
                 var found = false;
-                foreach (TableLogicalZostava zostava in TVybrane)
+                foreach (var zostava in TVybrane)
                     if (zostava.Table.Equals(fyztab))
                         found = true;
 
@@ -154,7 +154,7 @@ namespace GVDEditor.Forms
             {
                 var fyztab = (TablePhysical) listFyzTab.SelectedItem;
                 var found = false;
-                foreach (TableLogicalZostava zostava in TVybrane)
+                foreach (var zostava in TVybrane)
                     if (zostava.Table.Equals(fyztab))
                         found = true;
 

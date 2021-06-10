@@ -36,7 +36,7 @@ namespace GVDEditor.Tools
                 soundps.Add(p);
             }
 
-            foreach (SoundPlayer p in soundps)
+            foreach (var p in soundps)
             {
                 p.PlaySync();
                 if (WordPause > 0) Thread.Sleep(WordPause);

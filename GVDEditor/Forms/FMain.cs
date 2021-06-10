@@ -187,8 +187,6 @@ namespace GVDEditor.Forms
 
         private void ProccessData(PathAndGVD pathgvd)
         {
-            //BeginInvoke(new Action(() => { MessageBox.Show(this, "TEST block"); })).AsyncWaitHandle.WaitOne();//TODO test
-
             TXTParser.ReadCustomStations(pathgvd.Path, pathgvd.Gvd);
 
             TXTParser.ReadTables(pathgvd.Path);
@@ -200,7 +198,7 @@ namespace GVDEditor.Forms
             Tracks = new BindingList<Track>(GlobData.Tracks);
 
             var nastupistia = new HashSet<Platform>();
-            foreach (Track kolaj in GlobData.Tracks) 
+            foreach (var kolaj in GlobData.Tracks) 
                 nastupistia.Add(kolaj.Nastupiste);
             GlobData.Platforms = nastupistia.ToList();
 
@@ -208,7 +206,7 @@ namespace GVDEditor.Forms
             InitDruhyReportov();
 
             var allSounds = new List<FyzZvuk>();
-            foreach (Language language in GlobData.LocalLanguages)
+            foreach (var language in GlobData.LocalLanguages)
                 allSounds.AddRange(language.IsBasic ? GlobData.Sounds : RawBankReader.ReadFyzZvukFile(GlobData.RAWBANKDir, language));
 
             try
@@ -249,6 +247,7 @@ namespace GVDEditor.Forms
                 tsbDeleteTrain.Enabled = true;
                 tsbSave.Enabled = true;
                 tsmiSave.Enabled = true;
+                tsmiAnalyze.Enabled = true;
                 tsbStanica.Enabled = true;
                 tsbGlobalSettings.Enabled = true;
                 tsmiUpravit.Enabled = true;
@@ -288,6 +287,7 @@ namespace GVDEditor.Forms
                 tsmiGlobalSettings.Enabled = false;
                 tsmiSave.Enabled = false;
                 tsbSave.Enabled = false;
+                tsmiAnalyze.Enabled = false;
                 tsbAddGVD.Enabled = false;
                 tsmiNew.Enabled = false;
                 tsmiImport.Enabled = false;
@@ -318,7 +318,7 @@ namespace GVDEditor.Forms
             
             void DoSaveInternal()
             {
-                GVDDirectory dir = previousSelectedGVD;
+                var dir = previousSelectedGVD;
 
                 if (trainsChanged || stationsChanged)
                 {
@@ -353,14 +353,20 @@ namespace GVDEditor.Forms
             }
         }
 
+        private void ShowAnalyzeGVD()
+        {
+            var fan = new FAnalyzer(tscbObdobie.SelectedItem as GVDDirectory);
+            fan.ShowDialog();
+        }
+
         private void ShowNewGVD()
         {
             var nsf = new FNewGrafikon();
-            DialogResult result = nsf.ShowDialog();
+            var result = nsf.ShowDialog();
             if (result == DialogResult.OK)
             {
-                GVDInfo gvd = nsf.GvdInfo;
-                DirList dir = nsf.NewDir;
+                var gvd = nsf.GvdInfo;
+                var dir = nsf.NewDir;
 
                 if (Stanice.Count == 0 || ObdobiaList.Count == 0)
                 {
@@ -387,6 +393,7 @@ namespace GVDEditor.Forms
                     tsmiGlobalSettings.Enabled = true;
                     tsmiSave.Enabled = true;
                     tsbSave.Enabled = true;
+                    tsmiAnalyze.Enabled = true;
                     tssbStartINISS.Enabled = true;
                     tsmimStartINISS.Enabled = true;
                     ChangeEnableMenuItemsGSettings(true);
@@ -416,17 +423,17 @@ namespace GVDEditor.Forms
         private void ShowImportData()
         {
             var fid = new FImportData(((GVDDirectory) tscbObdobie.ComboBox.SelectedItem).GVD);
-            DialogResult result = fid.ShowDialog();
+            var result = fid.ShowDialog();
             if (result == DialogResult.OK) Trains.ResetBindings();
         }
 
         private void ShowImportELIS()
         {
             var fimport = new FELISOptions();
-            DialogResult result = fimport.ShowDialog();
+            var result = fimport.ShowDialog();
             if (result == DialogResult.OK)
             {
-                SendData data = fimport.ResultOptions;
+                var data = fimport.ResultOptions;
                 data.GVDInfo = ((GVDDirectory) tscbObdobie.ComboBox.SelectedItem).GVD;
                 data.Track = GlobData.Tracks.FirstOrDefault();
                 data.DefTrains = Trains.ToList();
@@ -468,7 +475,7 @@ namespace GVDEditor.Forms
 
             try
             {
-                GVDInfo gvd = TXTParser.ReadInfoGVD(newDirPath);
+                var gvd = TXTParser.ReadInfoGVD(newDirPath);
                 var dirList = new DirList {DirName = dirname, FullPath = selectedPath};
                 var dgyv = new GVDDirectory(gvd.StartValidTimeTable.Year + "/" + gvd.EndValidTimeTable.Year, dirList, gvd);
 
@@ -495,7 +502,7 @@ namespace GVDEditor.Forms
         private void ShowAppSettings()
         {
             var appSettings = new FAppSettings();
-            DialogResult result = appSettings.ShowDialog();
+            var result = appSettings.ShowDialog();
             if (result == DialogResult.OK)
             {
                 UpdateMainUI();
@@ -504,7 +511,7 @@ namespace GVDEditor.Forms
 
         private void UpdateMainUI()
         {
-            Config.DesktopMenu menu = GlobData.Config.DesktopMenuMode;
+            var menu = GlobData.Config.DesktopMenuMode;
             hlavneMenu.Visible = menu is Config.DesktopMenu.TS_MS or Config.DesktopMenu.MS_ONLY;
             toolMenu.Visible = menu is Config.DesktopMenu.TS_MS or Config.DesktopMenu.TS_ONLY;
             statusStrip.Visible = GlobData.Config.ShowStateRow;
@@ -526,7 +533,7 @@ namespace GVDEditor.Forms
         {
             var dir = (GVDDirectory) tscbObdobie.ComboBox.SelectedItem;
             var svform = new FLocalSettings(dir, startIndex);
-            DialogResult result = svform.ShowDialog();
+            var result = svform.ShowDialog();
             if (result == DialogResult.OK)
             {
                 if (dir.GVD != svform.ThisDir.GVD)
@@ -573,7 +580,7 @@ namespace GVDEditor.Forms
         private void ShowGlobalSettings(int startIndex = -1)
         {
             var gf = new FGlobalSettings(GVDDirs.ToList(), startIndex);
-            DialogResult result = gf.ShowDialog();
+            var result = gf.ShowDialog();
             if (result == DialogResult.OK)
             {
                 var dirlist = gf.Grafikony.Select(gvd => gvd.Dir).ToList();
@@ -591,7 +598,7 @@ namespace GVDEditor.Forms
                 if (GlobData.Audios.Count != 0) TXTParser.WriteAudio(GlobData.Audios);
 
                 removingGVD = true;
-                foreach (GVDDirectory gvd in gf.RemovedGVDs)
+                foreach (var gvd in gf.RemovedGVDs)
                 {
                     if (GVDDirs.Count == 1)
                     {
@@ -620,6 +627,7 @@ namespace GVDEditor.Forms
                         tsmiGlobalSettings.Enabled = false;
                         tsmiSave.Enabled = false;
                         tsbSave.Enabled = false;
+                        tsmiAnalyze.Enabled = false;
                         tscbStanica.Enabled = false;
                         tscbObdobie.Enabled = false;
                         ChangeEnableMenuItemsGSettings(false);
@@ -654,7 +662,7 @@ namespace GVDEditor.Forms
         private void ShowEditTrain(Train train, int row, bool copy = false)
         {
             var eform = new FEditTrain(train, row, ((GVDDirectory) tscbObdobie.ComboBox.SelectedItem).GVD, copy);
-            DialogResult result = eform.ShowDialog();
+            var result = eform.ShowDialog();
             if (result == DialogResult.OK)
             {
                 if (train == null || row == Trains.Count)
@@ -716,7 +724,7 @@ namespace GVDEditor.Forms
         private void ShowStartupINISSSettings()
         {
             var appSettings = new FAppSettings(FAppSettings.STARTUP);
-            DialogResult result = appSettings.ShowDialog();
+            var result = appSettings.ShowDialog();
             if (result == DialogResult.OK)
             {
                 UpdateMainUI();
@@ -748,7 +756,7 @@ namespace GVDEditor.Forms
                 var stanice = new HashSet<string>();
                 var obdobiaList = new List<GVDDirectory>();
                 var dirsInData = TXTParser.ReadDirList();
-                foreach (DirList dir in dirsInData)
+                foreach (var dir in dirsInData)
                 {
                     GVDInfo gvd;
                     if (GlobData.Config.DebugModeGUI == Config.DebugMode.APP_CRASH)
@@ -777,7 +785,7 @@ namespace GVDEditor.Forms
                 foreach (var st in stanice) Stanice.Add(st);
 
                 ObdobiaList.Clear();
-                foreach (GVDDirectory obd in obdobiaList) ObdobiaList.Add(obd);
+                foreach (var obd in obdobiaList) ObdobiaList.Add(obd);
             }
             catch (DirectoryNotFoundException)
             {
@@ -848,6 +856,7 @@ namespace GVDEditor.Forms
                 tsmiGlobalSettings.Enabled = false;
                 tsmiSave.Enabled = false;
                 tsbSave.Enabled = false;
+                tsmiAnalyze.Enabled = false;
                 tscbStanica.Enabled = false;
                 tscbObdobie.Enabled = false;
                 ChangeEnableMenuItemsGSettings(false);
@@ -864,6 +873,7 @@ namespace GVDEditor.Forms
                 tsbDeleteTrain.Enabled = true;
                 tsmiSave.Enabled = true;
                 tsbSave.Enabled = true;
+                tsmiAnalyze.Enabled = true;
                 tsbStanica.Enabled = true;
                 tscbStanica.Enabled = true;
                 tscbObdobie.Enabled = true;
@@ -932,7 +942,7 @@ namespace GVDEditor.Forms
                 }
                 else
                 {
-                    DialogResult result = Utils.ShowQuestion(Resources.FMain_InissStartItemOnClick);
+                    var result = Utils.ShowQuestion(Resources.FMain_InissStartItemOnClick);
                     if (result == DialogResult.Yes)
                     {
                         actualINISSProcess.Kill();
@@ -991,13 +1001,13 @@ namespace GVDEditor.Forms
             {
                 var dirs = new List<GVDDirectory>();
                 var stanica = tscbStanica.ComboBox.SelectedItem.ToString();
-                foreach (GVDDirectory gvdDir in GVDDirs)
+                foreach (var gvdDir in GVDDirs)
                     if (stanica == gvdDir.GVD.ThisStation.Name)
                         dirs.Add(gvdDir);
 
                 ObdobiaList.Clear();
 
-                foreach (GVDDirectory dir in dirs) ObdobiaList.Add(dir);
+                foreach (var dir in dirs) ObdobiaList.Add(dir);
                 
                 if (dirs.Count != 0 && newDir == null)
                 {
@@ -1027,7 +1037,7 @@ namespace GVDEditor.Forms
                 (trainsChanged || tableFontsChanged || tablesChanged || gvdinfoChanged || tracksChanged ||
                  operatorsChanged || stationsChanged))
             {
-                DialogResult dialogResult = MessageBox.Show(Resources.FMain_Save_Changes, Resources.RQuestion,
+                var dialogResult = MessageBox.Show(Resources.FMain_Save_Changes, Resources.RQuestion,
                     MessageBoxButtons.YesNoCancel);
                 switch (dialogResult)
                 {
@@ -1113,7 +1123,7 @@ namespace GVDEditor.Forms
             GlobData.ReportTypesP.Clear();
             GlobData.ReportTypesK.Clear();
 
-            foreach (ReportType reportType in GlobData.ReportTypes)
+            foreach (var reportType in GlobData.ReportTypes)
             {
                 if (reportType.BaseTrain) GlobData.ReportTypesV.Add(reportType);
                 if (reportType.PassThrough) GlobData.ReportTypesP.Add(reportType);
@@ -1136,10 +1146,10 @@ namespace GVDEditor.Forms
             }
         }
 
-        private int CountSelTrainVariants(Train train)
+        private static int CountSelTrainVariants(Train train)
         {
             int count = 0;
-            foreach (Train t in Trains)
+            foreach (var t in Trains)
             {
                 if (t.NumberVariant.Number == train.Number)
                 {
@@ -1246,7 +1256,7 @@ namespace GVDEditor.Forms
             if (dgvTrains.Columns[e.ColumnIndex].Name == "DatumoveObmedzenieText")
             {
                 var value = e.FormattedValue as string;
-                Train thistrain = Trains[e.RowIndex];
+                var thistrain = Trains[e.RowIndex];
                 var dateRemThis = new DateRem(thistrain.ZaciatokPlatnosti, thistrain.KoniecPlatnosti,
                     bInsertMarks: false);
                 try
@@ -1261,19 +1271,19 @@ namespace GVDEditor.Forms
                 }
 
                 int i = 0;
-                foreach (Train train in Trains)
+                foreach (var train in Trains)
                 {
                     if (Train.IsSameVariant(train,thistrain) && i != e.RowIndex)
                         if (train.ZaciatokPlatnosti == thistrain.ZaciatokPlatnosti && train.KoniecPlatnosti == thistrain.KoniecPlatnosti)
                             if (dateRemThis.Overlap(thistrain.DateremText, train.DateremText))
                             {
                                 var obmand = dateRemThis.TxtAnd(train.DateremText, thistrain.DateremText);
-                                DialogResult result = MessageBox.Show(string.Format(Resources.FEditTrain_DateRem_zasahuje_do_ineho_vlaku, train.Type,
+                                var result = MessageBox.Show(string.Format(Resources.FEditTrain_DateRem_zasahuje_do_ineho_vlaku, train.Type,
                                         train.Number, train.Name, obmand), Resources.RWarning, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                                 if (result == DialogResult.Yes)
                                 {
                                     var fDateRemEdit = new FDateRemEdit(train, train.DateremText, thistrain.ZaciatokPlatnosti, thistrain.KoniecPlatnosti);
-                                    DialogResult result2 = fDateRemEdit.ShowDialog();
+                                    var result2 = fDateRemEdit.ShowDialog();
                                     if (result2 == DialogResult.OK) train.DateremText = fDateRemEdit.DateRemEdited;
                                 }
                             }
@@ -1290,6 +1300,8 @@ namespace GVDEditor.Forms
         private void tsmiOpen_Click(object sender, EventArgs e) => ShowOpenDir();
 
         private void tsmiSave_Click(object sender, EventArgs e) => DoSave();
+
+        private void tsmiAnalyze_Click(object sender, EventArgs e) => ShowAnalyzeGVD();
 
         private void tsmimAddTrain_Click(object sender, EventArgs e) => ShowEditTrain(null, Trains.Count);
 
@@ -1333,7 +1345,7 @@ namespace GVDEditor.Forms
 
                     if (Trains[i].Routing == null)
                     {
-                        Train vlak = Trains[i];
+                        var vlak = Trains[i];
                         throw new ArgumentNullException(
                             $"Vlak {vlak.Type} {vlak.NumberVariant} {vlak.Name} nemá definované smerovanie.");
                     }
@@ -1383,7 +1395,7 @@ namespace GVDEditor.Forms
         private static int CountTrainVariants()
         {
             HashSet<(string num, TrainType type, string name)> trains = new HashSet<(string num, TrainType type, string name)>();
-            foreach (Train t in Trains)
+            foreach (var t in Trains)
             {
                 trains.Add((t.Number, t.Type, t.Name));
             }
@@ -1422,7 +1434,7 @@ namespace GVDEditor.Forms
             if (dgvTrains.Columns["typDataGridViewTextBoxColumn"] != null && e.ColumnIndex == dgvTrains.Columns["typDataGridViewTextBoxColumn"].Index)
                 if (e.RowIndex < Trains.Count)
                 {
-                    TrainType type = Trains[e.RowIndex].Type;
+                    var type = Trains[e.RowIndex].Type;
                     if (type.IsCustom)
                     {
                         var stype = type.CategoryTrain.ToUpper();
@@ -1459,13 +1471,13 @@ namespace GVDEditor.Forms
 
         private static void GenerateTableTextWhileSaving(GVDDirectory dir)
         {
-            foreach (TableText ttext in GlobData.TableTexts)
-            foreach (TableTextRealization tableTextRealization in ttext.Realizations)
+            foreach (var ttext in GlobData.TableTexts)
+            foreach (var tableTextRealization in ttext.Realizations)
             {
-                TableItem item = tableTextRealization.Item;
+                var item = tableTextRealization.Item;
                 ttext.Trains.Clear();
 
-                foreach (Train vlak in Trains)
+                foreach (var vlak in Trains)
                 {
                     var tableTrain = new TableTrain {FontId = -1, Train = vlak};
 
@@ -1493,7 +1505,7 @@ namespace GVDEditor.Forms
                         {
                             var staniceDo = new List<Station>();
 
-                            foreach (Station t in vlak.StaniceDoSmeru)
+                            foreach (var t in vlak.StaniceDoSmeru)
                                 if (t.IsInShortReport)
                                     staniceDo.Add(t);
 
@@ -1525,7 +1537,7 @@ namespace GVDEditor.Forms
                         {
                             var staniceZo = new List<Station>();
 
-                            foreach (Station t in vlak.StaniceZoSmeru)
+                            foreach (var t in vlak.StaniceZoSmeru)
                                 if (t.IsInShortReport)
                                     staniceZo.Add(t);
 
@@ -1606,6 +1618,7 @@ namespace GVDEditor.Forms
             tsmiImportData.ShortcutKeys = (Keys) GlobData.Config.Shortcuts.ImportData.Shortcut.ThisShortcut;
             tsmiImportGVD.ShortcutKeys = (Keys) GlobData.Config.Shortcuts.ImportGVD.Shortcut.ThisShortcut;
             tsmiSave.ShortcutKeys = (Keys) GlobData.Config.Shortcuts.Save.Shortcut.ThisShortcut;
+            tsmiAnalyze.ShortcutKeys = (Keys) GlobData.Config.Shortcuts.Analyze.Shortcut.ThisShortcut;
 
             tsmimAddTrain.ShortcutKeys = (Keys) GlobData.Config.Shortcuts.AddTrain.Shortcut.ThisShortcut;
             tsmimEditTrain.ShortcutKeys = (Keys) GlobData.Config.Shortcuts.EditTrain.Shortcut.ThisShortcut;
@@ -1649,9 +1662,9 @@ namespace GVDEditor.Forms
 
             var id = 0;
             var seltrains = new List<Train>();
-            Train dtrain = Trains[index];
+            var dtrain = Trains[index];
 
-            foreach (Train train in Trains)
+            foreach (var train in Trains)
             {
                 if (train.Number == dtrain.Number && string.Equals(train.Name, dtrain.Name) &&
                     Equals(train.Type, dtrain.Type) && index != id) seltrains.Add(train);
@@ -1703,7 +1716,7 @@ namespace GVDEditor.Forms
             if (!error)
             {
                 var imported = (List<Train>) e.Result;
-                foreach (Train train in imported) Trains.Add(train);
+                foreach (var train in imported) Trains.Add(train);
 
                 trainsChanged = true;
                 SetChangesNotSaved();
@@ -1729,7 +1742,7 @@ namespace GVDEditor.Forms
 
         private static void DeleteTTexts(Train vlak)
         {
-            foreach (TableText tt in GlobData.TableTexts)
+            foreach (var tt in GlobData.TableTexts)
             {
                 for (var i = tt.Trains.Count - 1; i >= 0; i--)
                 {
@@ -1781,7 +1794,7 @@ namespace GVDEditor.Forms
         {
             if (actualINISSProcess != null)
             {
-                DialogResult result = Utils.ShowQuestion(Resources.FMain_InissStartItemOnClick);
+                var result = Utils.ShowQuestion(Resources.FMain_InissStartItemOnClick);
                 if (result == DialogResult.Yes)
                 {
                     actualINISSProcess.Kill();
@@ -1800,7 +1813,7 @@ namespace GVDEditor.Forms
         {
             if (actualINISSProcess != null)
             {
-                DialogResult result = Utils.ShowQuestion(Resources.FMain_InissStartItemOnClick);
+                var result = Utils.ShowQuestion(Resources.FMain_InissStartItemOnClick);
                 if (result == DialogResult.Yes)
                 {
                     actualINISSProcess.Kill();
@@ -1877,7 +1890,5 @@ namespace GVDEditor.Forms
             tsmiTypyVlakov.Enabled = enabled;
             tsmiAudio.Enabled = enabled;
         }
-
-        
     }
 }

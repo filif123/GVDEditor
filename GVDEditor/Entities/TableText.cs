@@ -5,7 +5,7 @@ namespace GVDEditor.Entities
     /// <summary>
     ///     Trieda zastesujuca texty na tabuliach
     /// </summary>
-    public sealed class TableText
+    public sealed class TableText : ITable
     {
         /// <summary>
         ///     Kluc typu textu na tabuliach

@@ -34,6 +34,11 @@ namespace GVDEditor.XML
         /// </summary>
         [XmlElement("Save")] public CommandShortcut Save = new(new ShortcutName(Shortcut.CtrlS));
 
+        /// <summary>
+        ///     Skratka pre analyzu grafikonu
+        /// </summary>
+        [XmlElement("Analyze")] public CommandShortcut Analyze = new(new ShortcutName(Shortcut.CtrlShiftA));
+
 
 
         /// <summary>
@@ -201,7 +206,7 @@ namespace GVDEditor.XML
         {
             return new()
             {
-                NewGVD, OpenGVD, ImportData, ImportGVD, Save,
+                NewGVD, OpenGVD, ImportData, ImportGVD, Save, Analyze,
                 AddTrain, EditTrain, DeleteTrains, DuplicateTrain,
                 LocalSettings, GlobalSettings, AppSettings,
                 InfoApp, UpdateNotes, RunINISS, KillINISS, RestartINISS,

@@ -73,6 +73,16 @@ namespace GVDEditor.Properties {
         /// <summary>
         ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap analyze {
+            get {
+                object obj = ResourceManager.GetObject("analyze", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Vyhledává lokalizovaný prostředek typu System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap app_settings {
             get {
                 object obj = ResourceManager.GetObject("app-settings", resourceCulture);
@@ -876,6 +886,25 @@ namespace GVDEditor.Properties {
         }
         
         /// <summary>
+        ///   Vyhledá lokalizovaný řetězec podobný Definované stĺpce nie sú zotriedené podľa pozície: &quot;{0}&quot;-End:{1} -&gt; &quot;{2}&quot;-End:{3}.
+        /// </summary>
+        public static string FTableCatalog_Definované_stĺpce_nie_sú_zotriedené_podľa_pozície {
+            get {
+                return ResourceManager.GetString("FTableCatalog_Definované_stĺpce_nie_sú_zotriedené_podľa_pozície", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Vyhledá lokalizovaný řetězec podobný Definované stĺpce nie sú zotriedené podľa zobrazovaného riadka záznamu: &quot;{0}&quot;-Line:{1} -&gt; &quot;{2}&quot;-Line:{3}.
+        /// </summary>
+        public static string FTableCatalog_Definované_stĺpce_nie_sú_zotriedené_podľa_zobrazovaného_riadka_záznamu {
+            get {
+                return ResourceManager.GetString("FTableCatalog_Definované_stĺpce_nie_sú_zotriedené_podľa_zobrazovaného_riadka_zázn" +
+                        "amu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Vyhledá lokalizovaný řetězec podobný Nie sú vyplnené všetky povinné parametre..
         /// </summary>
         public static string FTableCatalog_Nie_sú_vyplnené_všetky_povinné_parametre {
@@ -909,6 +938,15 @@ namespace GVDEditor.Properties {
         public static string FTableCatalog_ShowWarningDefTab {
             get {
                 return ResourceManager.GetString("FTableCatalog_ShowWarningDefTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Vyhledá lokalizovaný řetězec podobný Tabuľa ELEN môže mať max. pozíciu 512..
+        /// </summary>
+        public static string FTableCatalog_Tabula_ELEN_moze_mat_max_poziciu_512 {
+            get {
+                return ResourceManager.GetString("FTableCatalog_Tabula_ELEN_moze_mat_max_poziciu_512", resourceCulture);
             }
         }
         

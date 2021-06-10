@@ -107,7 +107,7 @@ namespace GVDEditor.Entities
 
             for (var i = 0; i < reportTypes.Count; i++)
                 if (i < dodatok.ChosenReports.Count && dodatok.ChosenReports[i].Type == reportTypes[i])
-                    foreach (ReportVariant variant in reportVariants)
+                    foreach (var variant in reportVariants)
                         nums.Append(dodatok.ChosenReports[i].Variants.Contains(variant) ? '1' : '0');
                 else
                     for (var j = 0; j < reportVariants.Count; j++)

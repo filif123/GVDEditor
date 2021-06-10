@@ -124,6 +124,7 @@ namespace GVDEditor.XML
             shortcuts.ImportGVD.Name = "Importovať grafikon";
             shortcuts.ImportData.Name = "Importovať dáta";
             shortcuts.Save.Name = "Uložiť";
+            shortcuts.Analyze.Name = "Analyzovať grafikon";
 
             shortcuts.AddTrain.Name = "Pridať vlak";
             shortcuts.EditTrain.Name = "Upraviť vlak";

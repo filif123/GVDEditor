@@ -160,7 +160,7 @@ namespace GVDEditor.Tools
                 ObjectFlowControl.CheckForSyncLockOnValueType(Locker);
                 lock (Locker)
                 {
-                    DateTime now = DateTime.Now;
+                    var now = DateTime.Now;
 
                     if (MaxSize > 0)
                         if (File.Exists(FullFilePath))

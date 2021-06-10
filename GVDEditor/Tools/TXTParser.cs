@@ -19,6 +19,8 @@ namespace GVDEditor.Tools
     /// </summary>
     internal static class TXTParser
     {
+        public static Form Parent;
+
         private const string FORMAT_EX = "Chyba v súbore {0} na riadku {1}. ";
         private const string FORMAT_EX_AREA = "{0}: Nezadefinované pole {1}.";
 
@@ -88,7 +90,7 @@ namespace GVDEditor.Tools
             var row = new CSVRow();
             while (true)
             {
-                ReadStartChar status = dirlistF.ReadRow(row);
+                var status = dirlistF.ReadRow(row);
                 if (LineIsEmpty(status))
                 {
                     riadok++;
@@ -130,7 +132,7 @@ namespace GVDEditor.Tools
             var fileDirList = CombinePath(GlobData.DATADir, FILE_DIRLIST);
 
             using var dirlistF = new CSVFileWriter(fileDirList);
-            foreach (DirList dir in dirs)
+            foreach (var dir in dirs)
             {
                 var row = new CSVRow();
                 row.Insert(0, dir.DirName);
@@ -238,7 +240,7 @@ namespace GVDEditor.Tools
             var row = new CSVRow();
             while (true)
             {
-                ReadStartChar status = audioF.ReadRow(row);
+                var status = audioF.ReadRow(row);
                 if (LineIsEmpty(status))
                 {
                     riadok++;
@@ -281,7 +283,7 @@ namespace GVDEditor.Tools
             var fileAudio = CombinePath(GlobData.DATADir, FILE_AUDIO);
 
             using var audioF = new CSVFileWriter(fileAudio);
-            foreach (Audio a in audios)
+            foreach (var a in audios)
             {
                 var row = new CSVRow();
 
@@ -315,7 +317,7 @@ namespace GVDEditor.Tools
             var row = new CSVRow();
             while (true)
             {
-                ReadStartChar status = zpozdeniF.ReadRow(row);
+                var status = zpozdeniF.ReadRow(row);
                 if (LineIsEmpty(status))
                 {
                     riadok++;
@@ -327,7 +329,7 @@ namespace GVDEditor.Tools
                 try
                 {
                     var num = int.Parse(row[0]);
-                    if (num < 5 || num > 480 || num % 5 != 0)
+                    if (num is < 5 or > 480 || num % 5 != 0)
                         throw new FormatException($"Číslo {num} nie je v intervale X >= 5 a zároveň X <= 480 alebo nie je delitelné 5.");
                     meskania.Add(num);
                 }
@@ -396,7 +398,7 @@ namespace GVDEditor.Tools
             var row = new CSVRow();
             while (true)
             {
-                ReadStartChar status = trtypesF.ReadRow(row);
+                var status = trtypesF.ReadRow(row);
                 if (LineIsEmpty(status))
                 {
                     riadok++;
@@ -446,7 +448,7 @@ namespace GVDEditor.Tools
             var fileTrTypes = CombinePath(GlobData.DATADir, FILE_TRTYPES);
 
             using var trtypesF = new CSVFileWriter(fileTrTypes);
-            foreach (TrainType typ in typy)
+            foreach (var typ in typy)
             {
                 var row = new CSVRow();
                 if (typ.IsCustom)
@@ -517,7 +519,7 @@ namespace GVDEditor.Tools
                 var isBasic = NumToBool(ParseIntOrDefault(categoriF.Get(area, "IS_BASIC", false)));
                 var name = categoriF.Get(area, "NAME").ANSItoUTF();
 
-                foreach (Language language in jazykyFromBank)
+                foreach (var language in jazykyFromBank)
                     if (language.Key == key)
                     {
                         language.Name = name;
@@ -612,7 +614,7 @@ namespace GVDEditor.Tools
                 var isBasic = NumToBool(ParseIntOrDefault(categoriF.Get(area, "IS_BASIC", false)));
                 var name = categoriF.Get(area, "NAME").ANSItoUTF();
 
-                foreach (Language lang in GlobData.Languages)
+                foreach (var lang in GlobData.Languages)
                     if (lang.Key == key)
                     {
                         lang.Name = name;
@@ -647,7 +649,7 @@ namespace GVDEditor.Tools
 
             for (var i = 0; i < varianty.Count; i++)
             {
-                ReportVariant variant = varianty[i];
+                var variant = varianty[i];
                 var ti = i + 1;
                 
                 var area = $"VARIANT_{ti.PadZeros(2)}";
@@ -658,7 +660,7 @@ namespace GVDEditor.Tools
 
             for (var i = 0; i < types.Count; i++)
             {
-                ReportType typ = types[i];
+                var typ = types[i];
                 var ti = i + 1;
                 
                 var area = $"TYPE_REPORT_{ti.PadZeros(2)}";
@@ -674,7 +676,7 @@ namespace GVDEditor.Tools
 
             for (var i = 0; i < languages.Count; i++)
             {
-                Language language = languages[i];
+                var language = languages[i];
                 var ti = i + 1;
                 
                 var area = $"LANGUAGE_{ti.PadZeros(2)}";
@@ -717,7 +719,7 @@ namespace GVDEditor.Tools
 
                 while (true)
                 {
-                    ReadStartChar status = export3AF.ReadRow(row);
+                    var status = export3AF.ReadRow(row);
                     if (LineIsEmpty(status))
                     {
                         riadok++;
@@ -734,11 +736,23 @@ namespace GVDEditor.Tools
                             Number = row[1],
                             Name = row[2]
                         };
-                        foreach (TrainType typ in GlobData.TrainsTypes)
+                        foreach (var typ in GlobData.TrainsTypes)
                             if (row[3] == typ.Key)
                                 vlak.Type = typ;
 
-                        if (vlak.Type == null) throw new ArgumentException($"Neexistujúci typ vlaku {row[3]}");
+                        if (vlak.Type == null)
+                        {
+                            string err = $"Neexistujúci typ vlaku {row[3]}";
+                            /*var fix = new Autofix(AutofixOutputType.TRAIN_TYPE, err, GlobData.TrainsTypes, row[3]);
+                            if (fix.ShowAutofix(Parent))
+                            {
+                                vlak.Type = fix.Result as TrainType;
+                            }*/
+                            //else
+                            {
+                                throw new FormatException(err);
+                            }
+                        }
 
                         vlak.Variant = int.Parse(row[4]);
                         vlak.Routing = Routing.Parse(row[5]);
@@ -790,7 +804,7 @@ namespace GVDEditor.Tools
                 var row = new CSVRow();
                 while (true)
                 {
-                    ReadStartChar status = export3BF.ReadRow(row);
+                    var status = export3BF.ReadRow(row);
                     if (LineIsEmpty(status))
                     {
                         riadok++;
@@ -802,7 +816,7 @@ namespace GVDEditor.Tools
                     try
                     {
                         var id = int.Parse(row[0]);
-                        Train train = vlaky[id - 1];
+                        var train = vlaky[id - 1];
                         train.ZaciatokPlatnosti = ParseDate(row[1]);
                         train.KoniecPlatnosti = ParseDate(row[2]);
                     }
@@ -822,7 +836,7 @@ namespace GVDEditor.Tools
                 var row = new CSVRow();
                 while (true)
                 {
-                    ReadStartChar status = export3CF.ReadRow(row);
+                    var status = export3CF.ReadRow(row);
                     if (LineIsEmpty(status))
                     {
                         riadok++;
@@ -834,7 +848,7 @@ namespace GVDEditor.Tools
                     try
                     {
                         var id = int.Parse(row[0]);
-                        Train train = vlaky[id - 1];
+                        var train = vlaky[id - 1];
 
                         train.DateremText = int.Parse(row[1]) == 1 ? row[2] : "ide denne";
                     }
@@ -854,7 +868,7 @@ namespace GVDEditor.Tools
                 var row = new CSVRow();
                 while (true)
                 {
-                    ReadStartChar status = vzoryF.ReadRow(row);
+                    var status = vzoryF.ReadRow(row);
                     if (LineIsEmpty(status))
                     {
                         riadok++;
@@ -894,7 +908,7 @@ namespace GVDEditor.Tools
                 var row = new CSVRow();
                 while (true)
                 {
-                    ReadStartChar status = stahlasbF.ReadRow(row);
+                    var status = stahlasbF.ReadRow(row);
                     if (LineIsEmpty(status))
                     {
                         riadok++;
@@ -906,11 +920,11 @@ namespace GVDEditor.Tools
                     try
                     {
                         var id = int.Parse(row[0]);
-                        Template template = vzoryList[id - 1];
+                        var template = vzoryList[id - 1];
 
                         var x = int.Parse(row[1]);
 
-                        foreach (Station stanica in template.Stations)
+                        foreach (var stanica in template.Stations)
                             for (var i = 0; i < x; i++)
                                 if (stanica.ID == row[i + 2])
                                     stanica.IsInShortReport = true;
@@ -930,7 +944,7 @@ namespace GVDEditor.Tools
                 var row = new CSVRow();
                 while (true)
                 {
-                    ReadStartChar status = stahlascF.ReadRow(row);
+                    var status = stahlascF.ReadRow(row);
                     if (LineIsEmpty(status))
                     {
                         riadok++;
@@ -942,11 +956,11 @@ namespace GVDEditor.Tools
                     try
                     {
                         var id = int.Parse(row[0]);
-                        Template template = vzoryList[id - 1];
+                        var template = vzoryList[id - 1];
 
                         var x = int.Parse(row[1]);
 
-                        foreach (Station stanica in template.Stations)
+                        foreach (var stanica in template.Stations)
                             for (var i = 0; i < x; i++)
                                 if (stanica.ID == row[i + 2])
                                     stanica.IsInLongReport = true;
@@ -965,11 +979,11 @@ namespace GVDEditor.Tools
                 var riadok = 1;
                 var row = new CSVRow();
 
-                GVDInfo gvd = ReadInfoGVD(path);
+                var gvd = ReadInfoGVD(path);
 
                 while (true)
                 {
-                    ReadStartChar status = vlakyF.ReadRow(row);
+                    var status = vlakyF.ReadRow(row);
                     if (LineIsEmpty(status))
                     {
                         riadok++;
@@ -982,7 +996,7 @@ namespace GVDEditor.Tools
                     {
                         var id = int.Parse(row[0]);
 
-                        Template template = vzoryList.Find(v => v.ID == id);
+                        var template = vzoryList.Find(v => v.ID == id);
                         if (template == null) throw new FormatException($"Neexistujúce ID trasy {id} v tomto súbore.");
 
                         var countTrains = int.Parse(row[1]);
@@ -994,7 +1008,7 @@ namespace GVDEditor.Tools
                             var vlakTypS = ParseStringOrDefault(row[4 + i * 4]);
                             var varianta = int.Parse(row[5 + i * 4]);
 
-                            TrainType vlakTyp = GlobData.TrainsTypes.Find(t => t.Key == vlakTypS);
+                            var vlakTyp = GlobData.TrainsTypes.Find(t => t.Key == vlakTypS);
                             if (vlakTyp == null) throw new FormatException($"Neznámy typ vlaku {vlakTypS}.");
 
                             var vlak = Train.GetTrain(vlaky, cisloVlaku, vlakNazov, vlakTyp, varianta);
@@ -1034,7 +1048,7 @@ namespace GVDEditor.Tools
                 var row = new CSVRow();
                 while (true)
                 {
-                    ReadStartChar status = poziceF.ReadRow(row);
+                    var status = poziceF.ReadRow(row);
                     if (LineIsEmpty(status))
                     {
                         riadok++;
@@ -1046,7 +1060,7 @@ namespace GVDEditor.Tools
                     try
                     {
                         var id = int.Parse(row[0]);
-                        Train train = vlaky[id - 1];
+                        var train = vlaky[id - 1];
 
                         var kolaj = Track.GetTrackFromId(GlobData.Tracks, row[1]);
                         train.Track = kolaj;
@@ -1066,7 +1080,7 @@ namespace GVDEditor.Tools
                 var row = new CSVRow();
                 while (true)
                 {
-                    ReadStartChar status = doplnkyF.ReadRow(row);
+                    var status = doplnkyF.ReadRow(row);
                     if (LineIsEmpty(status))
                     {
                         riadok++;
@@ -1078,12 +1092,12 @@ namespace GVDEditor.Tools
                     try
                     {
                         var id = int.Parse(row[0]);
-                        Train train = vlaky[id - 1];
+                        var train = vlaky[id - 1];
 
                         var count = int.Parse(row[1]);
                         if (count != -1)
                             for (var i = 0; i < count; i++)
-                                foreach (FyzZvuk sound in GlobData.Sounds)
+                                foreach (var sound in GlobData.Sounds)
                                 {
                                     var sndName = sound.Name.Replace("D", "");
                                     if (sound.Dir.Name.EqualsIgnoreCase("DODATKY") && sndName == row[i * 2 + 2])
@@ -1113,7 +1127,7 @@ namespace GVDEditor.Tools
                 var row = new CSVRow();
                 while (true)
                 {
-                    ReadStartChar status = foreignF.ReadRow(row);
+                    var status = foreignF.ReadRow(row);
                     if (LineIsEmpty(status))
                     {
                         riadok++;
@@ -1125,7 +1139,7 @@ namespace GVDEditor.Tools
                     try
                     {
                         var id = int.Parse(row[0]);
-                        Train train = vlaky[id - 1];
+                        var train = vlaky[id - 1];
 
                         if (!IsInt(row[1]))
                         {
@@ -1149,8 +1163,8 @@ namespace GVDEditor.Tools
             {
             }
 
-            foreach (Train vlak in vlaky)
-                foreach (Radenie rad in GlobData.Radenia)
+            foreach (var vlak in vlaky)
+                foreach (var rad in GlobData.Radenia)
                     if (vlak.Number == rad.CisloVlaku)
                         vlak.Radenia.Add(rad);
 
@@ -1185,7 +1199,7 @@ namespace GVDEditor.Tools
                 foreach (var comment in comments) export3aF.WriteComment(comment);
 
                 var vlakId = 0;
-                foreach (Train vlak in vlaky)
+                foreach (var vlak in vlaky)
                 {
                     var row = new CSVRow();
                     row.Insert(0, (vlakId + 1).ToString());
@@ -1248,7 +1262,7 @@ namespace GVDEditor.Tools
                 foreach (var comment in comments) export3bF.WriteComment(comment);
 
                 var vlakId = 0;
-                foreach (Train vlak in vlaky)
+                foreach (var vlak in vlaky)
                 {
                     var row = new CSVRow();
                     row.Insert(0, (vlakId + 1).ToString());
@@ -1256,7 +1270,7 @@ namespace GVDEditor.Tools
                     row.Insert(2, vlak.KoniecPlatnosti.ToString("dd.MM.yyyy"));
 
                     var obmedzenie = new DateRem(vlak.ZaciatokPlatnosti, vlak.KoniecPlatnosti);
-                    BitArray array = obmedzenie.TxtToBitArray(vlak.DateremText);
+                    var array = obmedzenie.TxtToBitArray(vlak.DateremText);
 
                     row.Insert(3, BitArrayToString(array));
                     export3bF.WriteRow(row);
@@ -1271,7 +1285,7 @@ namespace GVDEditor.Tools
                 foreach (var comment in comments) export3cF.WriteComment(comment);
 
                 var vlakId = 0;
-                foreach (Train vlak in vlaky)
+                foreach (var vlak in vlaky)
                 {
                     var row = new CSVRow();
                     row.Insert(0, (vlakId + 1).ToString());
@@ -1288,7 +1302,7 @@ namespace GVDEditor.Tools
             var vzory = new List<Template>();
             var vlakTrasaDictionary = new Dictionary<Train, List<Station>>();
 
-            foreach (Train vlak in vlaky)
+            foreach (var vlak in vlaky)
             {
                 var stanice = new List<Station>();
                 stanice.AddRange(vlak.StaniceZoSmeru);
@@ -1304,7 +1318,7 @@ namespace GVDEditor.Tools
             foreach (var pair in vlakTrasaDictionary) znameTrasy.Add(new ComparableList<Station>(pair.Value));
 
             foreach (var trasa in znameTrasy)
-                foreach (Train vlak in vlaky)
+                foreach (var vlak in vlaky)
                 {
                     var stanice = new List<Station>();
                     stanice.AddRange(vlak.StaniceZoSmeru);
@@ -1339,13 +1353,13 @@ namespace GVDEditor.Tools
                 var comments = GenerateComment(path, FILE_VZORY, gvd, GlobData.Config.Language);
                 foreach (var comment in comments) vzoryF.WriteComment(comment);
 
-                foreach (Template vzor in vzory)
+                foreach (var vzor in vzory)
                 {
                     var row = new CSVRow();
                     row.Insert(0, vzor.ID.ToString());
                     row.Insert(1, vzor.Stations.Count.ToString());
                     var i = 0;
-                    foreach (Station stanica in vzor.Stations)
+                    foreach (var stanica in vzor.Stations)
                     {
                         row.Insert(i + 2, stanica.ID);
                         i++;
@@ -1361,13 +1375,13 @@ namespace GVDEditor.Tools
                 var comments = GenerateComment(path, FILE_VLAKY, gvd, GlobData.Config.Language);
                 foreach (var comment in comments) vlakyF.WriteComment(comment);
 
-                foreach (Template vzor in vzory)
+                foreach (var vzor in vzory)
                 {
                     var row = new CSVRow();
                     row.Insert(0, vzor.ID.ToString());
                     row.Insert(1, vzor.Trains.Count.ToString());
                     var i = 0;
-                    foreach (Train vlak in vzor.Trains)
+                    foreach (var vlak in vzor.Trains)
                     {
                         row.Insert(2 + i * 4, vlak.Number.ToQuotedString());
                         row.Insert(3 + i * 4, vlak.Name.ToQuotedString());
@@ -1386,20 +1400,20 @@ namespace GVDEditor.Tools
                 var comments = GenerateComment(path, FILE_STAHLASB, gvd, GlobData.Config.Language);
                 foreach (var comment in comments) stahlasBF.WriteComment(comment);
 
-                foreach (Template vzor in vzory)
+                foreach (var vzor in vzory)
                 {
                     var row = new CSVRow();
                     row.Insert(0, vzor.ID.ToString());
 
                     var stanice = new List<Station>();
 
-                    foreach (Station stanica in vzor.Stations)
+                    foreach (var stanica in vzor.Stations)
                         if (stanica.IsInShortReport && stanica.ID != gvd.ThisStation.ID)
                             stanice.Add(stanica);
 
                     row.Insert(1, stanice.Count.ToString());
 
-                    foreach (Station stanica in stanice) row.Add(stanica.ID);
+                    foreach (var stanica in stanice) row.Add(stanica.ID);
 
                     stahlasBF.WriteRow(row);
                 }
@@ -1411,20 +1425,20 @@ namespace GVDEditor.Tools
                 var comments = GenerateComment(path, FILE_STAHLASC, gvd, GlobData.Config.Language);
                 foreach (var comment in comments) stahlasCF.WriteComment(comment);
 
-                foreach (Template vzor in vzory)
+                foreach (var vzor in vzory)
                 {
                     var row = new CSVRow();
                     row.Insert(0, vzor.ID.ToString());
 
                     var stanice = new List<Station>();
 
-                    foreach (Station stanica in vzor.Stations)
+                    foreach (var stanica in vzor.Stations)
                         if (stanica.IsInLongReport && stanica.ID != gvd.ThisStation.ID)
                             stanice.Add(stanica);
 
                     row.Insert(1, stanice.Count.ToString());
 
-                    foreach (Station stanica in stanice) 
+                    foreach (var stanica in stanice) 
                         row.Add(stanica.ID);
 
                     stahlasCF.WriteRow(row);
@@ -1439,7 +1453,7 @@ namespace GVDEditor.Tools
                 foreach (var comment in comments) poziceF.WriteComment(comment);
 
                 var vlakId = 0;
-                foreach (Train vlak in vlaky)
+                foreach (var vlak in vlaky)
                 {
                     var row = new CSVRow();
                     row.Insert(0, (vlakId + 1).ToString());
@@ -1457,7 +1471,7 @@ namespace GVDEditor.Tools
                 foreach (var comment in comments) doplnkyF.WriteComment(comment);
 
                 var vlakId = 0;
-                foreach (Train vlak in vlaky)
+                foreach (var vlak in vlaky)
                 {
                     var row = new CSVRow();
                     row.Insert(0, (vlakId + 1).ToString());
@@ -1499,7 +1513,7 @@ namespace GVDEditor.Tools
                 foreach (var comment in comments) foreignF.WriteComment(comment);
 
                 var vlakId = 0;
-                foreach (Train vlak in vlaky)
+                foreach (var vlak in vlaky)
                 {
                     var row = new CSVRow();
                     row.Insert(0, (vlakId + 1).ToString());
@@ -1510,7 +1524,7 @@ namespace GVDEditor.Tools
                         row.Insert(1, "1");
                     else
                     {
-                        foreach (Language t in vlak.Languages)
+                        foreach (var t in vlak.Languages)
                             if (!t.IsBasic)
                             {
                                 row.Add(t.Key.ToQuotedString());
@@ -1532,19 +1546,19 @@ namespace GVDEditor.Tools
 
                 var allStations = new HashSet<Station> {gvd.ThisStation};
                 
-                foreach (Station cs in GlobData.CustomStations) 
+                foreach (var cs in GlobData.CustomStations) 
                     allStations.Add(cs);
                 
-                foreach (Train vlak in vlaky)
+                foreach (var vlak in vlaky)
                 {
-                    foreach (Station stZ in vlak.StaniceZoSmeru) 
+                    foreach (var stZ in vlak.StaniceZoSmeru) 
                         allStations.Add(stZ);
 
-                    foreach (Station stD in vlak.StaniceDoSmeru) 
+                    foreach (var stD in vlak.StaniceDoSmeru) 
                         allStations.Add(stD);
                 }
 
-                foreach (Station st in allStations)
+                foreach (var st in allStations)
                 {
                     var row = new CSVRow();
                     row.Insert(0, st.ID);
@@ -1573,7 +1587,7 @@ namespace GVDEditor.Tools
             var row = new CSVRow();
             while (true)
             {
-                ReadStartChar status = poziceAF.ReadRow(row);
+                var status = poziceAF.ReadRow(row);
                 if (LineIsEmpty(status))
                 {
                     riadok++;
@@ -1596,7 +1610,7 @@ namespace GVDEditor.Tools
 
                     for (var i = 0; i < ParseIntOrDefault(row[8]); i++)
                     {
-                        foreach (TableLogical table in GlobData.TableLogicals)
+                        foreach (var table in GlobData.TableLogicals)
                         {
                             if (table.Key == row[i + 9])
                             {
@@ -1636,7 +1650,7 @@ namespace GVDEditor.Tools
 
             using var poziceAF = new CSVFileWriter(file);
 
-            foreach (Track track in tracks)
+            foreach (var track in tracks)
             {
                 int tabcount = track.Tabule.Count;
                 var row = new CSVRow(9 + 2 * tabcount)
@@ -1683,7 +1697,7 @@ namespace GVDEditor.Tools
                 var row = new CSVRow();
                 while (true)
                 {
-                    ReadStartChar status = vlastnikF.ReadRow(row);
+                    var status = vlastnikF.ReadRow(row);
                     if (LineIsEmpty(status))
                     {
                         riadok++;
@@ -1723,7 +1737,7 @@ namespace GVDEditor.Tools
             var file = CombinePath(path, FILE_VLASTNIK);
 
             using var vlastnikF = new CSVFileWriter(file);
-            foreach (Operator operatorV in operators)
+            foreach (var operatorV in operators)
                 if (operatorV != Operator.None)
                 {
                     var row = new CSVRow(2)
@@ -1757,7 +1771,7 @@ namespace GVDEditor.Tools
             var row = new CSVRow();
             while (true)
             {
-                ReadStartChar status = staniceF.ReadRow(row);
+                var status = staniceF.ReadRow(row);
                 if (LineIsEmpty(status))
                 {
                     riadok++;
@@ -1811,7 +1825,7 @@ namespace GVDEditor.Tools
             var comments = GenerateComment(path, FILE_STANICE, gvd, GlobData.Config.Language);
             foreach (var comment in comments) staniceF.WriteComment(comment);
 
-            foreach (Station cs in cstations)
+            foreach (var cs in cstations)
             {
                 var row = new CSVRow(2)
                 {
@@ -1849,7 +1863,7 @@ namespace GVDEditor.Tools
 
             while (true)
             {
-                ReadStartChar status = razeni1F.ReadRow(row);
+                var status = razeni1F.ReadRow(row);
                 if (LineIsEmpty(status))
                 {
                     riadok++;
@@ -1860,7 +1874,7 @@ namespace GVDEditor.Tools
                     if (radenie != null)
                     {
                         var sb = new StringBuilder();
-                        foreach (FyzZvuk sound in radenie.Sounds) sb.Append(sound.Text + " ");
+                        foreach (var sound in radenie.Sounds) sb.Append(sound.Text + " ");
 
                         radenie.Text = sb.ToString().Trim();
                         radeniaList.Add(radenie);
@@ -1876,7 +1890,7 @@ namespace GVDEditor.Tools
                         if (radenie != null)
                         {
                             var sb = new StringBuilder();
-                            foreach (FyzZvuk sound in radenie.Sounds) sb.Append(sound.Text + " ");
+                            foreach (var sound in radenie.Sounds) sb.Append(sound.Text + " ");
 
                             radenie.Text = sb.ToString().Trim();
                             radeniaList.Add(radenie);
@@ -1911,7 +1925,7 @@ namespace GVDEditor.Tools
                         var array = file.Split('/');
 
                         Language lang = null;
-                        foreach (Language jazyk in GlobData.LocalLanguages)
+                        foreach (var jazyk in GlobData.LocalLanguages)
                             if (jazyk.Key == array[0])
                                 lang = jazyk;
 
@@ -1919,7 +1933,7 @@ namespace GVDEditor.Tools
 
                         FyzZvuk zvuk = null;
                         var formated = array[1];
-                        foreach (FyzZvuk sound in sounds)
+                        foreach (var sound in sounds)
                             if (formated.EqualsIgnoreCase(sound.Dir.Name) && array[2].EqualsIgnoreCase(sound.Name) && lang == sound.Language)
                                 zvuk = sound;
 
@@ -1958,11 +1972,11 @@ namespace GVDEditor.Tools
 
             using var razeni1F = new CSVFileWriter(fileRazeni1);
             var otherLangs = new List<Language>(2);
-            foreach (Language lang in languages)
+            foreach (var lang in languages)
                 if (!lang.IsBasic)
                     otherLangs.Add(lang);
 
-            foreach (Radenie radenie in radenia)
+            foreach (var radenie in radenia)
             {
                 var row = new CSVRow();
                 row.Insert(0,
@@ -1970,14 +1984,14 @@ namespace GVDEditor.Tools
                         ? $"#{radenie.CisloVlaku}:{radenie.DestStation.ID}"
                         : $"#{radenie.CisloVlaku}");
                 var sb = new StringBuilder();
-                foreach (ChosenReportType reportType in radenie.ChosenReports)
-                foreach (ReportVariant variant in reportType.Variants)
+                foreach (var reportType in radenie.ChosenReports)
+                foreach (var variant in reportType.Variants)
                     sb.Append(variant.Key == 0 ? reportType.Type.Char : reportType.Type.Char.ToLower());
                 row.Insert(1, sb.ToString());
                 row.Insert(2, radenie.ZacPlatnosti.ToString("dd.MM.yyyy"));
                 row.Insert(3, radenie.KonPlatnosti.ToString("dd.MM.yyyy"));
                 var dateRem = new DateRem(radenie.ZacPlatnosti.Date, radenie.KonPlatnosti.Date, bInsertMarks: false);
-                BitArray bits = dateRem.TxtToBitArray(radenie.DatObm);
+                var bits = dateRem.TxtToBitArray(radenie.DatObm);
                 row.Insert(4, BitArrayToString(bits));
                 razeni1F.WriteRow(row);
 
@@ -1986,7 +2000,7 @@ namespace GVDEditor.Tools
                 var sbL2 = new StringBuilder();
                 var sbL3 = new StringBuilder();
 
-                foreach (FyzZvuk sound in radenie.Sounds)
+                foreach (var sound in radenie.Sounds)
                 {
                     var rowsound = new CSVRow();
                     rowsound.Insert(0, $"{sound.Language.Key}/{sound.Dir.Name}/{sound.Name}");
@@ -2132,7 +2146,7 @@ namespace GVDEditor.Tools
 
                     if (!string.IsNullOrEmpty(tab1))
                     {
-                        foreach (TableTabTab tabtab in tabtabs)
+                        foreach (var tabtab in tabtabs)
                             if (tab1 == tabtab.Key)
                             {
                                 item.Tab1 = tabtab;
@@ -2150,7 +2164,7 @@ namespace GVDEditor.Tools
 
                     if (!string.IsNullOrEmpty(tab2))
                     {
-                        foreach (TableTabTab tabtab in tabtabs)
+                        foreach (var tabtab in tabtabs)
                             if (tab2 == tabtab.Key)
                             {
                                 item.Tab2 = tabtab;
@@ -2198,7 +2212,7 @@ namespace GVDEditor.Tools
                             var itemKey = catalogF.Get(area, $"TYPE_ITEM_{tj.PadZeros()}_{tk.PadZeros()}_{tl.PadZeros(2)}").ANSItoUTF();
 
                             string tolist = null;
-                            foreach (TableItem item in tcatalog.Items)
+                            foreach (var item in tcatalog.Items)
                                 if (item.Key == itemKey)
                                     tolist = itemKey;
 
@@ -2240,7 +2254,7 @@ namespace GVDEditor.Tools
                 tphysical.SaveXML = tphysicF.Get(area, "SAVE_XML", "").ANSItoUTF();
                 
                 var catname = tphysicF.Get(area, "CATALOG_KEY").ANSItoUTF();
-                foreach (TableCatalog tableCatalog in tcatalogs)
+                foreach (var tableCatalog in tcatalogs)
                     if (tableCatalog.Key == catname)
                     {
                         tphysical.TableCatalog = tableCatalog;
@@ -2284,7 +2298,7 @@ namespace GVDEditor.Tools
                         tposition.TypeView = TableViewType.Parse(tlogicF.Get(area, $"TYPE_VIEW_KEY_{tj.PadZeros()}_{tk.PadZeros()}").ANSItoUTF());
 
                         var fyzname = tlogicF.Get(area, $"PHYSICAL_KEY_{tj.PadZeros()}_{tk.PadZeros()}").ANSItoUTF();
-                        foreach (TablePhysical physical in tphysicals)
+                        foreach (var physical in tphysicals)
                             if (physical.Key == fyzname)
                             {
                                 tposition.TablePhysical = physical;
@@ -2322,7 +2336,7 @@ namespace GVDEditor.Tools
 
             var tabtabF = new TXTPropsAreas(fileTabTab, true);
 
-            foreach (TableTabTab tabTab in TabTabs) 
+            foreach (var tabTab in TabTabs) 
                 tabtabF.Set(tabTab.Key, tabTab.Text);
 
             tabtabF.Save();
@@ -2333,7 +2347,7 @@ namespace GVDEditor.Tools
 
             for (var i = 0; i < Catalogs.Count; i++)
             {
-                TableCatalog tcatalog = Catalogs[i];
+                var tcatalog = Catalogs[i];
                 var ti = i + 1;
                 
                 var area = $"TABLE_{ti.PadZeros()}";
@@ -2349,7 +2363,7 @@ namespace GVDEditor.Tools
                 catalogF.Set(area, "COUNT_PHYSICAL_LINE_INFO", tcatalog.Segments.Count);
                 for (var j = 0; j < tcatalog.Segments.Count; j++)
                 {
-                    TableSegment segment = tcatalog.Segments[j];
+                    var segment = tcatalog.Segments[j];
                     var tj = j + 1;
                     
                     catalogF.Set(area, $"HEIGHT_{tj.PadZeros()}", segment.Height);
@@ -2360,7 +2374,7 @@ namespace GVDEditor.Tools
                 catalogF.Set(area, "COUNT_TYPE_ITEMS", tcatalog.Items.Count);
                 for (var j = 0; j < tcatalog.Items.Count; j++)
                 {
-                    TableItem item = tcatalog.Items[j];
+                    var item = tcatalog.Items[j];
                     var tj = j + 1;
 
                     catalogF.Set(area, $"TYPE_ITEMS_KEY_{tj.PadZeros()}", item.Key, WriteType.WRITE_STRING_ANSI);
@@ -2379,7 +2393,7 @@ namespace GVDEditor.Tools
                 catalogF.Set(area, "COUNT_TYPE_VIEW_TAB", tcatalog.ViewTypeTabs.Count);
                 for (var j = 0; j < tcatalog.ViewTypeTabs.Count; j++)
                 {
-                    TableViewTypeTab typetab = tcatalog.ViewTypeTabs[j];
+                    var typetab = tcatalog.ViewTypeTabs[j];
                     var tj = j + 1;
                     
                     catalogF.Set(area, $"TYPE_VIEW_TAB_KEY_{tj.PadZeros()}", typetab.ViewType.Key, WriteType.WRITE_STRING_ANSI);
@@ -2387,7 +2401,7 @@ namespace GVDEditor.Tools
                     catalogF.Set(area, $"TYPE_VIEW_TAB_COUNT_TYPE_MODE_{tj.PadZeros()}", typetab.TypeModeItems.Count);
                     for (var k = 0; k < typetab.TypeModeItems.Count; k++)
                     {
-                        TableTypeModeItem ttmi = typetab.TypeModeItems[k];
+                        var ttmi = typetab.TypeModeItems[k];
                         var tk = k + 1;
                         
                         catalogF.Set(area, $"TYPE_MODE_KEY_{tj.PadZeros()}_{tk.PadZeros()}", ttmi.ViewMode.Key, WriteType.WRITE_STRING_ANSI);
@@ -2410,7 +2424,7 @@ namespace GVDEditor.Tools
 
             for (var i = 0; i < Physicals.Count; i++)
             {
-                TablePhysical tphysical = Physicals[i];
+                var tphysical = Physicals[i];
                 var ti = i + 1;
                 
                 var area = $"TABLE_{ti.PadZeros()}";
@@ -2435,7 +2449,7 @@ namespace GVDEditor.Tools
 
             for (var i = 0; i < Logicals.Count; i++)
             {
-                TableLogical tlLogical = Logicals[i];
+                var tlLogical = Logicals[i];
                 var ti = i + 1;
 
                 var area = $"TABLE_{ti.PadZeros()}";
@@ -2449,13 +2463,13 @@ namespace GVDEditor.Tools
 
                 for (var j = 0; j < tlLogical.Records.Count; j++)
                 {
-                    TableRecord trecord = tlLogical.Records[j];
+                    var trecord = tlLogical.Records[j];
                     var tj = j + 1;
                     
                     tlogicF.Set(area, $"COUNT_POS_{tj.PadZeros()}", trecord.Positions.Count);
                     for (var k = 0; k < trecord.Positions.Count; k++)
                     {
-                        TablePosition tposition = trecord.Positions[k];
+                        var tposition = trecord.Positions[k];
                         var tk = k + 1;
 
                         tlogicF.Set(area, $"POSITION_{tj.PadZeros()}_{tk.PadZeros()}", tposition.Position);
@@ -2505,7 +2519,7 @@ namespace GVDEditor.Tools
                     var tj = j + 1;
 
                     var catname = ttextsF.Get(area, $"REALIZE_{tj.PadZeros()}_CATALOG_KEY").ANSItoUTF();
-                    foreach (TableCatalog catalog in GlobData.TableCatalogs)
+                    foreach (var catalog in GlobData.TableCatalogs)
                         if (catalog.Key == catname)
                         {
                             realization.Catalog = catalog;
@@ -2516,7 +2530,7 @@ namespace GVDEditor.Tools
                         throw new FormatException($"Súbor s textami pre tabule {ttext.Key} obsahuje neexistujúcu katalógovú tabuľu {catname}.");
 
                     var realname = ttextsF.Get(area, $"REALIZE_{tj.PadZeros()}_TYPEITEM_KEY").ANSItoUTF();
-                    foreach (TableItem item in realization.Catalog.Items)
+                    foreach (var item in realization.Catalog.Items)
                         if (item.Key == realname)
                         {
                             realization.Item = item;
@@ -2536,7 +2550,7 @@ namespace GVDEditor.Tools
                     var tj = j + 1;
                     
                     var id = ParseIntOrDefault(ttextsF.Get(area, $"TRAIN_{tj.PadZeros()}_ID", false));
-                    foreach (Train train in trains)
+                    foreach (var train in trains)
                         if (train.ID == id)
                             ttrain.Train = train;
                     if (ttrain.Train == null)
@@ -2569,7 +2583,7 @@ namespace GVDEditor.Tools
 
             for (var i = 0; i < ttexts.Count; i++)
             {
-                TableText ttext = ttexts[i];
+                var ttext = ttexts[i];
                 var ti = i + 1;
 
                 var area = $"TEXT_{ti.PadZeros()}";
@@ -2582,7 +2596,7 @@ namespace GVDEditor.Tools
                 ttextsF.Set(area, "REALIZE_COUNT", ttext.Realizations.Count);
                 for (var j = 0; j < ttext.Realizations.Count; j++)
                 {
-                    TableTextRealization realization = ttext.Realizations[j];
+                    var realization = ttext.Realizations[j];
                     var tj = j + 1;
                     
                     ttextsF.Set(area, $"REALIZE_{tj.PadZeros()}_CATALOG_KEY", realization.Catalog.Key, WriteType.WRITE_STRING_ANSI);
@@ -2592,7 +2606,7 @@ namespace GVDEditor.Tools
                 ttextsF.Set(area, "COUNT", ttext.Trains.Count);
                 for (var j = 0; j < ttext.Trains.Count; j++)
                 {
-                    TableTrain ttrain = ttext.Trains[j];
+                    var ttrain = ttext.Trains[j];
                     var tj = j + 1;
                     
                     ttextsF.Set(area, $"TRAIN_{tj.PadZeros()}_ID", ttrain.Train.ID);
@@ -2677,7 +2691,7 @@ namespace GVDEditor.Tools
             modetabsF.Set(areaMode, "COUNT", modes.Count);
             for (var i = 0; i < modes.Count; i++)
             {
-                TableViewMode mode = modes[i];
+                var mode = modes[i];
                 var ti = i + 1;
                 
                 modetabsF.Set(areaMode, $"KEY_{ti.PadZeros()}", mode.Key, WriteType.WRITE_STRING_ANSI);
@@ -2688,7 +2702,7 @@ namespace GVDEditor.Tools
             modetabsF.Set(areatType, "COUNT", views.Count);
             for (var i = 0; i < views.Count; i++)
             {
-                TableViewType type = views[i];
+                var type = views[i];
                 var ti = i + 1;
                 
                 modetabsF.Set(areatType, $"KEY_{ti.PadZeros()}", type.Key, WriteType.WRITE_STRING_ANSI);
@@ -2699,7 +2713,7 @@ namespace GVDEditor.Tools
             modetabsF.Set(areaFillSection, "COUNT", sections.Count);
             for (var i = 0; i < sections.Count; i++)
             {
-                TableFillSection fill = sections[i];
+                var fill = sections[i];
                 var ti = i + 1;
                 
                 modetabsF.Set(areaFillSection, $"IDX_{ti.PadZeros()}", fill.ID);
@@ -2710,7 +2724,7 @@ namespace GVDEditor.Tools
             modetabsF.Set(areaManufacturer, "COUNT", manufactures.Count);
             for (var i = 0; i < manufactures.Count; i++)
             {
-                TableManufacturer manufacturer = manufactures[i];
+                var manufacturer = manufactures[i];
                 var ti = i + 1;
                 
                 modetabsF.Set(areaManufacturer, $"KEY_{ti.PadZeros()}", manufacturer.Name, WriteType.WRITE_STRING_ANSI);
@@ -2721,7 +2735,7 @@ namespace GVDEditor.Tools
             if (!string.IsNullOrEmpty(fontdir)) modetabsF.Set(areaFont, "PATH", fontdir, WriteType.WRITE_STRING_ANSI);
             for (var i = 0; i < fonts.Count; i++)
             {
-                TableFont font = fonts[i];
+                var font = fonts[i];
                 var ti = i + 1;
                 
                 modetabsF.Set(areaFont, $"IDX_{ti.PadZeros()}", font.FontID);
@@ -2747,7 +2761,7 @@ namespace GVDEditor.Tools
             modetabsF.Set(areaAlign, "COUNT", aligns.Count);
             for (var i = 0; i < aligns.Count; i++)
             {
-                TableAlign align = aligns[i];
+                var align = aligns[i];
                 var ti = i + 1;
                 
                 modetabsF.Set(areaAlign, $"IDX_{ti.PadZeros()}", align.ID);

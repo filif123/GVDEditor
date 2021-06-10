@@ -55,7 +55,7 @@ namespace GVDEditor.Controls
             HScrollBarControl.Cursor = Cursors.Default;
 
             //BUG this part doesnt work
-            Padding padding = HScrollBarControl.Padding;
+            var padding = HScrollBarControl.Padding;
             padding.Right = HScrollBarControl.Height;
             HScrollBarControl.Margin = padding;
         }
@@ -149,7 +149,7 @@ namespace GVDEditor.Controls
         {
             int index = 0;
             int len = 0;
-            foreach (Line line in Lines)
+            foreach (var line in Lines)
             {
                 if (line.Length > len)
                 {

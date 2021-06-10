@@ -18,10 +18,10 @@ namespace GVDEditor.Tools
         /// <returns></returns>
         public static bool UpdateAvailable(out string version)
         {
-            Version thisVersion = Utils.GetAppVersion();
+            var thisVersion = Utils.GetAppVersion();
 
             var allVersions = GetAllVersions();
-            foreach (Version v in allVersions)
+            foreach (var v in allVersions)
                 if (v > thisVersion)
                 {
                     version = v.ToString();
@@ -43,7 +43,7 @@ namespace GVDEditor.Tools
             try
             {
                 var web = new WebClient();
-                Stream stream = web.OpenRead("http://iniss.6f.sk/gvdeditor-updater/update.txt");
+                var stream = web.OpenRead("http://iniss.6f.sk/gvdeditor-updater/update.txt");
                 using var reader = new StreamReader(stream ?? throw new InvalidOperationException());
                 var text = reader.ReadToEnd();
                 var csv = new CsvStringReader(text);

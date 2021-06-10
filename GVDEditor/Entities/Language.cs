@@ -50,7 +50,7 @@ namespace GVDEditor.Entities
         /// <returns>jazyk z listu, resp. <see langword="null" /> ak nebola nájdená zhoda</returns>
         public static Language GetLanguageFromKey(IEnumerable<Language> langs, string key)
         {
-            foreach (Language jazyk in langs)
+            foreach (var jazyk in langs)
                 if (jazyk.Key == key)
                     return jazyk;
 
@@ -64,7 +64,7 @@ namespace GVDEditor.Entities
         /// <returns>hlavný jazyk alebo <see langword="null" /> ak zadaný list neobsahuje hlavný jazyk</returns>
         public static Language GetBasicLanguage(IEnumerable<Language> langs)
         {
-            foreach (Language jazyk in langs)
+            foreach (var jazyk in langs)
                 if (jazyk.IsBasic)
                     return jazyk;
 
@@ -84,7 +84,7 @@ namespace GVDEditor.Entities
         {
             if (key == null || languages == null || languages.Count == 0) return false;
 
-            foreach (Language language in languages)
+            foreach (var language in languages)
                 if (language.Key == key)
                     return true;
 

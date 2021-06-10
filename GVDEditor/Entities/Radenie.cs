@@ -66,7 +66,7 @@ namespace GVDEditor.Entities
         public static string SoundsToString(IEnumerable<FyzZvuk> sounds)
         {
             var sb = new StringBuilder();
-            foreach (FyzZvuk fyzZvuk in sounds) sb.Append(fyzZvuk.Text + " ");
+            foreach (var fyzZvuk in sounds) sb.Append(fyzZvuk.Text + " ");
 
             return sb.ToString().Trim();
         }

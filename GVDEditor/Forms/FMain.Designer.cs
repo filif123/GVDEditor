@@ -129,6 +129,8 @@ namespace GVDEditor.Forms
             this.tsmiImportELIS = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiAnalyze = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUpravit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmimAddTrain = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmimEditTrain = new System.Windows.Forms.ToolStripMenuItem();
@@ -151,6 +153,8 @@ namespace GVDEditor.Forms
             this.tsmiTabTab = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTTexts = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiTFonts = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiTabTabEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiGlobalSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiGrafikony = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiLanguages = new System.Windows.Forms.ToolStripMenuItem();
@@ -284,8 +288,6 @@ namespace GVDEditor.Forms
             this.dataGridViewTextBoxColumn28 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewExComboBoxColumn15 = new ExControls.DataGridViewExComboBoxColumn();
             this.dataGridViewExComboBoxColumn16 = new ExControls.DataGridViewExComboBoxColumn();
-            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiTabTabEditor = new System.Windows.Forms.ToolStripMenuItem();
             this.hlavneMenu.SuspendLayout();
             this.toolMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrains)).BeginInit();
@@ -320,7 +322,9 @@ namespace GVDEditor.Forms
             this.toolStripSeparator4,
             this.tsmiImport,
             this.toolStripSeparator3,
-            this.tsmiSave});
+            this.tsmiSave,
+            this.toolStripSeparator18,
+            this.tsmiAnalyze});
             this.tsmiSubor.Name = "tsmiSubor";
             resources.ApplyResources(this.tsmiSubor, "tsmiSubor");
             // 
@@ -392,6 +396,18 @@ namespace GVDEditor.Forms
             this.tsmiSave.Image = global::GVDEditor.Properties.Resources.save;
             this.tsmiSave.Name = "tsmiSave";
             this.tsmiSave.Click += new System.EventHandler(this.tsmiSave_Click);
+            // 
+            // toolStripSeparator18
+            // 
+            this.toolStripSeparator18.Name = "toolStripSeparator18";
+            resources.ApplyResources(this.toolStripSeparator18, "toolStripSeparator18");
+            // 
+            // tsmiAnalyze
+            // 
+            resources.ApplyResources(this.tsmiAnalyze, "tsmiAnalyze");
+            this.tsmiAnalyze.Image = global::GVDEditor.Properties.Resources.analyze;
+            this.tsmiAnalyze.Name = "tsmiAnalyze";
+            this.tsmiAnalyze.Click += new System.EventHandler(this.tsmiAnalyze_Click);
             // 
             // tsmiUpravit
             // 
@@ -550,6 +566,17 @@ namespace GVDEditor.Forms
             resources.ApplyResources(this.tsmiTFonts, "tsmiTFonts");
             this.tsmiTFonts.Name = "tsmiTFonts";
             this.tsmiTFonts.Click += new System.EventHandler(this.tsmiTFonts_Click);
+            // 
+            // toolStripSeparator17
+            // 
+            this.toolStripSeparator17.Name = "toolStripSeparator17";
+            resources.ApplyResources(this.toolStripSeparator17, "toolStripSeparator17");
+            // 
+            // tsmiTabTabEditor
+            // 
+            resources.ApplyResources(this.tsmiTabTabEditor, "tsmiTabTabEditor");
+            this.tsmiTabTabEditor.Name = "tsmiTabTabEditor";
+            this.tsmiTabTabEditor.Click += new System.EventHandler(this.tsmiTabTabEditor_Click);
             // 
             // tsmiGlobalSettings
             // 
@@ -2121,17 +2148,6 @@ namespace GVDEditor.Forms
             exComboBoxStyle72.ForeColor = null;
             this.dataGridViewExComboBoxColumn16.StyleSelected = exComboBoxStyle72;
             // 
-            // toolStripSeparator17
-            // 
-            this.toolStripSeparator17.Name = "toolStripSeparator17";
-            resources.ApplyResources(this.toolStripSeparator17, "toolStripSeparator17");
-            // 
-            // tsmiTabTabEditor
-            // 
-            resources.ApplyResources(this.tsmiTabTabEditor, "tsmiTabTabEditor");
-            this.tsmiTabTabEditor.Name = "tsmiTabTabEditor";
-            this.tsmiTabTabEditor.Click += new System.EventHandler(this.tsmiTabTabEditor_Click);
-            // 
             // FMain
             // 
             resources.ApplyResources(this, "$this");
@@ -2330,6 +2346,8 @@ namespace GVDEditor.Forms
         private DataGridViewButtonColumn Ostatne;
         private ToolStripSeparator toolStripSeparator17;
         private ToolStripMenuItem tsmiTabTabEditor;
+        private ToolStripSeparator toolStripSeparator18;
+        private ToolStripMenuItem tsmiAnalyze;
     }
 }
 

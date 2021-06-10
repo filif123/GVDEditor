@@ -120,7 +120,7 @@ namespace GVDEditor.Forms
         private void bLanguageAdd_Click(object sender, EventArgs e)
         {
             var basic = false;
-            foreach (Language language in Languages)
+            foreach (var language in Languages)
                 if (language.IsBasic)
                     basic = true;
 
@@ -135,7 +135,7 @@ namespace GVDEditor.Forms
                 Name = tbLanguageName.Text, Key = tbLanguageSkratka.Text, IsBasic = cbIsBasic.Checked
             };
 
-            foreach (Language lang in Languages)
+            foreach (var lang in Languages)
                 if (lang.Key == jazyk.Key)
                 {
                     Utils.ShowError(Resources.FGlobalSettings_Zadaný_jazyk_sa_sa_už_v_zozname_nachádza);
@@ -161,7 +161,7 @@ namespace GVDEditor.Forms
 
             var j = 0;
             var basic = false;
-            foreach (Language l in Languages)
+            foreach (var l in Languages)
             {
                 if (l.IsBasic)
                 {
@@ -187,7 +187,7 @@ namespace GVDEditor.Forms
             }
 
             var i = 0;
-            foreach (Language lang in Languages)
+            foreach (var lang in Languages)
             {
                 if (lang.Key == tbLanguageSkratka.Text && pos != i)
                 {
@@ -198,7 +198,7 @@ namespace GVDEditor.Forms
                 i++;
             }
 
-            Language language = Languages[pos];
+            var language = Languages[pos];
             language.Name = tbLanguageName.Text;
             language.Key = tbLanguageSkratka.Text;
             language.IsBasic = cbIsBasic.Checked;
@@ -240,7 +240,7 @@ namespace GVDEditor.Forms
 
         private void bEditColor_Click(object sender, EventArgs e)
         {
-            DialogResult result = colorDialogFarba.ShowDialog();
+            var result = colorDialogFarba.ShowDialog();
             if (result == DialogResult.OK)
             {
                 vybrataFarba = colorDialogFarba.Color;
@@ -265,7 +265,7 @@ namespace GVDEditor.Forms
         {
             if (listGrafikony.SelectedIndex != -1)
             {
-                DialogResult result =
+                var result =
                     Utils.ShowQuestion(Resources.FGlobalSettings_Naozaj_chcete_odstrániť_tento_grafikon);
 
                 if (result == DialogResult.Yes)
@@ -361,7 +361,7 @@ namespace GVDEditor.Forms
         private void bDefTrainTypAdd_Click(object sender, EventArgs e)
         {
             var typ = (TrainType) cbDefTrainTypSkratka.SelectedItem;
-            foreach (TrainType trainType in TrainTypes)
+            foreach (var trainType in TrainTypes)
                 if (typ == trainType)
                 {
                     Utils.ShowError(Resources.FGlobalSettings_Vybraný_typ_vlaku_sa_už_v_zozname_nachádza);
@@ -379,7 +379,7 @@ namespace GVDEditor.Forms
             if (listTrainTypes.SelectedIndex != 0)
             {
                 var typ = (TrainType) cbDefTrainTypSkratka.SelectedItem;
-                foreach (TrainType trainType in TrainTypes)
+                foreach (var trainType in TrainTypes)
                     if (typ == trainType && ((TrainType) listTrainTypes.SelectedItem).Key != typ.Key)
                     {
                         Utils.ShowError(Resources.FGlobalSettings_Vybraný_typ_vlaku_sa_už_v_zozname_nachádza);
@@ -405,7 +405,7 @@ namespace GVDEditor.Forms
 
         private void bCustomTrainTypAdd_Click(object sender, EventArgs e)
         {
-            foreach (TrainType trainType in TrainTypes)
+            foreach (var trainType in TrainTypes)
                 if (tbCustomTrainTypSkratka.Text == trainType.Key)
                 {
                     Utils.ShowError(Resources.FGlobalSettings_Click_Zadaný_typ_vlaku_sa_už_v_zozname_nachádza);
@@ -425,7 +425,7 @@ namespace GVDEditor.Forms
 
             if (cbCustomTrainTypDruh.SelectedIndex == 0)
             {
-                foreach (TrainType trainType in TrainTypes)
+                foreach (var trainType in TrainTypes)
                     if (trainType.IsCustom)
                         if (Regex.IsMatch(trainType.CategoryTrain, "^Os[1-9]$"))
                         {
@@ -443,7 +443,7 @@ namespace GVDEditor.Forms
             }
             else if (cbCustomTrainTypDruh.SelectedIndex == 1)
             {
-                foreach (TrainType trainType in TrainTypes)
+                foreach (var trainType in TrainTypes)
                     if (trainType.IsCustom)
                         if (Regex.IsMatch(trainType.CategoryTrain, "^R[1-9]$"))
                         {
@@ -461,7 +461,7 @@ namespace GVDEditor.Forms
             }
             else if (cbCustomTrainTypDruh.SelectedIndex == 2)
             {
-                foreach (TrainType trainType in TrainTypes)
+                foreach (var trainType in TrainTypes)
                     if (trainType.IsCustom)
                         if (Regex.IsMatch(trainType.CategoryTrain, "^X[1-9]$"))
                         {
@@ -479,7 +479,7 @@ namespace GVDEditor.Forms
             }
             else if (cbCustomTrainTypDruh.SelectedIndex == 3)
             {
-                foreach (TrainType trainType in TrainTypes)
+                foreach (var trainType in TrainTypes)
                     if (trainType.IsCustom)
                         if (Regex.IsMatch(trainType.CategoryTrain, "^Sl[1-9]$"))
                         {
@@ -507,7 +507,7 @@ namespace GVDEditor.Forms
         {
             if (listTrainTypes.SelectedIndex != 0)
             {
-                foreach (TrainType trainType in TrainTypes)
+                foreach (var trainType in TrainTypes)
                     if (tbCustomTrainTypSkratka.Text == trainType.Key && ((TrainType) listTrainTypes.SelectedItem).Key != tbCustomTrainTypSkratka.Text)
                     {
                         Utils.ShowError(Resources.FGlobalSettings_Click_Zadaný_typ_vlaku_sa_už_v_zozname_nachádza);
@@ -529,7 +529,7 @@ namespace GVDEditor.Forms
                 {
                     case 0:
                     {
-                        foreach (TrainType trainType in TrainTypes)
+                        foreach (var trainType in TrainTypes)
                             if (trainType.IsCustom)
                                 if (Regex.IsMatch(trainType.CategoryTrain, "^Os[1-9]$"))
                                 {
@@ -548,7 +548,7 @@ namespace GVDEditor.Forms
                     }
                     case 1:
                     {
-                        foreach (TrainType trainType in TrainTypes)
+                        foreach (var trainType in TrainTypes)
                             if (trainType.IsCustom)
                                 if (Regex.IsMatch(trainType.CategoryTrain, "^R[1-9]$"))
                                 {
@@ -567,7 +567,7 @@ namespace GVDEditor.Forms
                     }
                     case 2:
                     {
-                        foreach (TrainType trainType in TrainTypes)
+                        foreach (var trainType in TrainTypes)
                             if (trainType.IsCustom)
                                 if (Regex.IsMatch(trainType.CategoryTrain, "^X[1-9]$"))
                                 {
@@ -586,7 +586,7 @@ namespace GVDEditor.Forms
                     }
                     case 3:
                     {
-                        foreach (TrainType trainType in TrainTypes)
+                        foreach (var trainType in TrainTypes)
                             if (trainType.IsCustom)
                                 if (Regex.IsMatch(trainType.CategoryTrain, "^Sl[1-9]$"))
                                 {
@@ -626,7 +626,7 @@ namespace GVDEditor.Forms
         {
             if (listAudio.SelectedIndex != -1)
             {
-                Audio audio = Audios[listAudio.SelectedIndex];
+                var audio = Audios[listAudio.SelectedIndex];
                 cbCustomOnly.Checked = audio.Station.IsCustom;
                 cbAudioStanica.SelectedItem = audio.Station;
                 tbAudioName.Text = audio.Name;
@@ -654,7 +654,7 @@ namespace GVDEditor.Forms
                 return;
             }
 
-            foreach (Audio a in Audios)
+            foreach (var a in Audios)
                 if (a.Name == tbAudioName.Text)
                 {
                     Utils.ShowError(Resources.FGlobalSettings_Názov_tejto_audio_linky_už_existuje);
@@ -684,7 +684,7 @@ namespace GVDEditor.Forms
                 }
 
                 var i = 0;
-                foreach (Audio a in Audios)
+                foreach (var a in Audios)
                 {
                     if (a.Name == tbAudioName.Text && i != listAudio.SelectedIndex)
                     {
@@ -695,7 +695,7 @@ namespace GVDEditor.Forms
                     i++;
                 }
 
-                Audio audio = Audios[listAudio.SelectedIndex];
+                var audio = Audios[listAudio.SelectedIndex];
                 audio.Station = cbAudioStanica.SelectedItem as Station;
                 audio.Name = tbAudioName.Text;
                 audio.ShortName = tbAudioNazovSkratka.Text;
