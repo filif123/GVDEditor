@@ -19,8 +19,6 @@ namespace GVDEditor.Tools
     /// </summary>
     internal static class TXTParser
     {
-        public static Form Parent;
-
         private const string FORMAT_EX = "Chyba v súbore {0} na riadku {1}. ";
         private const string FORMAT_EX_AREA = "{0}: Nezadefinované pole {1}.";
 
@@ -743,15 +741,7 @@ namespace GVDEditor.Tools
                         if (vlak.Type == null)
                         {
                             string err = $"Neexistujúci typ vlaku {row[3]}";
-                            /*var fix = new Autofix(AutofixOutputType.TRAIN_TYPE, err, GlobData.TrainsTypes, row[3]);
-                            if (fix.ShowAutofix(Parent))
-                            {
-                                vlak.Type = fix.Result as TrainType;
-                            }*/
-                            //else
-                            {
-                                throw new FormatException(err);
-                            }
+                            throw new FormatException(err);
                         }
 
                         vlak.Variant = int.Parse(row[4]);

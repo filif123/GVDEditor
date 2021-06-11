@@ -73,11 +73,14 @@ namespace GVDEditor.Tools
         public FixResult FixProblem();
     }
 
+    /// <summary>
+    ///     Analyzuje a opravuje problemy najdene v grafikone
+    /// </summary>
     internal static class Analyzer
     {
         public static List<IProblem> FindProblems(BackgroundWorker bw, GVDDirectory gvd)
         {
-            List<IProblem> problems = new List<IProblem>();
+            List<IProblem> problems = new();
 
             //1. Check GVD validity
             var now = DateTime.Now;

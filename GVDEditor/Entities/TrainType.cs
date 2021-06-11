@@ -6,7 +6,7 @@ namespace GVDEditor.Entities
     /// <summary>
     ///     Reprezentuje typ vlaku
     /// </summary>
-    public sealed class TrainType : IFixable
+    public sealed class TrainType
     {
         /// <summary>
         ///     Konstruktor pre definovanie predvoleneho typu vlaku

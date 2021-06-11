@@ -96,7 +96,6 @@ namespace GVDEditor
             DateRem.Loc = GlobData.Config.DateRemLocate == Config.AppLanguage.CZ ? DateRem.LOCALE.CZECH : DateRem.LOCALE.SLOVAK;
 
             var main = new FMain();
-            TXTParser.Parent = main;
             Application.Run(main);
 
             Log.AppInfo("Program sa ukončuje\r\n");

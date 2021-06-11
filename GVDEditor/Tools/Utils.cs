@@ -558,7 +558,7 @@ namespace GVDEditor.Tools
         /// <returns></returns>
         public static bool LineIsEmpty(ReadStartChar ch)
         {
-            return ch == ReadStartChar.SEMICOLON || ch == ReadStartChar.EMPTY || ch == ReadStartChar.SLASH;
+            return ch is ReadStartChar.SEMICOLON or ReadStartChar.EMPTY or ReadStartChar.SLASH;
         }
 
         /// <summary>

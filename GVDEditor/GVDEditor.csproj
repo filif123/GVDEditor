@@ -113,12 +113,6 @@
     <Compile Include="Forms\FAnalyzer.Designer.cs">
       <DependentUpon>FAnalyzer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FAutofix.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FAutofix.Designer.cs">
-      <DependentUpon>FAutofix.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FRenameStyle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,7 +120,6 @@
       <DependentUpon>FRenameStyle.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\Analyzer.cs" />
-    <Compile Include="Tools\Autofix.cs" />
     <Compile Include="XML\ColorCategory.cs" />
     <Compile Include="XML\ColorSetting.cs" />
     <Compile Include="Entities\Dodatok.cs" />
