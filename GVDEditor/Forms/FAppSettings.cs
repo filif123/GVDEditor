@@ -419,21 +419,41 @@ namespace GVDEditor.Forms
             config.Shortcuts.ImportData = Shortcuts[2];
             config.Shortcuts.ImportGVD = Shortcuts[3];
             config.Shortcuts.Save = Shortcuts[4];
+            config.Shortcuts.Analyze = Shortcuts[5];
 
-            config.Shortcuts.AddTrain = Shortcuts[5];
-            config.Shortcuts.EditTrain = Shortcuts[6];
-            config.Shortcuts.DeleteTrains = Shortcuts[7];
-            config.Shortcuts.DuplicateTrain = Shortcuts[8];
+            config.Shortcuts.AddTrain = Shortcuts[6];
+            config.Shortcuts.EditTrain = Shortcuts[7];
+            config.Shortcuts.DeleteTrains = Shortcuts[8];
+            config.Shortcuts.DuplicateTrain = Shortcuts[9];
 
-            config.Shortcuts.LocalSettings = Shortcuts[9];
-            config.Shortcuts.GlobalSettings = Shortcuts[10];
-            config.Shortcuts.AppSettings = Shortcuts[11];
+            config.Shortcuts.LocalSettings = Shortcuts[10];
+            config.Shortcuts.GlobalSettings = Shortcuts[11];
+            config.Shortcuts.AppSettings = Shortcuts[12];
 
-            config.Shortcuts.InfoApp = Shortcuts[12];
-            config.Shortcuts.UpdateNotes = Shortcuts[13];
+            config.Shortcuts.InfoApp = Shortcuts[13];
+            config.Shortcuts.UpdateNotes = Shortcuts[14];
+            config.Shortcuts.RunINISS = Shortcuts[15];
+            config.Shortcuts.KillINISS = Shortcuts[16];
+            config.Shortcuts.RestartINISS = Shortcuts[17];
 
-            config.Shortcuts.InfoApp = Shortcuts[14];
-            config.Shortcuts.UpdateNotes = Shortcuts[15];
+            config.Shortcuts.LSGrafikon = Shortcuts[18];
+            config.Shortcuts.LSStanice = Shortcuts[19];
+            config.Shortcuts.LSDopravcovia = Shortcuts[20];
+            config.Shortcuts.LSPlatforms = Shortcuts[21];
+            config.Shortcuts.LSKolaje = Shortcuts[22];
+            config.Shortcuts.LSTPhysicals = Shortcuts[23];
+            config.Shortcuts.LSTLogicals = Shortcuts[24];
+            config.Shortcuts.LSTCatalogs = Shortcuts[25];
+            config.Shortcuts.LSTabTab = Shortcuts[26];
+            config.Shortcuts.LSTTexts = Shortcuts[27];
+            config.Shortcuts.LSTFonts = Shortcuts[28];
+            config.Shortcuts.LSTabTabEditor = Shortcuts[29];
+
+            config.Shortcuts.GSGrafikony = Shortcuts[30];
+            config.Shortcuts.GSLanguages = Shortcuts[31];
+            config.Shortcuts.GSMeskania = Shortcuts[32];
+            config.Shortcuts.GSTrainTypes = Shortcuts[33];
+            config.Shortcuts.GSAudio = Shortcuts[34];
 
             GlobData.Config = config;
             Config.WriteData(Utils.CombinePath(Application.StartupPath, FileConsts.FILE_CONFIG), config);

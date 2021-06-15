@@ -491,7 +491,7 @@ namespace GVDEditor.Forms
 
         private void bUp_Click(object sender, EventArgs e)
         {
-            if (listColumns.SelectedIndex > 0)
+            if (listColumns.SelectedIndex >= 0)
             {
                 var sel = listColumns.SelectedIndex;
                 var item = Columns[sel];
@@ -507,7 +507,7 @@ namespace GVDEditor.Forms
 
         private void bDown_Click(object sender, EventArgs e)
         {
-            if (listColumns.SelectedIndex > 0)
+            if (listColumns.SelectedIndex >= 0)
             {
                 var sel = listColumns.SelectedIndex;
                 var item = Columns[sel];

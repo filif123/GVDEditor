@@ -149,13 +149,13 @@
     <value>Nápověda</value>
   </data>
   <data name="tsmiNew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 6</value>
+    <value>221, 6</value>
   </data>
   <data name="tsmiOpen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="tsmiOpen.Text" xml:space="preserve">
     <value>Otevřít...</value>
@@ -188,16 +188,16 @@
 </value>
   </data>
   <data name="tsmiRecent.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="tsmiRecent.Text" xml:space="preserve">
     <value>Nedávné</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 6</value>
+    <value>221, 6</value>
   </data>
   <data name="tsmiImport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="tsmiImport.Text" xml:space="preserve">
     <value>Importovat</value>
@@ -206,13 +206,22 @@
     <value>Data...</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 6</value>
+    <value>221, 6</value>
   </data>
   <data name="tsmiSave.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 26</value>
+    <value>224, 26</value>
   </data>
   <data name="tsmiSave.Text" xml:space="preserve">
     <value>Uložit</value>
+  </data>
+  <data name="toolStripSeparator18.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 6</value>
+  </data>
+  <data name="tsmiAnalyze.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="tsmiAnalyze.Text" xml:space="preserve">
+    <value>Analyzovat grafikon</value>
   </data>
   <data name="tsmimAddTrain.Size" type="System.Drawing.Size, System.Drawing">
     <value>273, 26</value>
@@ -364,6 +373,9 @@
         +R9MeFGnym8FMgAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="tsbAnalyze.Text" xml:space="preserve">
+    <value>Analyzovat grafikon</value>
+  </data>
   <data name="tsbAddGVD.ToolTipText" xml:space="preserve">
     <value>Vytvořit nový...</value>
   </data>
@@ -431,15 +443,15 @@
   <data name="tssbStartINISS.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAHwSURBVGhD7Zm7S8NQFMaDgrj4GFRw8LkUm+S2UHAQxFFw
-        cunqKFJsk9siHeu/4OjqWDfFqWAXC2160zqIOAtOPiYXBa03cIoUDtW2SZoD+cE3JE3O9x1I2nNvlZCQ
-        kO4wwUuxmqnCIT1kA635C/7J6vw0IbIzcJoOTgO/Sr3qwjSSxeQofBx8OhsAWfyeCWMbLgk2aAMg3TIv
-        WTW3ApcGEyx4h8qpD9nISeTmaAJuCRZoaERazXzSbXNfaRVG4NZggIXtJl1wS7WyG3D78MFC/qlz/s2E
-        WYyKzCKUGR5owH9qtXLwrtf58VK5MA7l/AcL1rvSj/KHcA9K+gseqD/plnGt2RkGpf0BCzKQyrtf8kU/
-        Y7e5ObDwFjSEG7LMN63O89G7whhYeQNq7q4eZCM7YOc+iKFXKsUbuSjYugdi5Jmcsd0ZSxIiPwX2g4MZ
-        +aAX18Z2pLh/qnFbNrIJUfoDLeyznLE91jSWIVJvYAX9Ft0GqD5CWuXwmeRL3P4aXa+mJ8F+cDAjj1RS
-        bWMNbN0DMXJbREcJssMcjNPxRnoWLLwFDdGnCC9oiC4p6S7qYVtFtbILUGZ4oAG7iOzGFt2tRcqbu86Y
-        S3J7XT7nTc3iW3BJsOkMT/QvpvaYK1dF03CaDkwYV3IEiMBhSEhIoFCUH/hO0GGns2FaAAAAAElFTkSu
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAHwSURBVGhD7Zm7S8NQFMaLgrj4GFRw8LkUm+S2IDgI4ii4
+        OHV1FCm2yW2RjvVfcHR17Kg4Fexiob29aR1EnAUnH5OLgtYbOEUKh2rbJM2B/OAbkibn+w4k7bm3kZCQ
+        kO4wyUvxmqXBIT1UA635C/7J6vxsXWZn4DQdnAZ+lXo1pGUmi8lR+Dj4dDYAEvyeSXMHLgk2aAMgQ1iX
+        rJpbgUuDCRa8Q+XUh2rkNHpzPAG3BAs0NCK9Zj0ZtnUQaRVG4NZggIXtJkNyoYnsJtw+fLCQf6rIv5m0
+        ijGZWYQywwMN+E+tVg7fjTo/WSoXxqGc/2DBelf6Uf0Q7kNJf8ED9SdDmNe6nWFQ2h+wIAOpvPelXvRz
+        dpubAwtvQUO4IWG96XWej90VxsDKG1Bzd/WgGtkFO/dBDL1SKdHIxcDWPRAjz+SM7c5Ysi7zU2A/OJiR
+        D3pxbWxHivunGrdVI1sQpT/Qwj7LGdvjTXMZIvUGVtBv0W2A6iOkV46eSb7E7a/RjWp6EuwHBzPySCXN
+        NtfA1j0QI7dFdJQgO8zBOJ1opGfBwlvQEH2K8IKG6JKS7qIetlU0kV2AMsMDDdhFZDe26G4tUt7cdcZc
+        ktvr6jlv6oJvwyXBpjM80b+Y2mOuWhVNw2k6MGleqREgCochISGBIhL5Aa/+0F2ZD15aAAAAAElFTkSu
         QmCC
 </value>
   </data>
@@ -468,7 +480,7 @@
   <data name="LinkaPrichod.Width" type="System.Int32, mscorlib">
     <value>131</value>
   </data>
-  <data name="dataGridViewCellStyle12.NullValue" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="dataGridViewCellStyle7.NullValue" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         wwAADsMBx2+oZAAAAA1JREFUGFdjYGBgYAAAAAUAAYoz4wAAAAAASUVORK5CYII=
@@ -476,9 +488,6 @@
   </data>
   <data name="smerovanieDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
     <value>Směrování</value>
-  </data>
-  <data name="smerovanieDataGridViewTextBoxColumn.Width" type="System.Int32, mscorlib">
-    <value>108</value>
   </data>
   <data name="prichodDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
     <value>Příjezd</value>

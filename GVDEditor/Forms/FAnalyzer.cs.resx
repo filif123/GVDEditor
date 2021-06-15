@@ -118,124 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>34, 17</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Klíč:</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Výrobce:</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 17</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Název:</value>
+    <value>Spustit analýzu:</value>
   </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Základní informace o tabuli</value>
+  <data name="bAnalyze.Text" xml:space="preserve">
+    <value>Analyzovat</value>
   </data>
-  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 17</value>
+  <data name="bFixSelected.Text" xml:space="preserve">
+    <value>Opravit označené</value>
   </data>
-  <data name="label16.Text" xml:space="preserve">
-    <value>Max. počet řádků:</value>
+  <data name="FixType.HeaderText" xml:space="preserve">
+    <value>Typ řešení</value>
   </data>
-  <data name="bSave.Text" xml:space="preserve">
-    <value>Uložit</value>
-  </data>
-  <data name="bStorno.Text" xml:space="preserve">
-    <value>Zrušit</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Stloupce</value>
-  </data>
-  <data name="bUp.Text" xml:space="preserve">
-    <value>Nahoru</value>
-  </data>
-  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 17</value>
-  </data>
-  <data name="label14.Text" xml:space="preserve">
-    <value>Zobrazovat na řádku:</value>
-  </data>
-  <data name="rbCenter.Text" xml:space="preserve">
-    <value>Střed</value>
-  </data>
-  <data name="rbLeft.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 21</value>
-  </data>
-  <data name="rbLeft.Text" xml:space="preserve">
-    <value>Vlevo</value>
-  </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 17</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>Zarovnání textu:</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 17</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Poslední pixel:</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 17</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Počáteční pixel:</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>34, 17</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Klíč:</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Název:</value>
-  </data>
-  <data name="bColumnDelete.Text" xml:space="preserve">
-    <value>Odstranit</value>
-  </data>
-  <data name="bColumnEdit.Text" xml:space="preserve">
-    <value>Upravit</value>
-  </data>
-  <data name="bColumnAdd.Text" xml:space="preserve">
-    <value>Přidat</value>
-  </data>
-  <data name="groupBox3.Text" xml:space="preserve">
-    <value>Řádky</value>
-  </data>
-  <data name="bSetAll.Text" xml:space="preserve">
-    <value>Nastavit všem</value>
-  </data>
-  <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 17</value>
-  </data>
-  <data name="label19.Text" xml:space="preserve">
-    <value>Velikost:</value>
-  </data>
-  <data name="label18.Text" xml:space="preserve">
-    <value>Šířka:</value>
-  </data>
-  <data name="bRowEdit.Text" xml:space="preserve">
-    <value>Upravit</value>
-  </data>
-  <data name="groupBox4.Text" xml:space="preserve">
-    <value>Komentář:</value>
-  </data>
-  <data name="groupBox5.Text" xml:space="preserve">
-    <value>Pořadí stloupců</value>
-  </data>
-  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 17</value>
-  </data>
-  <data name="label15.Text" xml:space="preserve">
-    <value>Nastavit pořadí:</value>
-  </data>
-  <data name="bSetColumnOrder.Text" xml:space="preserve">
-    <value>Nastavit...</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Úprava katalógové tabule</value>
+  <data name="solutionDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
+    <value>Řešení</value>
   </data>
 </root>

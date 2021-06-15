@@ -320,10 +320,10 @@ namespace GVDEditor.Tools
     internal class TableTextWithoutRealization : IProblem
     {
         /// <summary>Initializes a new instance of the <see cref="TableTextWithoutRealization" /> class.</summary>
-        public TableTextWithoutRealization(TableText text, GVDDirectory gvd, int row)
+        public TableTextWithoutRealization(TableText text, GVDDirectory gvdDir, int row)
         {
             TText = text;
-            GVD = gvd;
+            GVDDir = gvdDir;
             Row = row;
         }
 
@@ -337,13 +337,13 @@ namespace GVDEditor.Tools
 
         public TableText TText { get; }
 
-        public GVDDirectory GVD { get; }
+        public GVDDirectory GVDDir { get; }
 
         public int Row { get; }
 
         public FixResult FixProblem()
         {
-            var form = new FTableText(TText, GlobData.TableCatalogs, GVD.GVD, Row);
+            var form = new FTableText(TText, GlobData.TableCatalogs, GVDDir.GVD, Row);
             form.ShowDialog();
 
             //Check if the problem was solved
@@ -354,10 +354,10 @@ namespace GVDEditor.Tools
     internal class TableTextWithoutTrains : IProblem
     {
         /// <summary>Initializes a new instance of the <see cref="TableTextWithoutTrains" /> class.</summary>
-        public TableTextWithoutTrains(TableText text, GVDDirectory gvd, int row)
+        public TableTextWithoutTrains(TableText text, GVDDirectory gvdDir, int row)
         {
             TText = text;
-            GVD = gvd;
+            GVDDir = gvdDir;
             Row = row;
         }
 
@@ -371,13 +371,13 @@ namespace GVDEditor.Tools
 
         public TableText TText { get; }
 
-        public GVDDirectory GVD { get; }
+        public GVDDirectory GVDDir { get; }
 
         public int Row { get; }
 
         public FixResult FixProblem()
         {
-            var form = new FTableText(TText, GlobData.TableCatalogs, GVD.GVD, Row);
+            var form = new FTableText(TText, GlobData.TableCatalogs, GVDDir.GVD, Row);
             form.ShowDialog();
 
             //Check if the problem was solved
@@ -416,12 +416,12 @@ namespace GVDEditor.Tools
     internal class GVDOutOfValidity : IProblem
     {
         /// <summary>Initializes a new instance of the <see cref="GVDOutOfValidity" /> class.</summary>
-        public GVDOutOfValidity(GVDDirectory gvd)
+        public GVDOutOfValidity(GVDDirectory gvdDir)
         {
-            GVD = gvd;
+            GVDDir = gvdDir;
         }
 
-        public string Text => $"Grafikon {GVD.PeriodFormatted} je po planosti";
+        public string Text => $"Grafikon {GVDDir.PeriodFormatted} je po platnosti";
 
         public string Solution => "Zmeniť platnosť grafikonu";
 
@@ -429,15 +429,15 @@ namespace GVDEditor.Tools
 
         public FixType FixType => FixType.MANUAL;
 
-        public GVDDirectory GVD { get; }
+        public GVDDirectory GVDDir { get; }
 
         public FixResult FixProblem()
         {
-            var form = new FLocalSettings(GVD, 0);
+            var form = new FLocalSettings(GVDDir, 0);
             form.ShowDialog();
 
             //Check if the problem was solved
-            return GVD.GVD.EndValidData < DateTime.Now ? FixResult.NOT_SOLVED : FixResult.DONE;
+            return GVDDir.GVD.EndValidData < DateTime.Now ? FixResult.NOT_SOLVED : FixResult.DONE;
         }
     }
 }

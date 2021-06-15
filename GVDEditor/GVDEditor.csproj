@@ -345,6 +345,9 @@
     <Compile Include="XML\XMLEnum.cs" />
     <Compile Include="XML\XMLFont.cs" />
     <Compile Include="XML\XMLSerialization.cs" />
+    <EmbeddedResource Include="Forms\FAnalyzer.cs.resx">
+      <DependentUpon>FAnalyzer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FAnalyzer.resx">
       <DependentUpon>FAnalyzer.cs</DependentUpon>
     </EmbeddedResource>

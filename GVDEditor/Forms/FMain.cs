@@ -226,8 +226,6 @@ namespace GVDEditor.Forms
         private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             waitForm.Close();
-            Application.UseWaitCursor = false;
-            Application.UseWaitCursor = false; //Sometimes only first doesnt work
 
             if (!error)
             {
@@ -248,6 +246,7 @@ namespace GVDEditor.Forms
                 tsbSave.Enabled = true;
                 tsmiSave.Enabled = true;
                 tsmiAnalyze.Enabled = true;
+                tsbAnalyze.Enabled = true;
                 tsbStanica.Enabled = true;
                 tsbGlobalSettings.Enabled = true;
                 tsmiUpravit.Enabled = true;
@@ -288,6 +287,7 @@ namespace GVDEditor.Forms
                 tsmiSave.Enabled = false;
                 tsbSave.Enabled = false;
                 tsmiAnalyze.Enabled = false;
+                tsbAnalyze.Enabled = false;
                 tsbAddGVD.Enabled = false;
                 tsmiNew.Enabled = false;
                 tsmiImport.Enabled = false;
@@ -295,6 +295,8 @@ namespace GVDEditor.Forms
                 ChangeEnableMenuItemsGSettings(false);
                 ChangeEnableMenuItemsLSettings(false);
             }
+
+            UseWaitCursor = false;
         }
 
         private void DoSave()
@@ -394,6 +396,7 @@ namespace GVDEditor.Forms
                     tsmiSave.Enabled = true;
                     tsbSave.Enabled = true;
                     tsmiAnalyze.Enabled = true;
+                    tsbAnalyze.Enabled = true;
                     tssbStartINISS.Enabled = true;
                     tsmimStartINISS.Enabled = true;
                     ChangeEnableMenuItemsGSettings(true);
@@ -439,7 +442,7 @@ namespace GVDEditor.Forms
                 data.DefTrains = Trains.ToList();
 
                 error = false;
-                Cursor.Current = Cursors.AppStarting;
+                UseWaitCursor = true;
                 waitForm = new FWait("Prebieha importovanie údajov...");
                 waitForm.Show(this);
                 if (!bWorkerELIS.IsBusy) bWorkerELIS.RunWorkerAsync(data);
@@ -515,6 +518,9 @@ namespace GVDEditor.Forms
             hlavneMenu.Visible = menu is Config.DesktopMenu.TS_MS or Config.DesktopMenu.MS_ONLY;
             toolMenu.Visible = menu is Config.DesktopMenu.TS_MS or Config.DesktopMenu.TS_ONLY;
             statusStrip.Visible = GlobData.Config.ShowStateRow;
+            tsslDate.Visible = GlobData.Config.ShowDateTimeInStateRow;
+            tsslTime.Visible = GlobData.Config.ShowDateTimeInStateRow;
+            timerTimeAndDate.Enabled = GlobData.Config.ShowStateRow && GlobData.Config.ShowDateTimeInStateRow;
             dgvTrains.RowHeadersVisible = GlobData.Config.ShowRowsHeader;
 
             SetColumns();
@@ -628,6 +634,7 @@ namespace GVDEditor.Forms
                         tsmiSave.Enabled = false;
                         tsbSave.Enabled = false;
                         tsmiAnalyze.Enabled = false;
+                        tsbAnalyze.Enabled = false;
                         tscbStanica.Enabled = false;
                         tscbObdobie.Enabled = false;
                         ChangeEnableMenuItemsGSettings(false);
@@ -857,6 +864,7 @@ namespace GVDEditor.Forms
                 tsmiSave.Enabled = false;
                 tsbSave.Enabled = false;
                 tsmiAnalyze.Enabled = false;
+                tsbAnalyze.Enabled = false;
                 tscbStanica.Enabled = false;
                 tscbObdobie.Enabled = false;
                 ChangeEnableMenuItemsGSettings(false);
@@ -874,6 +882,7 @@ namespace GVDEditor.Forms
                 tsmiSave.Enabled = true;
                 tsbSave.Enabled = true;
                 tsmiAnalyze.Enabled = true;
+                tsbAnalyze.Enabled = true;
                 tsbStanica.Enabled = true;
                 tscbStanica.Enabled = true;
                 tscbObdobie.Enabled = true;
@@ -1110,7 +1119,7 @@ namespace GVDEditor.Forms
             prechod = false;
 
             error = false;
-            Application.UseWaitCursor = true;
+            UseWaitCursor = true;
             waitForm = new FWait();
             waitForm.Show(this);
             if (!backgroundWorker1.IsBusy)
@@ -1208,6 +1217,8 @@ namespace GVDEditor.Forms
         private void tsmimImportData_Click(object sender, EventArgs e) => ShowImportData();
 
         private void tsmimImportGVD_Click(object sender, EventArgs e) => ShowImportGVD();
+
+        private void tsbAnalyze_Click(object sender, EventArgs e) => ShowAnalyzeGVD();
 
         private void tsbAddTrain_Click(object sender, EventArgs e) => ShowEditTrain(null, Trains.Count);
 

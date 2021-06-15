@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Globalization;
@@ -253,6 +254,8 @@ namespace GVDEditor.Tools
         /// <returns>skombinovanu cestu</returns>
         public static string CombinePath(params string[] paths)
         {
+            if (paths.Length == 0) return null;
+
             if (paths[0].Length == 0) return paths[0];
 
             for (var i = 1; i < paths.Length; i++)
@@ -357,6 +360,7 @@ namespace GVDEditor.Tools
         ///     Vrati verziu programu ako triedu Version
         /// </summary>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public static Version GetAppVersion()
         {
             return new(Application.ProductVersion);
@@ -376,6 +380,7 @@ namespace GVDEditor.Tools
         /// <summary>
         ///     Reštartuje program
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public static void RestartApp()
         {
             Application.Restart();
@@ -387,6 +392,7 @@ namespace GVDEditor.Tools
         ///     Vráti všetky názvy vlakovov zo zvukovej banky (priečinok V8)
         /// </summary>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public static List<string> GetTrainNames()
         {
             return GlobData.Sounds.Where(soundE => soundE.Dir.Name == "V8").Select(soundE => soundE.Name).ToList();
@@ -512,6 +518,7 @@ namespace GVDEditor.Tools
         /// <param name="text"></param>
         /// <param name="buttons"></param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public static void ShowError([Localizable(true)] string text, MessageBoxButtons buttons = MessageBoxButtons.OK)
         {
             MessageBox.Show(text, Resources.RError, buttons, MessageBoxIcon.Error);
@@ -523,6 +530,7 @@ namespace GVDEditor.Tools
         /// <param name="text"></param>
         /// <param name="buttons"></param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public static DialogResult ShowQuestion([Localizable(true)] string text, MessageBoxButtons buttons = MessageBoxButtons.YesNo)
         {
             return MessageBox.Show(text, Resources.RQuestion, buttons, MessageBoxIcon.Question);
@@ -534,6 +542,7 @@ namespace GVDEditor.Tools
         /// <param name="text"></param>
         /// <param name="buttons"></param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public static DialogResult ShowWarning([Localizable(true)] string text, MessageBoxButtons buttons = MessageBoxButtons.OK)
         {
             return MessageBox.Show(text, Resources.RWarning, buttons, MessageBoxIcon.Warning);
@@ -546,6 +555,7 @@ namespace GVDEditor.Tools
         /// <param name="title"></param>
         /// <param name="buttons"></param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public static DialogResult ShowInfo([Localizable(true)] string text, string title = null, MessageBoxButtons buttons = MessageBoxButtons.OK)
         {
             return MessageBox.Show(text, title ?? Resources.RInfo, buttons, MessageBoxIcon.Information);
@@ -556,6 +566,7 @@ namespace GVDEditor.Tools
         /// </summary>
         /// <param name="ch"></param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public static bool LineIsEmpty(ReadStartChar ch)
         {
             return ch is ReadStartChar.SEMICOLON or ReadStartChar.EMPTY or ReadStartChar.SLASH;
@@ -566,6 +577,7 @@ namespace GVDEditor.Tools
         /// </summary>
         /// <param name="ch"></param>
         /// <returns></returns>
+        [ExcludeFromCodeCoverage]
         public static bool LineIsEOF(ReadStartChar ch)
         {
             return ch == ReadStartChar.EOF;
@@ -647,6 +659,7 @@ namespace GVDEditor.Tools
         /// <param name="type"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
+        [ExcludeFromCodeCoverage]
         public static string Arrow(Arrow type)
         {
             return type switch

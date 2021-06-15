@@ -215,13 +215,13 @@ namespace GVDEditor.Forms
             // 
             // cbDateRemLocate
             // 
+            resources.ApplyResources(this.cbDateRemLocate, "cbDateRemLocate");
             this.cbDateRemLocate.DropDownSelectedRowBackColor = System.Drawing.Color.Empty;
             this.cbDateRemLocate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDateRemLocate.FormattingEnabled = true;
             this.cbDateRemLocate.Items.AddRange(new object[] {
             resources.GetString("cbDateRemLocate.Items"),
             resources.GetString("cbDateRemLocate.Items1")});
-            resources.ApplyResources(this.cbDateRemLocate, "cbDateRemLocate");
             this.cbDateRemLocate.Name = "cbDateRemLocate";
             exComboBoxStyle1.ArrowColor = null;
             exComboBoxStyle1.BackColor = null;
@@ -258,13 +258,13 @@ namespace GVDEditor.Forms
             // 
             // cbAppLanguage
             // 
+            resources.ApplyResources(this.cbAppLanguage, "cbAppLanguage");
             this.cbAppLanguage.DropDownSelectedRowBackColor = System.Drawing.Color.Empty;
             this.cbAppLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAppLanguage.FormattingEnabled = true;
             this.cbAppLanguage.Items.AddRange(new object[] {
             resources.GetString("cbAppLanguage.Items"),
             resources.GetString("cbAppLanguage.Items1")});
-            resources.ApplyResources(this.cbAppLanguage, "cbAppLanguage");
             this.cbAppLanguage.Name = "cbAppLanguage";
             exComboBoxStyle5.ArrowColor = null;
             exComboBoxStyle5.BackColor = null;
@@ -327,6 +327,7 @@ namespace GVDEditor.Forms
             // 
             // cbDebugModeGUI
             // 
+            resources.ApplyResources(this.cbDebugModeGUI, "cbDebugModeGUI");
             this.cbDebugModeGUI.DropDownSelectedRowBackColor = System.Drawing.Color.Empty;
             this.cbDebugModeGUI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDebugModeGUI.FormattingEnabled = true;
@@ -334,7 +335,6 @@ namespace GVDEditor.Forms
             resources.GetString("cbDebugModeGUI.Items"),
             resources.GetString("cbDebugModeGUI.Items1"),
             resources.GetString("cbDebugModeGUI.Items2")});
-            resources.ApplyResources(this.cbDebugModeGUI, "cbDebugModeGUI");
             this.cbDebugModeGUI.Name = "cbDebugModeGUI";
             exComboBoxStyle9.ArrowColor = null;
             exComboBoxStyle9.BackColor = null;
@@ -387,8 +387,8 @@ namespace GVDEditor.Forms
             // 
             // nudWordPause
             // 
-            this.nudWordPause.HighlightColor = System.Drawing.SystemColors.Highlight;
             resources.ApplyResources(this.nudWordPause, "nudWordPause");
+            this.nudWordPause.HighlightColor = System.Drawing.SystemColors.Highlight;
             this.nudWordPause.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -428,10 +428,10 @@ namespace GVDEditor.Forms
             // 
             // treeMenu
             // 
+            resources.ApplyResources(this.treeMenu, "treeMenu");
             this.treeMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.treeMenu.FullRowSelect = true;
             this.treeMenu.HideSelection = false;
-            resources.ApplyResources(this.treeMenu, "treeMenu");
             this.treeMenu.ImageList = this.imagesMenu;
             this.treeMenu.Name = "treeMenu";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
@@ -459,12 +459,12 @@ namespace GVDEditor.Forms
             // 
             // pObecne
             // 
+            resources.ApplyResources(this.pObecne, "pObecne");
             this.pObecne.Controls.Add(this.cbAutoVariant);
             this.pObecne.Controls.Add(this.cbDisableVariantCheck);
             this.pObecne.Controls.Add(this.cbClassicGUI);
             this.pObecne.Controls.Add(this.cbMoreInstance);
             this.pObecne.Controls.Add(this.cbAutoTableText);
-            resources.ApplyResources(this.pObecne, "pObecne");
             this.pObecne.Name = "pObecne";
             // 
             // cbAutoVariant
@@ -485,14 +485,15 @@ namespace GVDEditor.Forms
             // 
             // pEnvironment
             // 
+            resources.ApplyResources(this.pEnvironment, "pEnvironment");
             this.pEnvironment.Controls.Add(this.dgvAppFonts);
             this.pEnvironment.Controls.Add(this.bAppFontDefault);
             this.pEnvironment.Controls.Add(this.label5);
-            resources.ApplyResources(this.pEnvironment, "pEnvironment");
             this.pEnvironment.Name = "pEnvironment";
             // 
             // dgvAppFonts
             // 
+            resources.ApplyResources(this.dgvAppFonts, "dgvAppFonts");
             this.dgvAppFonts.AllowUserToAddRows = false;
             this.dgvAppFonts.AllowUserToDeleteRows = false;
             this.dgvAppFonts.AllowUserToResizeRows = false;
@@ -504,7 +505,6 @@ namespace GVDEditor.Forms
             this.FontDescription,
             this.Example});
             this.dgvAppFonts.DataSource = this.appFontBindingSource;
-            resources.ApplyResources(this.dgvAppFonts, "dgvAppFonts");
             this.dgvAppFonts.Name = "dgvAppFonts";
             this.dgvAppFonts.ReadOnly = true;
             this.dgvAppFonts.RowHeadersVisible = false;
@@ -552,15 +552,16 @@ namespace GVDEditor.Forms
             // 
             // pLocalization
             // 
+            resources.ApplyResources(this.pLocalization, "pLocalization");
             this.pLocalization.Controls.Add(this.cbDateRemLocate);
             this.pLocalization.Controls.Add(this.label1);
             this.pLocalization.Controls.Add(this.label2);
             this.pLocalization.Controls.Add(this.cbAppLanguage);
-            resources.ApplyResources(this.pLocalization, "pLocalization");
             this.pLocalization.Name = "pLocalization";
             // 
             // pFontsColors
             // 
+            resources.ApplyResources(this.pFontsColors, "pFontsColors");
             this.pFontsColors.Controls.Add(this.bUseStyle);
             this.pFontsColors.Controls.Add(this.bColorsUseDefault);
             this.pFontsColors.Controls.Add(this.exGroupBox2);
@@ -572,7 +573,6 @@ namespace GVDEditor.Forms
             this.pFontsColors.Controls.Add(this.label17);
             this.pFontsColors.Controls.Add(this.cbStyles);
             this.pFontsColors.Controls.Add(this.exGroupBox3);
-            resources.ApplyResources(this.pFontsColors, "pFontsColors");
             this.pFontsColors.Name = "pFontsColors";
             // 
             // bUseStyle
@@ -591,10 +591,10 @@ namespace GVDEditor.Forms
             // 
             // exGroupBox2
             // 
+            resources.ApplyResources(this.exGroupBox2, "exGroupBox2");
             this.exGroupBox2.Controls.Add(this.cboxDarkScrollBars);
             this.exGroupBox2.Controls.Add(this.cboxDarkTitleBar);
             this.exGroupBox2.Controls.Add(this.cboxDefaultStyle);
-            resources.ApplyResources(this.exGroupBox2, "exGroupBox2");
             this.exGroupBox2.Name = "exGroupBox2";
             this.exGroupBox2.TabStop = false;
             // 
@@ -632,12 +632,12 @@ namespace GVDEditor.Forms
             // 
             // cbColorSettings
             // 
+            resources.ApplyResources(this.cbColorSettings, "cbColorSettings");
             this.cbColorSettings.DropDownSelectedRowBackColor = System.Drawing.Color.Empty;
             this.cbColorSettings.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbColorSettings.FormattingEnabled = true;
             this.cbColorSettings.Items.AddRange(new object[] {
             resources.GetString("cbColorSettings.Items")});
-            resources.ApplyResources(this.cbColorSettings, "cbColorSettings");
             this.cbColorSettings.Name = "cbColorSettings";
             exComboBoxStyle13.ArrowColor = null;
             exComboBoxStyle13.BackColor = null;
@@ -701,6 +701,7 @@ namespace GVDEditor.Forms
             // 
             // cbStyles
             // 
+            resources.ApplyResources(this.cbStyles, "cbStyles");
             this.cbStyles.BackColor = System.Drawing.Color.White;
             this.cbStyles.DefaultStyle = false;
             this.cbStyles.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -708,7 +709,6 @@ namespace GVDEditor.Forms
             this.cbStyles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStyles.ForeColor = System.Drawing.Color.Black;
             this.cbStyles.FormattingEnabled = true;
-            resources.ApplyResources(this.cbStyles, "cbStyles");
             this.cbStyles.Name = "cbStyles";
             exComboBoxStyle17.ArrowColor = null;
             exComboBoxStyle17.BackColor = null;
@@ -742,6 +742,7 @@ namespace GVDEditor.Forms
             // 
             // exGroupBox3
             // 
+            resources.ApplyResources(this.exGroupBox3, "exGroupBox3");
             this.exGroupBox3.Controls.Add(this.label10);
             this.exGroupBox3.Controls.Add(this.cbFontSize);
             this.exGroupBox3.Controls.Add(this.label12);
@@ -751,7 +752,6 @@ namespace GVDEditor.Forms
             this.exGroupBox3.Controls.Add(this.listSettings);
             this.exGroupBox3.Controls.Add(this.label13);
             this.exGroupBox3.Controls.Add(this.labelExample);
-            resources.ApplyResources(this.exGroupBox3, "exGroupBox3");
             this.exGroupBox3.Name = "exGroupBox3";
             this.exGroupBox3.TabStop = false;
             // 
@@ -762,9 +762,9 @@ namespace GVDEditor.Forms
             // 
             // cbFontSize
             // 
+            resources.ApplyResources(this.cbFontSize, "cbFontSize");
             this.cbFontSize.DropDownSelectedRowBackColor = System.Drawing.Color.Empty;
             this.cbFontSize.FormattingEnabled = true;
-            resources.ApplyResources(this.cbFontSize, "cbFontSize");
             this.cbFontSize.Name = "cbFontSize";
             exComboBoxStyle21.ArrowColor = null;
             exComboBoxStyle21.BackColor = null;
@@ -809,6 +809,7 @@ namespace GVDEditor.Forms
             // 
             // exGroupBox1
             // 
+            resources.ApplyResources(this.exGroupBox1, "exGroupBox1");
             this.exGroupBox1.Controls.Add(this.label15);
             this.exGroupBox1.Controls.Add(this.pbBackgroundColor);
             this.exGroupBox1.Controls.Add(this.bSetBackgroundColor);
@@ -816,7 +817,6 @@ namespace GVDEditor.Forms
             this.exGroupBox1.Controls.Add(this.pbForegroundColor);
             this.exGroupBox1.Controls.Add(this.bSetForegroundColor);
             this.exGroupBox1.Controls.Add(this.cbBold);
-            resources.ApplyResources(this.exGroupBox1, "exGroupBox1");
             this.exGroupBox1.Name = "exGroupBox1";
             this.exGroupBox1.TabStop = false;
             // 
@@ -827,8 +827,8 @@ namespace GVDEditor.Forms
             // 
             // pbBackgroundColor
             // 
-            this.pbBackgroundColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.pbBackgroundColor, "pbBackgroundColor");
+            this.pbBackgroundColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbBackgroundColor.Name = "pbBackgroundColor";
             this.pbBackgroundColor.TabStop = false;
             // 
@@ -846,8 +846,8 @@ namespace GVDEditor.Forms
             // 
             // pbForegroundColor
             // 
-            this.pbForegroundColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.pbForegroundColor, "pbForegroundColor");
+            this.pbForegroundColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbForegroundColor.Name = "pbForegroundColor";
             this.pbForegroundColor.TabStop = false;
             // 
@@ -869,13 +869,13 @@ namespace GVDEditor.Forms
             // 
             // cbFont
             // 
+            resources.ApplyResources(this.cbFont, "cbFont");
             this.cbFont.BackColor = System.Drawing.Color.White;
             this.cbFont.DefaultStyle = false;
             this.cbFont.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cbFont.DropDownSelectedRowBackColor = System.Drawing.Color.Empty;
             this.cbFont.ForeColor = System.Drawing.Color.Black;
             this.cbFont.FormattingEnabled = true;
-            resources.ApplyResources(this.cbFont, "cbFont");
             this.cbFont.Name = "cbFont";
             exComboBoxStyle25.ArrowColor = null;
             exComboBoxStyle25.BackColor = null;
@@ -914,8 +914,8 @@ namespace GVDEditor.Forms
             // 
             // listSettings
             // 
-            this.listSettings.FormattingEnabled = true;
             resources.ApplyResources(this.listSettings, "listSettings");
+            this.listSettings.FormattingEnabled = true;
             this.listSettings.Name = "listSettings";
             this.listSettings.SelectedIndexChanged += new System.EventHandler(this.listSettings_SelectedIndexChanged);
             // 
@@ -926,36 +926,36 @@ namespace GVDEditor.Forms
             // 
             // labelExample
             // 
+            resources.ApplyResources(this.labelExample, "labelExample");
             this.labelExample.BackColor = System.Drawing.Color.White;
             this.labelExample.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.labelExample, "labelExample");
             this.labelExample.Name = "labelExample";
             // 
             // pLogging
             // 
+            resources.ApplyResources(this.pLogging, "pLogging");
             this.pLogging.Controls.Add(this.cbDebugModeGUI);
             this.pLogging.Controls.Add(this.label4);
             this.pLogging.Controls.Add(this.cbLoggingError);
             this.pLogging.Controls.Add(this.cbLoggingInfo);
-            resources.ApplyResources(this.pLogging, "pLogging");
             this.pLogging.Name = "pLogging";
             // 
             // pPlaying
             // 
+            resources.ApplyResources(this.pPlaying, "pPlaying");
             this.pPlaying.Controls.Add(this.nudWordPause);
             this.pPlaying.Controls.Add(this.label3);
-            resources.ApplyResources(this.pPlaying, "pPlaying");
             this.pPlaying.Name = "pPlaying";
             // 
             // pDesktop
             // 
+            resources.ApplyResources(this.pDesktop, "pDesktop");
             this.pDesktop.Controls.Add(this.cbFitLastColumn);
             this.pDesktop.Controls.Add(this.bColumnDown);
             this.pDesktop.Controls.Add(this.bColumnUp);
             this.pDesktop.Controls.Add(this.label6);
             this.pDesktop.Controls.Add(this.dgvDesktopColums);
             this.pDesktop.Controls.Add(this.groupBox2);
-            resources.ApplyResources(this.pDesktop, "pDesktop");
             this.pDesktop.Name = "pDesktop";
             // 
             // cbFitLastColumn
@@ -987,6 +987,7 @@ namespace GVDEditor.Forms
             // 
             // dgvDesktopColums
             // 
+            resources.ApplyResources(this.dgvDesktopColums, "dgvDesktopColums");
             this.dgvDesktopColums.AllowUserToAddRows = false;
             this.dgvDesktopColums.AllowUserToDeleteRows = false;
             this.dgvDesktopColums.AllowUserToResizeRows = false;
@@ -998,7 +999,6 @@ namespace GVDEditor.Forms
             this.visibleDataGridViewCheckBoxColumn,
             this.MinWidth});
             this.dgvDesktopColums.DataSource = this.desktopColumnBindingSource;
-            resources.ApplyResources(this.dgvDesktopColums, "dgvDesktopColums");
             this.dgvDesktopColums.Name = "dgvDesktopColums";
             this.dgvDesktopColums.RowHeadersVisible = false;
             this.dgvDesktopColums.RowTemplate.Height = 24;
@@ -1032,6 +1032,7 @@ namespace GVDEditor.Forms
             // 
             // groupBox2
             // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.cboxDateTimeInStateRow);
             this.groupBox2.Controls.Add(this.cbShowRowsHeader);
             this.groupBox2.Controls.Add(this.rbTS);
@@ -1039,7 +1040,6 @@ namespace GVDEditor.Forms
             this.groupBox2.Controls.Add(this.rbMSandTS);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.cbShowStateRow);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
@@ -1099,11 +1099,11 @@ namespace GVDEditor.Forms
             // 
             // pShortcuts
             // 
+            resources.ApplyResources(this.pShortcuts, "pShortcuts");
             this.pShortcuts.Controls.Add(this.lShortcutHelp);
             this.pShortcuts.Controls.Add(this.dgvShortcuts);
             this.pShortcuts.Controls.Add(this.bAllShortcutsSetDefault);
             this.pShortcuts.Controls.Add(this.label8);
-            resources.ApplyResources(this.pShortcuts, "pShortcuts");
             this.pShortcuts.Name = "pShortcuts";
             // 
             // lShortcutHelp
@@ -1113,6 +1113,7 @@ namespace GVDEditor.Forms
             // 
             // dgvShortcuts
             // 
+            resources.ApplyResources(this.dgvShortcuts, "dgvShortcuts");
             this.dgvShortcuts.AllowUserToAddRows = false;
             this.dgvShortcuts.AllowUserToDeleteRows = false;
             this.dgvShortcuts.AllowUserToResizeRows = false;
@@ -1125,7 +1126,6 @@ namespace GVDEditor.Forms
             this.RemoveShortcut,
             this.Default});
             this.dgvShortcuts.DataSource = this.commandShortcutBindingSource;
-            resources.ApplyResources(this.dgvShortcuts, "dgvShortcuts");
             this.dgvShortcuts.Name = "dgvShortcuts";
             this.dgvShortcuts.ReadOnly = true;
             this.dgvShortcuts.RowHeadersVisible = false;
@@ -1189,13 +1189,13 @@ namespace GVDEditor.Forms
             // 
             // pStartup
             // 
+            resources.ApplyResources(this.pStartup, "pStartup");
             this.pStartup.Controls.Add(this.label18);
             this.pStartup.Controls.Add(this.groupArguments);
             this.pStartup.Controls.Add(this.cboxManualCmdArgs);
             this.pStartup.Controls.Add(this.tbCmdArguments);
             this.pStartup.Controls.Add(this.label14);
             this.pStartup.Controls.Add(this.cbStartINISSAdmin);
-            resources.ApplyResources(this.pStartup, "pStartup");
             this.pStartup.Name = "pStartup";
             // 
             // label18
@@ -1205,6 +1205,7 @@ namespace GVDEditor.Forms
             // 
             // groupArguments
             // 
+            resources.ApplyResources(this.groupArguments, "groupArguments");
             this.groupArguments.Controls.Add(this.cbArgRegister);
             this.groupArguments.Controls.Add(this.label19);
             this.groupArguments.Controls.Add(this.cboxArgExportTableTexts);
@@ -1212,15 +1213,14 @@ namespace GVDEditor.Forms
             this.groupArguments.Controls.Add(this.cboxArgExportHlasTexts);
             this.groupArguments.Controls.Add(this.cboxArgMinimize);
             this.groupArguments.Controls.Add(this.cboxArgMoreInstances);
-            resources.ApplyResources(this.groupArguments, "groupArguments");
             this.groupArguments.Name = "groupArguments";
             this.groupArguments.TabStop = false;
             // 
             // cbArgRegister
             // 
+            resources.ApplyResources(this.cbArgRegister, "cbArgRegister");
             this.cbArgRegister.DropDownSelectedRowBackColor = System.Drawing.SystemColors.Highlight;
             this.cbArgRegister.FormattingEnabled = true;
-            resources.ApplyResources(this.cbArgRegister, "cbArgRegister");
             this.cbArgRegister.Name = "cbArgRegister";
             exComboBoxStyle29.ArrowColor = null;
             exComboBoxStyle29.BackColor = null;
@@ -1320,6 +1320,7 @@ namespace GVDEditor.Forms
             // 
             // tbCmdArguments
             // 
+            resources.ApplyResources(this.tbCmdArguments, "tbCmdArguments");
             this.tbCmdArguments.BorderColor = System.Drawing.Color.DimGray;
             this.tbCmdArguments.DisabledBackColor = System.Drawing.SystemColors.Control;
             this.tbCmdArguments.DisabledBorderColor = System.Drawing.SystemColors.InactiveBorder;
@@ -1327,7 +1328,6 @@ namespace GVDEditor.Forms
             this.tbCmdArguments.HighlightColor = System.Drawing.SystemColors.Highlight;
             this.tbCmdArguments.HintForeColor = System.Drawing.SystemColors.GrayText;
             this.tbCmdArguments.HintText = null;
-            resources.ApplyResources(this.tbCmdArguments, "tbCmdArguments");
             this.tbCmdArguments.Name = "tbCmdArguments";
             // 
             // label14
@@ -1352,6 +1352,8 @@ namespace GVDEditor.Forms
             this.Controls.Add(this.treeMenu);
             this.Controls.Add(this.bStorno);
             this.Controls.Add(this.bSave);
+            this.Controls.Add(this.pFontsColors);
+            this.Controls.Add(this.pLogging);
             this.Controls.Add(this.pStartup);
             this.Controls.Add(this.pObecne);
             this.Controls.Add(this.pPlaying);
@@ -1359,8 +1361,6 @@ namespace GVDEditor.Forms
             this.Controls.Add(this.pShortcuts);
             this.Controls.Add(this.pDesktop);
             this.Controls.Add(this.pEnvironment);
-            this.Controls.Add(this.pFontsColors);
-            this.Controls.Add(this.pLogging);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
             this.MaximizeBox = false;

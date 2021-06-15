@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Windows.Forms;
 using GVDEditor.Tools;
@@ -9,6 +11,7 @@ using GVDEditor.Tools;
 namespace GVDEditorTests.Tools
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class UtilsTests
     {
         [TestMethod]
@@ -27,7 +30,7 @@ namespace GVDEditorTests.Tools
         }
 
         [TestMethod]
-        public void ANSItoUTF_Bytes_NotNull() //TODO
+        public void ANSItoUTF_Bytes_NotNull()
         {
             byte[] bytes = {0x20,0x40,0x60};
 
@@ -52,9 +55,9 @@ namespace GVDEditorTests.Tools
         }
 
         [TestMethod]
-        public void ANSItoUTF_String_NotNull() //TODO
+        public void ANSItoUTF_String_NotNull()
         {
-            string input = "č š ř";
+            const string input = "č š ř";
             string res = input.ANSItoUTF();
             
             Assert.AreEqual("č š ř", res);
@@ -76,7 +79,7 @@ namespace GVDEditorTests.Tools
         }
 
         [TestMethod]
-        public void UTFtoANSI_Bytes_NotNull() //TODO
+        public void UTFtoANSI_Bytes_NotNull()
         {
             byte[] bytes = {0x20,0x40,0x60};
 
@@ -101,9 +104,9 @@ namespace GVDEditorTests.Tools
         }
 
         [TestMethod]
-        public void UTFtoANSI_String_NotNull() //TODO
+        public void UTFtoANSI_String_NotNull()
         {
-            string input = "č š ř";
+            const string input = "č š ř";
 
             string res = input.UTFtoANSI();
             
@@ -118,6 +121,96 @@ namespace GVDEditorTests.Tools
             string res = input.PadZeros(5);
             
             Assert.AreEqual("00004", res);
+        }
+
+        [TestMethod]
+        public void PadZerosZeroDigit()
+        {
+            const int input = 4;
+
+            string res = input.PadZeros(0);
+
+            Assert.AreEqual("4", res);
+        }
+
+        [TestMethod]
+        public void IsInt_Word()
+        {
+            const string input = "Test";
+
+            var res = Utils.IsInt(input);
+
+            Assert.IsFalse(res);
+        }
+
+        [TestMethod]
+        public void IsInt_Num()
+        {
+            const string input = "07841";
+
+            var res = Utils.IsInt(input);
+
+            Assert.IsTrue(res);
+        }
+
+        [TestMethod]
+        public void ParseIntOrDefault_Word()
+        {
+            const string input = "Test";
+
+            var res = Utils.ParseIntOrDefault(input, 9);
+
+            Assert.AreEqual(9, res);
+        }
+
+        [TestMethod]
+        public void ParseIntOrDefault_Num()
+        {
+            const string input = "07841";
+
+            var res = Utils.ParseIntOrDefault(input, 9);
+
+            Assert.AreEqual(7841, res);
+        }
+
+        [TestMethod]
+        public void ParseIntOrNull_Word()
+        {
+            const string input = "Test";
+
+            var res = Utils.ParseIntOrNull(input);
+
+            Assert.AreEqual(null, res);
+        }
+
+        [TestMethod]
+        public void ParseIntOrNull_Num()
+        {
+            const string input = "07841";
+
+            var res = Utils.ParseIntOrNull(input);
+
+            Assert.AreEqual(7841, res);
+        }
+
+        [TestMethod]
+        public void ParseStringOrDefault_Null()
+        {
+            const string input = null;
+
+            var res = Utils.ParseStringOrDefault(input);
+
+            Assert.AreEqual(null, res);
+        }
+
+        [TestMethod]
+        public void ParseStringOrDefault_NotNull()
+        {
+            const string input = "null";
+
+            var res = Utils.ParseStringOrDefault(input);
+
+            Assert.AreEqual("null", res);
         }
 
         [TestMethod]
@@ -154,6 +247,26 @@ namespace GVDEditorTests.Tools
         }
 
         [TestMethod]
+        public void BoolToNumber()
+        {
+            const bool input = true;
+
+            var res = Utils.BoolToNumber(input);
+
+            Assert.AreEqual(1, res);
+        }
+
+        [TestMethod]
+        public void NumToBool()
+        {
+            const int input = 1;
+
+            var res = Utils.NumToBool(input);
+
+            Assert.AreEqual(true, res);
+        }
+
+        [TestMethod]
         public void ToHEX()
         {
             Color c = Color.BlueViolet;
@@ -164,7 +277,7 @@ namespace GVDEditorTests.Tools
         }
 
         [TestMethod]
-        public void FromHEX()
+        public void ParseHEX()
         {
             const string arr = "0xE22B8A";
 
@@ -174,12 +287,81 @@ namespace GVDEditorTests.Tools
         }
 
         [TestMethod]
-        public void CombinePath()
+        public void TryParseHEX_CorrectInput()
         {
+            const string arr = "0xE22B8A";
 
+            Color? res = Utils.TryParseHEX(arr);
+
+            Assert.AreEqual(Color.FromArgb(255, 138, 43, 226), res);
+        }
+
+        [TestMethod]
+        public void TryParseHEX_IncorrectInput()
+        {
+            const string arr = "Test";
+
+            Color? res = Utils.TryParseHEX(arr);
+
+            Assert.AreEqual(null, res);
+        }
+
+        [TestMethod]
+        public void CombinePath_ZeroPaths()
+        {
+            string res = Utils.CombinePath();
+
+            Assert.AreEqual(null, res);
+        }
+
+        [TestMethod]
+        public void CombinePath_NonZeroPaths_FirstEmpty()
+        {
+            string res = Utils.CombinePath("", "Test", "Microsoft");
+
+            Assert.AreEqual("", res);
+        }
+
+        [TestMethod]
+        public void CombinePath_NonZeroPaths()
+        {
             string res = Utils.CombinePath("\\Users", "Test", "Microsoft");
 
             Assert.AreEqual("\\Users\\Test\\Microsoft", res);
+        }
+
+        [TestMethod]
+        public void GetSystemFontNames()
+        {
+            var res = Utils.GetSystemFontNames();
+            using var fonts = new InstalledFontCollection();
+            var expected = fonts.Families.Length;
+
+            Assert.AreEqual(expected, res.Count);
+        }
+
+        [TestMethod]
+        public void IsFontMonospaced_Arial()
+        {
+            using var g = Graphics.FromImage(new Bitmap(100, 100));
+            using var family = new FontFamily("Arial");
+            using var font = new Font(family, 20);
+
+            var res = Utils.IsFontMonospaced(g, font);
+
+            Assert.AreEqual(false, res);
+        }
+
+        [TestMethod]
+        public void IsFontMonospaced_Consolas()
+        {
+            using var g = Graphics.FromImage(new Bitmap(100, 100));
+            using var family = new FontFamily("Consolas");
+            using var font = new Font(family, 20);
+
+            var res = Utils.IsFontMonospaced(g, font);
+
+            Assert.AreEqual(true, res);
         }
 
         [TestMethod]
@@ -213,7 +395,7 @@ namespace GVDEditorTests.Tools
         {
             const string arr = "17.12.2021";
 
-            DateTime res = Utils.ParseDate(arr);
+            var res = Utils.ParseDate(arr);
             Assert.AreEqual(new DateTime(2021,12,17), res);
         }
         
@@ -238,7 +420,7 @@ namespace GVDEditorTests.Tools
         {
             const string arr = "17.2.2021";
 
-            DateTime res = Utils.ParseDateAlts(arr);
+            var res = Utils.ParseDateAlts(arr);
             Assert.AreEqual(new DateTime(2021,2,17), res);
         }
         
@@ -263,8 +445,8 @@ namespace GVDEditorTests.Tools
         {
             const string arr = "18:00";
 
-            DateTime res = Utils.ParseTime(arr);
-            DateTime today = DateTime.Today;
+            var res = Utils.ParseTime(arr);
+            var today = DateTime.Today;
 
             var expected = new DateTime(today.Year, today.Month, today.Day, 18, 0, 0);
             Assert.AreEqual(expected, res);

@@ -36,7 +36,7 @@ namespace GVDEditor.Tools
         ///     Vráti, zoznam všetkých verzií zo servera. V prípade nedostupnosti zdroja vráti prázdny zoznam.
         /// </summary>
         /// <returns></returns>
-        private static List<Version> GetAllVersions()
+        private static IEnumerable<Version> GetAllVersions()
         {
             var allversions = new List<Version>();
 

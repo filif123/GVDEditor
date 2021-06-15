@@ -6,7 +6,6 @@ using System.Text;
 
 namespace GVDEditor.Tools
 {
-
     internal class FunctionItem : AutocompleteItem
     {
         public string FunctionName { get; }
