@@ -129,7 +129,7 @@ namespace GVDEditor.Forms
 
                             train.Variant = num;
                         }
-                        else if (selectedColumnTypes[j] == ImportTrainColumnType.Name)
+                        else if (selectedColumnTypes[j] == ImportTrainColumnType.Nazov)
                         {
                             train.Name = data.Trim();
                         }
@@ -583,7 +583,7 @@ namespace GVDEditor.Forms
                     for (var i = 0; i < dgvData.Columns.Count; i++)
                     {
                         var type = ImportTrainColumnType.ParseColumnName((string) firstRow[i]);
-                        dgvData.Columns[i].HeaderText = type.ColumnName;
+                        dgvData.Columns[i].HeaderText = type.Name;
                         selectedColumnTypes.Add(type);
                     }
 
@@ -597,7 +597,7 @@ namespace GVDEditor.Forms
 
                         for (var i = 0; i < DataTable.Columns.Count; i++)
                         {
-                            dgvData.Columns[i].HeaderText = ImportTrainColumnType.None.ColumnName;
+                            dgvData.Columns[i].HeaderText = ImportTrainColumnType.None.Name;
                             selectedColumnTypes.Add(ImportTrainColumnType.None);
                         }
 
@@ -620,11 +620,11 @@ namespace GVDEditor.Forms
                 var type = fcts.SelectedType;
                 selectedColumnTypes[index] = fcts.SelectedType;
 
-                dgvData.Columns[index].HeaderText = type.ColumnName;
+                dgvData.Columns[index].HeaderText = type.Name;
             }
             else if (result == DialogResult.No)
             {
-                dgvData.Columns[index].HeaderText = ImportTrainColumnType.None.ColumnName;
+                dgvData.Columns[index].HeaderText = ImportTrainColumnType.None.Name;
                 selectedColumnTypes[index] = ImportTrainColumnType.None;
             }
         }
@@ -638,7 +638,7 @@ namespace GVDEditor.Forms
             {
                 var ct = cboxFirstHeader.Checked ? ImportTrainColumnType.ParseColumnName(reader[0, i]) : ImportTrainColumnType.None;
 
-                var dc = new DataColumn {Caption = ct.ColumnName, DefaultValue = ""};
+                var dc = new DataColumn {Caption = ct.Name, DefaultValue = ""};
 
                 selectedColumnTypes.Add(ct);
                 DataTable.Columns.Add(dc);

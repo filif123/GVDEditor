@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace GVDEditor.Entities
+﻿namespace GVDEditor.Entities
 {
     /// <summary>
     ///     Typ písma pre tabule
     /// </summary>
-    public sealed class TableFontType
+    public sealed class TableFontType : Enumeration
     {
         #region VALUES
 
@@ -31,21 +29,9 @@ namespace GVDEditor.Entities
 
         #endregion
 
-        private TableFontType(string key, string name)
+        private TableFontType(string key, string name) : base(key, name)
         {
-            Key = key;
-            Name = name;
         }
-
-        /// <summary>
-        ///     Kľúč typu písma
-        /// </summary>
-        public string Key { get; }
-
-        /// <summary>
-        ///     Naźov typu písma
-        /// </summary>
-        public string Name { get; }
 
         /// <summary>
         ///     This
@@ -66,21 +52,6 @@ namespace GVDEditor.Entities
                 "Šikmý a tučný" => BoldItalics,
                 _ => null
             };
-        }
-
-        /// <summary>
-        ///     Vráti všetky možné typy písma pre tabule
-        /// </summary>
-        /// <returns></returns>
-        public static List<TableFontType> GetValues()
-        {
-            return new() {None, Bold, Italics, BoldItalics};
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return Name;
         }
     }
 }

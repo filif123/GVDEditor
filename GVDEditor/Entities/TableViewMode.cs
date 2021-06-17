@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-
-namespace GVDEditor.Entities
+﻿namespace GVDEditor.Entities
 {
     /// <summary>
     ///     Definuje mód zobrazenia udaju na tabuli
     /// </summary>
-    public sealed class TableViewMode
+    public sealed class TableViewMode : Enumeration
     {
+        #region VALUES
+
 #pragma warning disable 1591
         public static readonly TableViewMode Nothing = new("LVM_Nothing", "Prázdna tabuľa");
         public static readonly TableViewMode Vlak = new("LVM_Vlak", "Vlak bez meškania");
@@ -16,21 +16,11 @@ namespace GVDEditor.Entities
         public static readonly TableViewMode Text = new("LVM_Text", "Text");
 #pragma warning restore 1591
 
-        private TableViewMode(string key, string name)
+        #endregion
+
+        private TableViewMode(string key, string name) : base(key,name)
         {
-            Key = key;
-            Name = name;
         }
-
-        /// <summary>
-        ///     Kluc modu zobrazenia
-        /// </summary>
-        public string Key { get; }
-
-        /// <summary>
-        ///     Nazov modu zobrazenia
-        /// </summary>
-        public string Name { get; }
 
         /// <summary>
         ///     Odkaz na seba, pre potreby DataSource
@@ -54,30 +44,6 @@ namespace GVDEditor.Entities
                 "LVM_Text" => Text,
                 _ => null
             };
-        }
-
-        /// <summary>
-        ///     Vrati vsetky mozne tz
-        /// </summary>
-        /// <returns></returns>
-        public static List<TableViewMode> GetValues()
-        {
-            var modes = new List<TableViewMode>
-            {
-                Nothing,
-                Vlak,
-                VlakZmeskanyPrichod,
-                VlakZmeskanyOdchod,
-                VlakZmeskany,
-                Text
-            };
-            return modes;
-        }
-        
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return Name;
         }
     }
 }

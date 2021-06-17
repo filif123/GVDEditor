@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace GVDEditor.Entities
+﻿namespace GVDEditor.Entities
 {
     /// <summary>
     ///     Definuje sposob zadavania informacii do sekcie katalogovej tabule
     /// </summary>
-    public sealed class TableDivType
+    public sealed class TableDivType : Enumeration
     {
         #region VALUES
 
@@ -36,21 +34,9 @@ namespace GVDEditor.Entities
 
         #endregion
 
-        private TableDivType(int id, string name)
+        private TableDivType(int id, string name) : base(id, name)
         {
-            Id = id;
-            Name = name;
         }
-
-        /// <summary>
-        ///     ID typu
-        /// </summary>
-        public int Id { get; }
-
-        /// <summary>
-        ///     Nazov typu
-        /// </summary>
-        public string Name { get; }
 
         /// <summary>
         ///     Skonvertuje ID DivType na objekt
@@ -68,29 +54,6 @@ namespace GVDEditor.Entities
                 4 => Char,
                 _ => null
             };
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        /// <summary>
-        ///     Vrati všetky typy zadania do tabule
-        /// </summary>
-        /// <returns></returns>
-        public static List<TableDivType> GetValues()
-        {
-            var types = new List<TableDivType>
-            {
-                Free,
-                Table,
-                TableTime,
-                Translate,
-                Char
-            };
-            return types;
         }
     }
 }

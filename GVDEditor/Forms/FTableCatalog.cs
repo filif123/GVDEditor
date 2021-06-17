@@ -57,9 +57,9 @@ namespace GVDEditor.Forms
 
             TabTabs2 = new BindingList<TableTabTab>(tabtabs);
 
-            cbManufacturer.DataSource = TableManufacturer.GetValues();
-            cbColumnFill.DataSource = TableFillSection.GetValues();
-            cbDivType.DataSource = TableDivType.GetValues();
+            cbManufacturer.DataSource = Enumeration.GetValues<TableManufacturer>();
+            cbColumnFill.DataSource = Enumeration.GetValues<TableFillSection>();
+            cbDivType.DataSource = Enumeration.GetValues<TableDivType>();
 
             cbTab1.DataSource = TabTabs1;
             cbTab2.DataSource = TabTabs2;
@@ -415,7 +415,7 @@ namespace GVDEditor.Forms
                 return;
             }
 
-            int modesCount = TableViewMode.GetValues().Count;
+            int modesCount = Enumeration.GetValues<TableViewMode>().Count;
             foreach (var tab in ViewTypeTabs)
             {
                 int c = tab.TypeModeItems.Count;

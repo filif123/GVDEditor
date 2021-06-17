@@ -168,7 +168,7 @@ namespace GVDEditor.Tools
         /// </summary>
         /// <param name="hodnota">hodnota true alebo false</param>
         /// <returns>0 alebo 1</returns>
-        public static decimal BoolToNumber(bool hodnota)
+        public static int ToNumber(this bool hodnota)
         {
             return hodnota ? 1 : 0;
         }
@@ -178,7 +178,7 @@ namespace GVDEditor.Tools
         /// </summary>
         /// <param name="hodnota">hodnota</param>
         /// <returns>true alebo false</returns>
-        public static bool NumToBool(int hodnota)
+        public static bool ToBool(this int hodnota)
         {
             return hodnota != 0;
         }

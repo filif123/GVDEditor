@@ -49,7 +49,7 @@ namespace GVDEditor.Forms
         /// <summary>
         ///     Typy fontov
         /// </summary>
-        public static readonly BindingList<TableFontType> TFontsTypes = new(TableFontType.GetValues());
+        public static readonly BindingList<TableFontType> TFontsTypes = new(Enumeration.GetValues<TableFontType>());
 
         /// <summary>
         ///     Stanice dostupne zo suboru STANICE.TXT

@@ -96,23 +96,6 @@ namespace GVDEditor.Entities
         }
 
         /// <summary>
-        ///     Vrati predvolene typy reportov pre CZ ako list
-        /// </summary>
-        /// <returns>list reportov pre Cesko</returns>
-        public static List<ReportType> GetDefaultValuesCZ()
-        {
-            var types = new List<ReportType>
-            {
-                Prichadza,
-                Vchadza,
-                Zastavil,
-                Stoji,
-                Odchadza
-            };
-            return types;
-        }
-
-        /// <summary>
         ///     Vyberie zo zoznamu reportov (alltypes) vybrane reporty podla znaku reportu (toparse)
         /// </summary>
         /// <param name="allTypes"></param>

@@ -1,34 +1,29 @@
-﻿using System.Collections.Generic;
-
-namespace GVDEditor.Entities
+﻿namespace GVDEditor.Entities
 {
     /// <summary>
     ///     Vyrobca tabule, ktory sa definuje v katalogovej tabuli
     /// </summary>
-    public sealed class TableManufacturer
+    public sealed class TableManufacturer : Enumeration
     {
+        #region VALUES
 #pragma warning disable 1591
-        public static readonly TableManufacturer ELEN = new("ELEN");
-        public static readonly TableManufacturer ELEN10 = new("ELEN10");
-        public static readonly TableManufacturer ELENOLD = new("ELENOLD");
-        public static readonly TableManufacturer ELEN16 = new("ELEN16");
-        public static readonly TableManufacturer ELEN16Kam = new("ELENKam16");
-        public static readonly TableManufacturer LCD1 = new("LCD1");
-        public static readonly TableManufacturer ELEKTROCAS = new("Elektrocas");
-        public static readonly TableManufacturer Pragotron = new("Pragotron");
-        public static readonly TableManufacturer ERS = new("ERS");
-        public static readonly TableManufacturer FERS = new("FERS");
+        public static readonly TableManufacturer ELEN = new(0, "ELEN");
+        public static readonly TableManufacturer ELEN10 = new(1, "ELEN10");
+        public static readonly TableManufacturer ELENOLD = new(2, "ELENOLD");
+        public static readonly TableManufacturer ELEN16 = new(3, "ELEN16");
+        public static readonly TableManufacturer ELEN16Kam = new(4, "ELENKam16");
+        public static readonly TableManufacturer LCD1 = new(5, "LCD1");
+        public static readonly TableManufacturer ELEKTROCAS = new(6, "Elektrocas");
+        public static readonly TableManufacturer Pragotron = new(7, "Pragotron");
+        public static readonly TableManufacturer ERS = new(8, "ERS");
+        public static readonly TableManufacturer FERS = new(9, "FERS");
 #pragma warning restore 1591
+        #endregion
 
-        private TableManufacturer(string name)
+
+        private TableManufacturer(int id, string name) : base(id,name)
         {
-            Name = name;
         }
-
-        /// <summary>
-        ///     Nazov typu tabule
-        /// </summary>
-        public string Name { get; }
 
         /// <summary>
         ///     Odkaz na seba, pouzivane pre DataSource
@@ -56,34 +51,6 @@ namespace GVDEditor.Entities
                 "FERS" => FERS,
                 _ => null
             };
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        /// <summary>
-        ///     Vrati zoznam vsetkych moznych typov tabuli
-        /// </summary>
-        /// <returns></returns>
-        public static List<TableManufacturer> GetValues()
-        {
-            var types = new List<TableManufacturer>
-            {
-                ELEN,
-                ELEN10,
-                ELENOLD,
-                ELEN16,
-                ELEN16Kam,
-                ELEKTROCAS,
-                LCD1,
-                Pragotron,
-                ERS,
-                FERS
-            };
-            return types;
         }
     }
 }

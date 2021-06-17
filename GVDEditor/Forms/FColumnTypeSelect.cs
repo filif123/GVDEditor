@@ -11,7 +11,7 @@ namespace GVDEditor.Forms
     /// </summary>
     public partial class FColumnTypeSelect : Form
     {
-        private readonly List<ImportTrainColumnType> columnTypes = ImportTrainColumnType.GetValues();
+        private readonly List<ImportTrainColumnType> columnTypes = Enumeration.GetValues<ImportTrainColumnType>();
 
         /// <inheritdoc />
         public FColumnTypeSelect()

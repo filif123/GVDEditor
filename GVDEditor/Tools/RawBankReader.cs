@@ -1,15 +1,26 @@
-﻿using System;
+﻿using GVDEditor.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using GVDEditor.Entities;
+using GVDEditor.Annotations;
 
 namespace GVDEditor.Tools
 {
     internal static class RawBankReader
     {
-        public static List<FyzZvuk> ReadFyzZvukFile(string pathToBank, Language language)
+        /// <summary>
+        ///     Precita a vrati zoznam fyzickych zvukov zo zvukovej banky.
+        /// </summary>
+        /// <param name="pathToBank">cesta k zvukovej banke</param>
+        /// <param name="language">jazyk, z ktoreho sa maju precitat zvuky</param>
+        /// <returns>zoznam fyzickych zvukov zo zvukovej banky</returns>
+        public static List<FyzZvuk> ReadFyzZvukFile([NotNull] string pathToBank, [NotNull] Language language)
         {
+            if (string.IsNullOrEmpty(pathToBank))
+                throw new ArgumentNullException(nameof(pathToBank));
+            if (language == null)
+                throw new ArgumentNullException(nameof(language));
+
             if (language.RelativePath == null || language.FileFyzZvuk == null)
                 throw new FormatException(
                     $"Nie je možné načítať zvukovú banku jazyka, pretože jazyk {language.Name} definovaný v {FileConsts.FILE_CATEGORI} sa nenachádza v zvukovej banke.");
@@ -72,8 +83,17 @@ namespace GVDEditor.Tools
             throw new FileNotFoundException($"Súbor s definíciou zvukov sa na zvolenej ceste nenašiel: {file}");
         }
 
-        public static List<Language> ReadFyzBankFile(string pathToBank, out int maxLangs)
+        /// <summary>
+        ///     Precita data o zvukovej banke a vrati zoznam jazykov
+        /// </summary>
+        /// <param name="pathToBank">cesta k zvukovej banke</param>
+        /// <param name="maxLangs">maximalny pocet jazkov, ktore sa mozu nachadzat v globalnych a lokalnych CATEGORI.TXT</param>
+        /// <returns></returns>
+        public static List<Language> ReadFyzBankFile([NotNull] string pathToBank, out int maxLangs)
         {
+            if (string.IsNullOrEmpty(pathToBank))
+                throw new ArgumentNullException(nameof(pathToBank));
+
             var file = pathToBank + Path.DirectorySeparatorChar + FileConsts.FILE_FYZBANK;
 
             if (File.Exists(file))

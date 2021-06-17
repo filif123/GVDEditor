@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using GVDEditor.Annotations;
 using GVDEditor.Entities;
 
 namespace GVDEditor.Tools
@@ -28,7 +29,7 @@ namespace GVDEditor.Tools
         /// <param name="defDaterems">ci su v subore definovane datumove obmedzenia ku kazdemu vlaku</param>
         /// <exception cref="ArgumentException">ak sa zisti neplatny typ vlaku alebo datum</exception>
         /// <exception cref="FormatException">ak sa zistia nedefinovane stanice alebo subor obsahuje neocakavane znaky</exception>
-        public static List<Train> ReadELISFile(string path, List<Train> deftrains, List<TrainType> trainTypes, List<Operator> operators, GVDInfo gvd, Track defaultTrack, bool omitPassingTrains = false, bool defOperators = true, bool defDaterems = true)
+        public static List<Train> ReadELISFile([NotNull] string path, List<Train> deftrains, List<TrainType> trainTypes, List<Operator> operators, GVDInfo gvd, Track defaultTrack, bool omitPassingTrains = false, bool defOperators = true, bool defDaterems = true)
         {
             if (!File.Exists(path)) return null;
 

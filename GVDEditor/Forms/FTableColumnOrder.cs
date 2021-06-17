@@ -32,7 +32,7 @@ namespace GVDEditor.Forms
         /// </summary>
         /// <param name="items">stlpce</param>
         /// <param name="itemsTypeTabs">typy pohladov</param>
-        public FTableColumnOrder(List<TableItem> items, List<TableViewTypeTab> itemsTypeTabs)
+        public FTableColumnOrder(IList<TableItem> items, IList<TableViewTypeTab> itemsTypeTabs)
         {
             InitializeComponent();
             FormUtils.SetFormFont(this);
@@ -42,8 +42,8 @@ namespace GVDEditor.Forms
             ItemsTypeTabs = new BindingList<TableViewTypeTab>(itemsTypeTabs);
 
             initialization = true;
-            cbViewType.DataSource = TableViewType.GetValues();
-            cbViewMode.DataSource = TableViewMode.GetValues();
+            cbViewType.DataSource = Enumeration.GetValues<TableViewType>();
+            cbViewMode.DataSource = Enumeration.GetValues<TableViewMode>();
             initialization = false;
 
             listColumns.DataSource = AllItems;
@@ -132,7 +132,7 @@ namespace GVDEditor.Forms
                 var indexT = types.IndexOf(selectedType);
                 ItemsTypeTabs[indexT].TypeModeItems.Clear();
 
-                foreach (var tableViewMode in TableViewMode.GetValues())
+                foreach (var tableViewMode in Enumeration.GetValues<TableViewMode>())
                 {
                     var ti = new TableTypeModeItem {ViewMode = tableViewMode, ItemsKeys = items};
                     ItemsTypeTabs[indexT].TypeModeItems.Add(ti);

@@ -251,7 +251,7 @@ namespace GVDEditorTests.Tools
         {
             const bool input = true;
 
-            var res = Utils.BoolToNumber(input);
+            var res = input.ToNumber();
 
             Assert.AreEqual(1, res);
         }
@@ -261,7 +261,7 @@ namespace GVDEditorTests.Tools
         {
             const int input = 1;
 
-            var res = Utils.NumToBool(input);
+            var res = input.ToBool();
 
             Assert.AreEqual(true, res);
         }

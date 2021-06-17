@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-
-namespace GVDEditor.Entities
+﻿namespace GVDEditor.Entities
 {
     /// <summary>
     ///     Urcuje obsah sekcie na katalogovej tabuli
     /// </summary>
-    public sealed class TableFillSection
+    public sealed class TableFillSection : Enumeration
     {
+        #region VALUES
+
 #pragma warning disable 1591
         public static readonly TableFillSection NotDefined = new(0, "Nedefinované");
         public static readonly TableFillSection Free = new(1, "Prázdny text");
@@ -43,21 +43,12 @@ namespace GVDEditor.Entities
         public static readonly TableFillSection LinkaPrichod = new(37, "Linka na príchode");
 #pragma warning restore 1591
 
-        private TableFillSection(int id, string name)
+        #endregion
+
+
+        private TableFillSection(int id, string name) : base(id, name)
         {
-            ID = id;
-            Name = name;
         }
-
-        /// <summary>
-        ///     Identifikátor typu obsahu sekcie
-        /// </summary>
-        public int ID { get; }
-
-        /// <summary>
-        ///     Názov typu obsahu sekcie
-        /// </summary>
-        public string Name { get; }
 
         /// <summary>
         ///     Odkaz na seba, pre potreby DataSource
@@ -108,57 +99,6 @@ namespace GVDEditor.Entities
                 37 => LinkaPrichod,
                 _ => null
             };
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        /// <summary>
-        ///     Vrati zoznam vsetkych moznych hodnot obsahov sekcii
-        /// </summary>
-        /// <returns></returns>
-        public static List<TableFillSection> GetValues()
-        {
-            var types = new List<TableFillSection>
-            {
-                NotDefined,
-                Free,
-                VychadzajucaStanica,
-                StaniceZoSmeru,
-                StaniceDoSmeru,
-                StaniceDoSmeruNastupiste,
-                CielovaStanicaNastupiste,
-                CielovaStanicaPodchod,
-                CielovaStanica,
-                CasOdchodu,
-                CasPrichodu,
-                MeskaniePrichod,
-                MeskanieOdchod,
-                MeskaniePrichodPopis,
-                MeskanieOdchodPopis,
-                TypVlaku,
-                CisloVlaku,
-                TypCisloVlaku,
-                NazovVlaku,
-                NastupistePrichod,
-                NastupisteOdchod,
-                KolajPrichod,
-                KolajOdchod,
-                VlakStojiVStanici,
-                TextLine1,
-                TextLine2,
-                TypNazovOrCislo,
-                TypCisloVlaku6Chars,
-                HexTypVlaku,
-                TypMedzeraCisloVlaku,
-                Dopravca,
-                LinkaOdchod,
-                LinkaPrichod
-            };
-            return types;
         }
     }
 }

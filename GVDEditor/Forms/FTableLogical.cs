@@ -60,7 +60,7 @@ namespace GVDEditor.Forms
 
             TVybrane = new BindingList<TableLogicalZostava>(zostava);
 
-            cbTypeView.DataSource = TableViewType.GetValues();
+            cbTypeView.DataSource = Enumeration.GetValues<TableViewType>();
             if (ThisTable.TypeView != null) cbTypeView.SelectedItem = ThisTable.TypeView;
 
             listFyzTab.DataSource = tables;

@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace GVDEditor.Entities
+﻿namespace GVDEditor.Entities
 {
     /// <summary>
     ///     Zarovnanie tabule
     /// </summary>
-    public sealed class TableAlign
+    public sealed class TableAlign : Enumeration
     {
         #region VALUES
         
@@ -13,12 +11,10 @@ namespace GVDEditor.Entities
         ///     Zarovnanie vľavo
         /// </summary>
         public static readonly TableAlign Left = new(0, "Vľavo");
-
         /// <summary>
         ///     Zarovnanie na stred
         /// </summary>
         public static readonly TableAlign Center = new(1, "Do stredu");
-
         /// <summary>
         ///     Zarovnanie vpravo
         /// </summary>
@@ -26,21 +22,9 @@ namespace GVDEditor.Entities
         
         #endregion
 
-        private TableAlign(int id, string name)
+        private TableAlign(int id, string name) : base(id,name)
         {
-            ID = id;
-            Name = name;
         }
-
-        /// <summary>
-        ///     Identifikátor zarovnania
-        /// </summary>
-        public int ID { get; }
-
-        /// <summary>
-        ///     Názov zarovnania
-        /// </summary>
-        public string Name { get; }
 
         /// <summary>
         ///     Konveruje identifikátor tabule ako <see cref="int" /> na <see cref="TableAlign" />
@@ -56,27 +40,6 @@ namespace GVDEditor.Entities
                 2 => Right,
                 _ => null
             };
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        /// <summary>
-        ///     Vráti všetky dostupné zarovnania tabule
-        /// </summary>
-        /// <returns>zoznam možných zarovnaní obsahu tabule</returns>
-        public static List<TableAlign> GetValues()
-        {
-            var types = new List<TableAlign>
-            {
-                Left,
-                Center,
-                Right
-            };
-            return types;
         }
     }
 }

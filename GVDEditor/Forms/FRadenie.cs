@@ -49,7 +49,7 @@ namespace GVDEditor.Forms
 
             foreach (var sound in sounds) SelectedSounds.Add(sound);
 
-            cbSoundDir.DataSource = FyzZvukDirType.GetValues();
+            cbSoundDir.DataSource = Enumeration.GetValues<FyzZvukDirType>();
             cbLanguage.DataSource = GlobData.Languages;
             if (GlobData.Languages.Count != 0) cbLanguage.SelectedIndex = 0;
 

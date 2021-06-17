@@ -14,7 +14,7 @@ namespace GVDEditor.Tools
         ///     Zistí, či je aktuálne spustená verzia programu aktuálna. V prípade nedostupnosti zdroja vráti
         ///     <see langword="false" />.
         /// </summary>
-        /// <param name="version"></param>
+        /// <param name="version">cislo verzie ako retazec</param>
         /// <returns></returns>
         public static bool UpdateAvailable(out string version)
         {

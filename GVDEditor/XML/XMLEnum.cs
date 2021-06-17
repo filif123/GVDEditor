@@ -6,7 +6,7 @@ namespace GVDEditor.XML
     ///     Predstavuje triedu, ktorá spracuváva Enumerácie serializovateľné do XML
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class XMLEnum<T> where T : Enum
+    public static class XMLEnum<T> where T : Enum
     {
         /// <summary>
         ///     Konvertuje string na enumeraciu

@@ -5,74 +5,42 @@ namespace GVDEditor.Entities
     /// <summary>
     ///     Typ stĺpca pre imporovanie dát
     /// </summary>
-    public sealed class ImportTrainColumnType
+    public sealed class ImportTrainColumnType : Enumeration
     {
         #region VALUES
 
 #pragma warning disable 1591
-        public static readonly ImportTrainColumnType None = new("-");
-        public static readonly ImportTrainColumnType Number = new("Číslo");
-        public static readonly ImportTrainColumnType Type = new("Typ");
-        public static readonly ImportTrainColumnType Variant = new("Varianta");
-        public static readonly ImportTrainColumnType Name = new("Názov");
-        public static readonly ImportTrainColumnType Prichod = new("Príchod");
-        public static readonly ImportTrainColumnType Odchod = new("Odchod");
-        public static readonly ImportTrainColumnType DateRemText = new("Dátum. obm. (text)");
-        public static readonly ImportTrainColumnType DateRemBitArray = new("Dátum. obm. (bitarray)");
-        public static readonly ImportTrainColumnType PlatnostOd = new("Platnosť od");
-        public static readonly ImportTrainColumnType PlatnostDo = new("Platnosť do");
-        public static readonly ImportTrainColumnType DopravcaId = new("Dopravca (ID)");
-        public static readonly ImportTrainColumnType DopravcaName = new("Dopravca (Názov)");
-        public static readonly ImportTrainColumnType Track = new("Koľaj");
-        public static readonly ImportTrainColumnType Languages = new("Jazyky");
-        public static readonly ImportTrainColumnType LinkaOdchod = new("Linka (odchod)");
-        public static readonly ImportTrainColumnType LinkaPrichod = new("Linka (príchod)");
-        public static readonly ImportTrainColumnType Routing = new("Smerovanie");
-        public static readonly ImportTrainColumnType AllStationsID = new("Všetky stanice (ID stanice)");
-        public static readonly ImportTrainColumnType StationsShortID = new("Stanice (krátke hlásenie) (ID stanice)");
-        public static readonly ImportTrainColumnType StationsLongID = new("Stanice (dlhé hlásenie) (ID stanice)");
-        public static readonly ImportTrainColumnType AllStationsName = new("Všetky stanice (stanice stanice)");
-        public static readonly ImportTrainColumnType StationsShortName = new("Stanice (krátke hlásenie) (názov stanice)");
-        public static readonly ImportTrainColumnType StationsLongName = new("Stanice (dlhé hlásenie) (názov stanice)");
-        public static readonly ImportTrainColumnType Attributes = new("Vlastnosti vlaku");
+        public static readonly ImportTrainColumnType None = new(0,"-");
+        public static readonly ImportTrainColumnType Number = new(1,"Číslo");
+        public static readonly ImportTrainColumnType Type = new(2,"Typ");
+        public static readonly ImportTrainColumnType Variant = new(3,"Varianta");
+        public static readonly ImportTrainColumnType Nazov = new(4,"Názov");
+        public static readonly ImportTrainColumnType Prichod = new(5,"Príchod");
+        public static readonly ImportTrainColumnType Odchod = new(6,"Odchod");
+        public static readonly ImportTrainColumnType DateRemText = new(7,"Dátum. obm. (text)");
+        public static readonly ImportTrainColumnType DateRemBitArray = new(8,"Dátum. obm. (bitarray)");
+        public static readonly ImportTrainColumnType PlatnostOd = new(9,"Platnosť od");
+        public static readonly ImportTrainColumnType PlatnostDo = new(10,"Platnosť do");
+        public static readonly ImportTrainColumnType DopravcaId = new(11,"Dopravca (ID)");
+        public static readonly ImportTrainColumnType DopravcaName = new(12,"Dopravca (Názov)");
+        public static readonly ImportTrainColumnType Track = new(13,"Koľaj");
+        public static readonly ImportTrainColumnType Languages = new(14,"Jazyky");
+        public static readonly ImportTrainColumnType LinkaOdchod = new(15,"Linka (odchod)");
+        public static readonly ImportTrainColumnType LinkaPrichod = new(16,"Linka (príchod)");
+        public static readonly ImportTrainColumnType Routing = new(17,"Smerovanie");
+        public static readonly ImportTrainColumnType AllStationsID = new(18,"Všetky stanice (ID stanice)");
+        public static readonly ImportTrainColumnType StationsShortID = new(19,"Stanice (krátke hlásenie) (ID stanice)");
+        public static readonly ImportTrainColumnType StationsLongID = new(20,"Stanice (dlhé hlásenie) (ID stanice)");
+        public static readonly ImportTrainColumnType AllStationsName = new(21,"Všetky stanice (stanice stanice)");
+        public static readonly ImportTrainColumnType StationsShortName = new(22,"Stanice (krátke hlásenie) (názov stanice)");
+        public static readonly ImportTrainColumnType StationsLongName = new(23,"Stanice (dlhé hlásenie) (názov stanice)");
+        public static readonly ImportTrainColumnType Attributes = new(24,"Vlastnosti vlaku");
 #pragma warning restore 1591
 
         #endregion
 
-        private ImportTrainColumnType(string name)
+        private ImportTrainColumnType(int id, string name) : base(id,name)
         {
-            ColumnName = name;
-        }
-
-        /// <summary>
-        ///     Názov stĺpca
-        /// </summary>
-        public string ColumnName { get; }
-
-        /// <summary>
-        ///     Vráti všetky dostupné typy stĺpcov pre importovanie dát
-        /// </summary>
-        /// <returns>všetky dostupné typy stĺpcov</returns>
-        public static List<ImportTrainColumnType> GetValues()
-        {
-            return new()
-            {
-                Number,
-                Type,
-                Variant,
-                Name,
-                Prichod, Odchod,
-                DateRemText, DateRemBitArray,
-                PlatnostOd, PlatnostDo,
-                DopravcaId, DopravcaName,
-                Track,
-                Languages,
-                LinkaOdchod, LinkaPrichod,
-                Routing,
-                AllStationsID, StationsLongID, StationsShortID,
-                AllStationsName, StationsLongName, StationsShortName,
-                Attributes
-            };
         }
 
         /// <summary>
@@ -120,7 +88,7 @@ namespace GVDEditor.Entities
                 case "název vlaku":
                 case "nazev vlaku":
                 case "name":
-                    return Name;
+                    return Nazov;
                 case "príchod":
                 case "příjezd":
                 case "prichod":
@@ -207,12 +175,6 @@ namespace GVDEditor.Entities
                 default:
                     return None;
             }
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return ColumnName;
         }
     }
 }

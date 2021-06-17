@@ -514,7 +514,7 @@ namespace GVDEditor.Tools
                     throw new FormatException(string.Format(FORMAT_EX_AREA, file, area));
 
                 var key = categoriF.Get(area, "KEY").ANSItoUTF();
-                var isBasic = NumToBool(ParseIntOrDefault(categoriF.Get(area, "IS_BASIC", false)));
+                var isBasic = ParseIntOrDefault(categoriF.Get(area, "IS_BASIC", false)).ToBool();
                 var name = categoriF.Get(area, "NAME").ANSItoUTF();
 
                 foreach (var language in jazykyFromBank)
@@ -596,10 +596,10 @@ namespace GVDEditor.Tools
                 var key = categoriF.Get(area, "KEY").ANSItoUTF();
                 var name = categoriF.Get(area, "NAME").ANSItoUTF();
                 var @char = categoriF.Get(area, "CHAR").ANSItoUTF();
-                var bt = NumToBool(int.Parse(categoriF.Get(area, "BASE_TRAIN")));
-                var pt = NumToBool(int.Parse(categoriF.Get(area, "PASS_THROUGH")));
-                var tt = NumToBool(int.Parse(categoriF.Get(area, "TERMINATE_TRAIN")));
-                var comp = NumToBool(int.Parse(categoriF.Get(area, "COMPLEMENT")));
+                var bt = int.Parse(categoriF.Get(area, "BASE_TRAIN")).ToBool();
+                var pt = int.Parse(categoriF.Get(area, "PASS_THROUGH")).ToBool();
+                var tt = int.Parse(categoriF.Get(area, "TERMINATE_TRAIN")).ToBool();
+                var comp = int.Parse(categoriF.Get(area, "COMPLEMENT")).ToBool();
                 var typ = new ReportType(key, name, @char, bt, pt, tt, comp);
                 types.Add(typ);
             }
@@ -609,7 +609,7 @@ namespace GVDEditor.Tools
             {
                 var area = $"LANGUAGE_{i.PadZeros(2)}";
                 var key = categoriF.Get(area, "KEY");
-                var isBasic = NumToBool(ParseIntOrDefault(categoriF.Get(area, "IS_BASIC", false)));
+                var isBasic = ParseIntOrDefault(categoriF.Get(area, "IS_BASIC", false)).ToBool();
                 var name = categoriF.Get(area, "NAME").ANSItoUTF();
 
                 foreach (var lang in GlobData.Languages)
@@ -665,10 +665,10 @@ namespace GVDEditor.Tools
                 categoriF.Set(area, "KEY", typ.Key, WriteType.WRITE_STRING_ANSI);
                 categoriF.Set(area, "NAME", typ.Name, WriteType.WRITE_STRING_ANSI);
                 categoriF.Set(area, "CHAR", typ.Char, WriteType.WRITE_STRING_ANSI);
-                categoriF.Set(area, "BASE_TRAIN", BoolToNumber(typ.BaseTrain));
-                categoriF.Set(area, "PASS_THROUGH", BoolToNumber(typ.PassThrough));
-                categoriF.Set(area, "TERMINATE_TRAIN", BoolToNumber(typ.TerminateTrain));
-                categoriF.Set(area, "COMPLEMENT", BoolToNumber(typ.Complement));
+                categoriF.Set(area, "BASE_TRAIN", typ.BaseTrain.ToNumber());
+                categoriF.Set(area, "PASS_THROUGH", typ.PassThrough.ToNumber());
+                categoriF.Set(area, "TERMINATE_TRAIN", typ.TerminateTrain.ToNumber());
+                categoriF.Set(area, "COMPLEMENT", typ.Complement.ToNumber());
             }
 
 
@@ -679,7 +679,7 @@ namespace GVDEditor.Tools
                 
                 var area = $"LANGUAGE_{ti.PadZeros(2)}";
                 categoriF.Set(area, "KEY", language.Key, WriteType.WRITE_STRING_ANSI);
-                categoriF.Set(area, "IS_BASIC", BoolToNumber(language.IsBasic));
+                categoriF.Set(area, "IS_BASIC", language.IsBasic.ToNumber());
                 categoriF.Set(area, "NAME", language.Name, WriteType.WRITE_STRING_ANSI);
             }
 
@@ -2375,7 +2375,7 @@ namespace GVDEditor.Tools
                     catalogF.Set(area, $"TYPE_ITEMS_END_{tj.PadZeros()}", item.End);
                     catalogF.Set(area, $"TYPE_ITEMS_FONT_IDX_{tj.PadZeros()}", item.FontIDX);
                     catalogF.Set(area, $"TYPE_ITEMS_ALIGN_{tj.PadZeros()}", item.Align.ID);
-                    catalogF.Set(area, $"TYPE_ITEMS_DIVTYPE_{tj.PadZeros()}", item.DivType.Id);
+                    catalogF.Set(area, $"TYPE_ITEMS_DIVTYPE_{tj.PadZeros()}", item.DivType.ID);
                     catalogF.Set(area, $"TYPE_ITEMS_TAB1_{tj.PadZeros()}", item.Tab1 == TableTabTab.Empty ? "" : item.Tab1.Key, WriteType.WRITE_STRING_ANSI);
                     catalogF.Set(area, $"TYPE_ITEMS_TAB2_{tj.PadZeros()}", item.Tab2 == TableTabTab.Empty ? "" : item.Tab2.Key, WriteType.WRITE_STRING_ANSI);
                 }
@@ -2639,15 +2639,15 @@ namespace GVDEditor.Tools
                     Name = modetabsF.Get(area, $"NAME_{pad}").ANSItoUTF(),
                     Size = ParseIntOrDefault(modetabsF.Get(area, $"SIZE_{pad}", false)),
                     Width = ParseIntOrDefault(modetabsF.Get(area, $"WIDTH_{pad}", false)),
-                    IsProportional = NumToBool((byte) ParseIntOrDefault(modetabsF.Get(area, $"PROPORTIONAL_{pad}", false))),
+                    IsProportional = Utils.ToBool((byte) ParseIntOrDefault(modetabsF.Get(area, $"PROPORTIONAL_{pad}", false))),
                     Type = TableFontType.Parse(ParseStringOrDefault(modetabsF.Get(area, $"BOLD_FACE_{pad}", false)).ANSItoUTF()),
                     FileName = ParseStringOrDefault(modetabsF.Get(area, $"FILE_NAME_{pad}", false)).ANSItoUTF(),
-                    IsDia = NumToBool(ParseIntOrDefault(modetabsF.Get(area, $"IS_DIA_{pad}", false))),
-                    IsLower = NumToBool(ParseIntOrDefault(modetabsF.Get(area, $"IS_LOWER_{pad}", false))),
-                    IsUpper = NumToBool(ParseIntOrDefault(modetabsF.Get(area, $"IS_UPPER_{pad}", false))),
-                    IsNumber = NumToBool(ParseIntOrDefault(modetabsF.Get(area, $"IS_NUMBER_{pad}", false))),
-                    IsSpecChars = NumToBool(ParseIntOrDefault(modetabsF.Get(area, $"IS_SPEC_CHAR_{pad}", false))),
-                    IsSpecAssigment = NumToBool(ParseIntOrDefault(modetabsF.Get(area, $"IS_SPECIAL_ASSIGNMENT_{pad}", false)))
+                    IsDia = ParseIntOrDefault(modetabsF.Get(area, $"IS_DIA_{pad}", false)).ToBool(),
+                    IsLower = ParseIntOrDefault(modetabsF.Get(area, $"IS_LOWER_{pad}", false)).ToBool(),
+                    IsUpper = ParseIntOrDefault(modetabsF.Get(area, $"IS_UPPER_{pad}", false)).ToBool(),
+                    IsNumber = ParseIntOrDefault(modetabsF.Get(area, $"IS_NUMBER_{pad}", false)).ToBool(),
+                    IsSpecChars = ParseIntOrDefault(modetabsF.Get(area, $"IS_SPEC_CHAR_{pad}", false)).ToBool(),
+                    IsSpecAssigment = ParseIntOrDefault(modetabsF.Get(area, $"IS_SPECIAL_ASSIGNMENT_{pad}", false)).ToBool()
                 };
 
                 fonts.Add(font);
@@ -2677,7 +2677,7 @@ namespace GVDEditor.Tools
 
             modetabsF.Set("MAIN", "BREAK_CHAR", "#", WriteType.WRITE_STRING_ANSI);
 
-            var modes = TableViewMode.GetValues();
+            var modes = Enumeration.GetValues<TableViewMode>();
             modetabsF.Set(areaMode, "COUNT", modes.Count);
             for (var i = 0; i < modes.Count; i++)
             {
@@ -2688,7 +2688,7 @@ namespace GVDEditor.Tools
                 modetabsF.Set(areaMode, $"NAME_{ti.PadZeros()}", mode.Name, WriteType.WRITE_STRING_ANSI);
             }
 
-            var views = TableViewType.GetValues();
+            var views = Enumeration.GetValues<TableViewType>();
             modetabsF.Set(areatType, "COUNT", views.Count);
             for (var i = 0; i < views.Count; i++)
             {
@@ -2699,7 +2699,7 @@ namespace GVDEditor.Tools
                 modetabsF.Set(areatType, $"NAME_{ti.PadZeros()}", type.Name, WriteType.WRITE_STRING_ANSI);
             }
 
-            var sections = TableFillSection.GetValues();
+            var sections = Enumeration.GetValues<TableFillSection>();
             modetabsF.Set(areaFillSection, "COUNT", sections.Count);
             for (var i = 0; i < sections.Count; i++)
             {
@@ -2710,7 +2710,7 @@ namespace GVDEditor.Tools
                 modetabsF.Set(areaFillSection, $"NAME_{ti.PadZeros()}", fill.Name, WriteType.WRITE_STRING_ANSI);
             }
 
-            var manufactures = TableManufacturer.GetValues();
+            var manufactures = Enumeration.GetValues<TableManufacturer>();
             modetabsF.Set(areaManufacturer, "COUNT", manufactures.Count);
             for (var i = 0; i < manufactures.Count; i++)
             {
@@ -2738,16 +2738,16 @@ namespace GVDEditor.Tools
 
                 if (font.Width != 0) modetabsF.Set(areaFont, $"WIDTH_{ti.PadZeros()}", font.Width);
 
-                modetabsF.Set(areaFont, $"PROPORTIONAL_{ti.PadZeros()}", BoolToNumber(font.IsProportional));
-                modetabsF.Set(areaFont, $"IS_DIA_{ti.PadZeros()}", BoolToNumber(font.IsDia));
-                modetabsF.Set(areaFont, $"IS_LOWER{ti.PadZeros()}", BoolToNumber(font.IsLower));
-                modetabsF.Set(areaFont, $"IS_UPPER_{ti.PadZeros()}", BoolToNumber(font.IsUpper));
-                modetabsF.Set(areaFont, $"IS_NUMBER_{ti.PadZeros()}", BoolToNumber(font.IsNumber));
-                modetabsF.Set(areaFont, $"IS_SPEC_CHAR_{ti.PadZeros()}", BoolToNumber(font.IsSpecChars));
-                modetabsF.Set(areaFont, $"IS_SPECIAL_ASSIGNMENT_{(i + 1).PadZeros()}", BoolToNumber(font.IsSpecAssigment));
+                modetabsF.Set(areaFont, $"PROPORTIONAL_{ti.PadZeros()}", font.IsProportional.ToNumber());
+                modetabsF.Set(areaFont, $"IS_DIA_{ti.PadZeros()}", font.IsDia.ToNumber());
+                modetabsF.Set(areaFont, $"IS_LOWER{ti.PadZeros()}", font.IsLower.ToNumber());
+                modetabsF.Set(areaFont, $"IS_UPPER_{ti.PadZeros()}", font.IsUpper.ToNumber());
+                modetabsF.Set(areaFont, $"IS_NUMBER_{ti.PadZeros()}", font.IsNumber.ToNumber());
+                modetabsF.Set(areaFont, $"IS_SPEC_CHAR_{ti.PadZeros()}", font.IsSpecChars.ToNumber());
+                modetabsF.Set(areaFont, $"IS_SPECIAL_ASSIGNMENT_{(i + 1).PadZeros()}", font.IsSpecAssigment.ToNumber());
             }
 
-            var aligns = TableAlign.GetValues();
+            var aligns = Enumeration.GetValues<TableAlign>();
             modetabsF.Set(areaAlign, "COUNT", aligns.Count);
             for (var i = 0; i < aligns.Count; i++)
             {
