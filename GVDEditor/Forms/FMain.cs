@@ -295,8 +295,6 @@ namespace GVDEditor.Forms
                 ChangeEnableMenuItemsGSettings(false);
                 ChangeEnableMenuItemsLSettings(false);
             }
-
-            UseWaitCursor = false;
         }
 
         private void DoSave()
@@ -442,7 +440,6 @@ namespace GVDEditor.Forms
                 data.DefTrains = Trains.ToList();
 
                 error = false;
-                UseWaitCursor = true;
                 waitForm = new FWait("Prebieha importovanie údajov...");
                 waitForm.Show(this);
                 if (!bWorkerELIS.IsBusy) bWorkerELIS.RunWorkerAsync(data);
@@ -1119,7 +1116,6 @@ namespace GVDEditor.Forms
             prechod = false;
 
             error = false;
-            UseWaitCursor = true;
             waitForm = new FWait();
             waitForm.Show(this);
             if (!backgroundWorker1.IsBusy)

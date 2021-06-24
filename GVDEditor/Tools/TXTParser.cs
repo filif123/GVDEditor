@@ -1642,18 +1642,23 @@ namespace GVDEditor.Tools
 
             foreach (var track in tracks)
             {
+                if (track == Track.None)
+                {
+                    continue;
+                }
+
                 int tabcount = track.Tabule.Count;
                 var row = new CSVRow(9 + 2 * tabcount)
                 {
-                    [0] = track.Key.ToQuotedString().UTFtoANSI(),
-                    [1] = track.Name.ToQuotedString().UTFtoANSI(),
-                    [2] = track.FullName.ToQuotedString().UTFtoANSI(),
-                    [3] = track.Nastupiste.FullName.ToQuotedString().UTFtoANSI(),
-                    [4] = track.TrackName.ToQuotedString().UTFtoANSI(),
-                    [5] = track.Nastupiste.Key.ToQuotedString().UTFtoANSI(),
-                    [6] = track.SoundName.ToQuotedString().UTFtoANSI(),
-                    [7] = track.Nastupiste.SoundName.ToQuotedString().UTFtoANSI(),
-                    [8] = track.Tabule.Count.ToString()
+                    track.Key.ToQuotedString().UTFtoANSI(),
+                    track.Name.ToQuotedString().UTFtoANSI(),
+                    track.FullName.ToQuotedString().UTFtoANSI(),
+                    track.Nastupiste.FullName.ToQuotedString().UTFtoANSI(),
+                    track.TrackName.ToQuotedString().UTFtoANSI(),
+                    track.Nastupiste.Key.ToQuotedString().UTFtoANSI(),
+                    track.SoundName.ToQuotedString().UTFtoANSI(),
+                    track.Nastupiste.SoundName.ToQuotedString().UTFtoANSI(),
+                    track.Tabule.Count.ToString()
                 };
 
                 for (var i = 0; i < tabcount; i++)
@@ -1732,8 +1737,8 @@ namespace GVDEditor.Tools
                 {
                     var row = new CSVRow(2)
                     {
-                        [0] = operatorV.Id.ToString(), 
-                        [1] = operatorV.Name.ToQuotedString().UTFtoANSI()
+                        operatorV.Id.ToString(), 
+                        operatorV.Name.ToQuotedString().UTFtoANSI()
                     };
 
                     vlastnikF.WriteRow(row);
@@ -1819,8 +1824,8 @@ namespace GVDEditor.Tools
             {
                 var row = new CSVRow(2)
                 {
-                    [0] = cs.ID, 
-                    [1] = cs.Name.UTFtoANSI().ToQuotedString()
+                    cs.ID, 
+                    cs.Name.UTFtoANSI().ToQuotedString()
                 };
 
                 staniceF.WriteRow(row);
