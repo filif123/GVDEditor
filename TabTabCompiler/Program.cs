@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ****************************  VYVOJ POZASTAVENY OD 24.6.2021  *****************************
+// * Dovod:                                                                                  *
+// * - Nedostatok casu                                                                       *
+// * - Nerozpoznane symboly v niektorych ukazkovych TabTaboch                                *
+// *******************************************************************************************
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using TabTabCompiler.Compilation;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq.Expressions;
-using TabTabCompiler.Components;
+﻿using TabTabCompiler.Components;
 using TabTabCompiler.Components.AST;
 using TabTabCompiler.Tools;
 using Expression = TabTabCompiler.Components.AST.Expression;
@@ -10,73 +8,100 @@ namespace TabTabCompiler.Compilation
     public class Parser
     {
         private readonly TokenList tokens;
-        private Stack<Block> blocks;
-        public List<Statement> Tree;
+
+        public Block Block { get; set; }
 
         public Parser(TokenList tokens)
         {
             this.tokens = tokens;
-            blocks = new Stack<Block>();
-            Tree = new List<Statement>();
-            Parse();
+            Block = ParseBlock();
         }
 
-        private void Parse()
+        private Block ParseBlock()
         {
-            bool running = true;
-            Block currentBlock = null;
+            var tok = tokens.Peek();
 
-            while (running)
+            switch (tok)
             {
-                var tok = tokens.Peek();
+                case IdentifierToken:
+                    var fun = Function.Parse(tok.Text);
+                    if (fun != null)
+                    {
+                        return ParseConditionTypeBlock();
+                    }
+                    else
+                    {
+                        var trtype = TrType.Parse(tok.Text);
+                        if (trtype != null)
+                        {
+                            return ParseSetFontsTypeBlock();
+                        }
 
-                switch (tok)
+                        Compiler.Outputs.Add(new ErrorOutput(tok.Info, "Neocakavany token"));
+                        return null;
+                    }
+                case OpenParenToken:
+                    return ParseConditionTypeBlock();
+                case StartFontSetToken:
+                    return ParseSetFontsTypeBlock();
+                case NumberLiteralToken:
+                    return ParseConditionTypeBlock();
+                case StringLiteralToken:
+                    return ParseSetFontsTypeBlock();
+                case ViewValuesToken:
+                    return ParseReplaceTextTypeBlock();
+                case EndOfTheFileToken:
+                    return null;
+                default:
+                    Compiler.Outputs.Add(new ErrorOutput(tok.Info, "Neocakavany token"));
+                    return null;
+            }
+        }
+
+        private ConditionTypeBlock ParseConditionTypeBlock()
+        {
+            var running = true;
+            var block = new ConditionTypeBlock();
+            do
+            {
+                var stmt = new ConditionStmt
                 {
-                    case IdentifierToken:
-                        var fun = Function.Parse(tok.Text);
-                        if (fun != null)
-                        {
-                            var stmt = new ConditionStmt();
-                            var conds = new List<Expression>();
-                            stmt.Condition = ParseConditionExpr(null);
-                        }
-                        else
-                        {
-                            var trtype = TrType.Parse(tok.Text);
-                            if (trtype != null)
-                            {
-                                //context = ContextType.SetFont;
-                            }
-                            else
-                            {
-                                Compiler.Outputs.Add(new ErrorOutput(tok.Info, "Neocakavany token"));
-                                running = false;
-                            }
-                        }
-                        break;
-                    case OpenParenToken:
-                        //context = ContextType.Condition;
-                        break;
-                    case StartFontSetToken:
-                        //context = ContextType.SetFont;
-                        break;
-                    case NumberLiteralToken:
-                        //context = ContextType.Condition;
-                        break;
-                    case StringLiteralToken:
-                        //context = ContextType.SetFont;
-                        break;
-                    case ViewValuesToken:
-                        //context = ContextType.ReplaceText;
+                    Condition = ParseConditionExpr(null), 
+                    Block = ParseConditionStatements()
+                };
+
+                block.Statements.Add(stmt);
+                switch (tokens.Peek())
+                {
+                    case NewLineConditionToken:
                         break;
                     case EndOfTheFileToken:
                         running = false;
                         break;
                     default:
-                        Compiler.Outputs.Add(new ErrorOutput(tok.Info,"Neocakavany token"));
+                        running = false;
+                        Compiler.Outputs.Add(new ErrorOutput(tokens.Peek().Info,"neocakavany token"));
                         break;
                 }
-            }
+            } while (running);
+            return block;
+        }
+
+        private SetFontsTypeBlock ParseSetFontsTypeBlock()
+        {
+            var running = true;
+            var block = new SetFontsTypeBlock();
+            do
+            {
+                break;
+            } while (running);
+            return block;
+        }
+
+        private ReplaceTextTypeBlock ParseReplaceTextTypeBlock()
+        {
+            var block = new ReplaceTextTypeBlock();
+            return block;
         }
 
         private Expression ParseConditionExpr(Expression prev)
@@ -156,7 +181,7 @@ namespace TabTabCompiler.Compilation
                         break;
                     case NumberLiteralToken nlt:
                         arg = new Argument();
-                        arg.Identifier = new NumericLiteralExpr(nlt);
+                        arg.Identifier = new NumberLiteralExpr(nlt);
                         argList.Arguments.Add(arg);
                         break;
                     default:
@@ -174,10 +199,28 @@ namespace TabTabCompiler.Compilation
             return new BinExpr(token);
         }
 
-        private NumericLiteralExpr ParseNumericLiteralExpr()
+        private NumberLiteralExpr ParseNumericLiteralExpr()
         {
             var token = tokens.GetToken() as NumberLiteralToken;
-            return new NumericLiteralExpr(token);
+            return new NumberLiteralExpr(token);
+        }
+
+        private void ParseSetTextBlock()
+        {
+            bool running = true;
+            var tok = tokens.Peek();
+            while (running)
+            {
+                switch (tok)
+                {
+                    
+                }
+            }
+        }
+
+        private ConditionStmtsBlock ParseConditionStatements()
+        {
+            return null;
         }
     }
 }

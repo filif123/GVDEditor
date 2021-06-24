@@ -26,15 +26,15 @@ namespace TabTabCompiler.Components.AST
     {
         public StartFontSetToken StartToken;
         public EndFontSetToken EndToken;
-        public NumericLiteralExpr Font;
+        public NumberLiteralExpr FontId;
     }
 
-    public class NumericLiteralExpr : Expression
+    public class NumberLiteralExpr : Expression
     {
         public NumberLiteralToken Token;
         public int Value;
 
-        public NumericLiteralExpr(NumberLiteralToken token)
+        public NumberLiteralExpr(NumberLiteralToken token)
         {
             Token = token;
             Value = Convert.ToInt32(token.Text);
