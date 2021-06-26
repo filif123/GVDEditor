@@ -198,11 +198,29 @@
   <metadata name="tableLogicalZostavaBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>218, 17</value>
   </metadata>
+  <data name="tbComment.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tbComment.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 17</value>
+  </data>
+  <data name="tbComment.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="tbComment.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tbComment.Size" type="System.Drawing.Size, System.Drawing">
+    <value>361, 104</value>
+  </data>
+  <data name="tbComment.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;tbComment.Name" xml:space="preserve">
     <value>tbComment</value>
   </data>
   <data name="&gt;&gt;tbComment.Type" xml:space="preserve">
-    <value>GVDEditor.Controls.DynamicTextBox, GVDEditor, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ExControls.ExTextBox, ExControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;tbComment.Parent" xml:space="preserve">
     <value>groupBox4</value>
@@ -232,7 +250,7 @@
     <value>groupBox4</value>
   </data>
   <data name="&gt;&gt;groupBox4.Type" xml:space="preserve">
-    <value>GVDEditor.Controls.DynamicGroupBox, GVDEditor, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ExControls.ExGroupBox, ExControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;groupBox4.Parent" xml:space="preserve">
     <value>$this</value>
@@ -240,137 +258,23 @@
   <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="tbComment.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="startRowDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
+    <value>Počiatočný riadok</value>
   </data>
-  <data name="tbComment.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 17</value>
+  <data name="startRowDataGridViewTextBoxColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
-  <data name="tbComment.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
+  <data name="endRowDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
+    <value>Posledný riadok</value>
   </data>
-  <data name="tbComment.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="endRowDataGridViewTextBoxColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
-  <data name="tbComment.Size" type="System.Drawing.Size, System.Drawing">
-    <value>361, 104</value>
+  <data name="tableDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
+    <value>Fyzická tabuľa</value>
   </data>
-  <data name="tbComment.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tbComment.Name" xml:space="preserve">
-    <value>tbComment</value>
-  </data>
-  <data name="&gt;&gt;tbComment.Type" xml:space="preserve">
-    <value>GVDEditor.Controls.DynamicTextBox, GVDEditor, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;tbComment.Parent" xml:space="preserve">
-    <value>groupBox4</value>
-  </data>
-  <data name="&gt;&gt;tbComment.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;dgvZostava.Name" xml:space="preserve">
-    <value>dgvZostava</value>
-  </data>
-  <data name="&gt;&gt;dgvZostava.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dgvZostava.Parent" xml:space="preserve">
-    <value>gboxSimple</value>
-  </data>
-  <data name="&gt;&gt;dgvZostava.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;bRemoveTab.Name" xml:space="preserve">
-    <value>bRemoveTab</value>
-  </data>
-  <data name="&gt;&gt;bRemoveTab.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bRemoveTab.Parent" xml:space="preserve">
-    <value>gboxSimple</value>
-  </data>
-  <data name="&gt;&gt;bRemoveTab.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;bAddTab.Name" xml:space="preserve">
-    <value>bAddTab</value>
-  </data>
-  <data name="&gt;&gt;bAddTab.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bAddTab.Parent" xml:space="preserve">
-    <value>gboxSimple</value>
-  </data>
-  <data name="&gt;&gt;bAddTab.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>gboxSimple</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>gboxSimple</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;listFyzTab.Name" xml:space="preserve">
-    <value>listFyzTab</value>
-  </data>
-  <data name="&gt;&gt;listFyzTab.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listFyzTab.Parent" xml:space="preserve">
-    <value>gboxSimple</value>
-  </data>
-  <data name="&gt;&gt;listFyzTab.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="gboxSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 140</value>
-  </data>
-  <data name="gboxSimple.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
-  </data>
-  <data name="gboxSimple.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
-  </data>
-  <data name="gboxSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>957, 314</value>
-  </data>
-  <data name="gboxSimple.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="gboxSimple.Text" xml:space="preserve">
-    <value>Konfigurácia</value>
-  </data>
-  <data name="&gt;&gt;gboxSimple.Name" xml:space="preserve">
-    <value>gboxSimple</value>
-  </data>
-  <data name="&gt;&gt;gboxSimple.Type" xml:space="preserve">
-    <value>GVDEditor.Controls.DynamicGroupBox, GVDEditor, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;gboxSimple.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;gboxSimple.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="tableDataGridViewTextBoxColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
   <data name="dgvZostava.Location" type="System.Drawing.Point, System.Drawing">
     <value>479, 49</value>
@@ -398,24 +302,6 @@
   </data>
   <data name="&gt;&gt;dgvZostava.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="startRowDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
-    <value>Počiatočný riadok</value>
-  </data>
-  <data name="startRowDataGridViewTextBoxColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="endRowDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
-    <value>Posledný riadok</value>
-  </data>
-  <data name="endRowDataGridViewTextBoxColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="tableDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
-    <value>Fyzická tabuľa</value>
-  </data>
-  <data name="tableDataGridViewTextBoxColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>6</value>
   </data>
   <data name="bRemoveTab.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -570,6 +456,36 @@
   <data name="&gt;&gt;listFyzTab.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="gboxSimple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 140</value>
+  </data>
+  <data name="gboxSimple.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="gboxSimple.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="gboxSimple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>957, 314</value>
+  </data>
+  <data name="gboxSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="gboxSimple.Text" xml:space="preserve">
+    <value>Konfigurácia</value>
+  </data>
+  <data name="&gt;&gt;gboxSimple.Name" xml:space="preserve">
+    <value>gboxSimple</value>
+  </data>
+  <data name="&gt;&gt;gboxSimple.Type" xml:space="preserve">
+    <value>ExControls.ExGroupBox, ExControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;gboxSimple.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gboxSimple.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="nudCountRecords.Location" type="System.Drawing.Point, System.Drawing">
     <value>464, 77</value>
   </data>
@@ -586,7 +502,7 @@
     <value>nudCountRecords</value>
   </data>
   <data name="&gt;&gt;nudCountRecords.Type" xml:space="preserve">
-    <value>GVDEditor.Controls.DynamicNumericUpDown, GVDEditor, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ExControls.ExNumericUpDown, ExControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;nudCountRecords.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -610,7 +526,7 @@
     <value>cbTypeView</value>
   </data>
   <data name="&gt;&gt;cbTypeView.Type" xml:space="preserve">
-    <value>GVDEditor.Controls.DynamicComboBox, GVDEditor, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ExControls.ExComboBox, ExControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;cbTypeView.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -664,7 +580,7 @@
     <value>tbKey</value>
   </data>
   <data name="&gt;&gt;tbKey.Type" xml:space="preserve">
-    <value>GVDEditor.Controls.DynamicTextBox, GVDEditor, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ExControls.ExTextBox, ExControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;tbKey.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -688,7 +604,7 @@
     <value>tbName</value>
   </data>
   <data name="&gt;&gt;tbName.Type" xml:space="preserve">
-    <value>GVDEditor.Controls.DynamicTextBox, GVDEditor, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ExControls.ExTextBox, ExControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;tbName.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -808,13 +724,49 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>GVDEditor.Controls.DynamicGroupBox, GVDEditor, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ExControls.ExGroupBox, ExControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>Fyzická tabuľa</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.Width" type="System.Int32, mscorlib">
+    <value>152</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn3.HeaderText" xml:space="preserve">
+    <value>Fyzická tabuľa</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn3.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn3.Width" type="System.Int32, mscorlib">
+    <value>152</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn4.HeaderText" xml:space="preserve">
+    <value>Fyzická tabuľa</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn4.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn4.Width" type="System.Int32, mscorlib">
+    <value>152</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn5.HeaderText" xml:space="preserve">
+    <value>Fyzická tabuľa</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn5.MinimumWidth" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn5.Width" type="System.Int32, mscorlib">
+    <value>152</value>
   </data>
   <metadata name="tablePhysicalBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -862,6 +814,30 @@
     <value>tableDataGridViewTextBoxColumn</value>
   </data>
   <data name="&gt;&gt;tableDataGridViewTextBoxColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn2</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn3.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn3</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn4.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn4</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn5.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn5</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn5.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tablePhysicalBindingSource.Name" xml:space="preserve">

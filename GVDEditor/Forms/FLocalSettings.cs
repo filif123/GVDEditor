@@ -1221,5 +1221,25 @@ namespace GVDEditor.Forms
                 bOpenEditorTab.PerformClick();
             }
         }
+
+        private void listKatTabule_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbCommentKat.Text = listKatTabule.SelectedIndex != -1 ? TCatalogs[listKatTabule.SelectedIndex].Comment : "";
+        }
+
+        private void listTexty_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbCommentTText.Text = listTexty.SelectedIndex != -1 ? TTexts[listTexty.SelectedIndex].Comment : "";
+        }
+
+        private void listFyzTabule_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbCommentFyz.Text = listFyzTabule.SelectedIndex != -1 ? TPhysicals[listFyzTabule.SelectedIndex].Comment : "";
+        }
+
+        private void listLogTabule_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbCommentLog.Text = listLogTabule.SelectedIndex != -1 ? TLogicals[listLogTabule.SelectedIndex].Comment : "";
+        }
     }
 }

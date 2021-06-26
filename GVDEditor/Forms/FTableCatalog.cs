@@ -388,7 +388,7 @@ namespace GVDEditor.Forms
                 {
                     if (Columns[i].Line != line + 1)
                     {
-                        Utils.ShowError(string.Format(Resources.FTableCatalog_Definované_stĺpce_nie_sú_zotriedené_podľa_zobrazovaného_riadka_záznamu, Columns[i - 1].Key, Columns[i - 1].Line, Columns[i].Key, Columns[i].Line));
+                        Utils.ShowError(string.Format(Resources.FTableCatalog_Definované_stĺpce_nie_sú_zotriedené_podľa_zobrazovaného_riadka_záznamu, Columns[i - 1].Name, Columns[i - 1].Line, Columns[i].Name, Columns[i].Line));
                         DialogResult = DialogResult.None;
                         return;
                     }
@@ -397,9 +397,9 @@ namespace GVDEditor.Forms
                     line = Columns[i].Line;
                 }
 
-                if (Columns[i].End <= end)
+                if (Columns[i].End < end)
                 {
-                    Utils.ShowError(string.Format(Resources.FTableCatalog_Definované_stĺpce_nie_sú_zotriedené_podľa_pozície, Columns[i - 1].Key, Columns[i - 1].End, Columns[i].Key, Columns[i].End));
+                    Utils.ShowError(string.Format(Resources.FTableCatalog_Definované_stĺpce_nie_sú_zotriedené_podľa_pozície, Columns[i - 1].Name, Columns[i - 1].End, Columns[i].Name, Columns[i].End));
                     DialogResult = DialogResult.None;
                     return;
                 }

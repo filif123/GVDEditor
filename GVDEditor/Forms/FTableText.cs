@@ -274,7 +274,10 @@ namespace GVDEditor.Forms
                                 if (t.IsInShortReport)
                                     staniceDo.Add(t);
 
-                            staniceDo.RemoveAt(staniceDo.Count - 1);
+                            if (staniceDo.Count != 0)
+                            {
+                                staniceDo.RemoveAt(staniceDo.Count - 1);
+                            }
 
                             for (var i = 0; i < staniceDo.Count; i++)
                                 if (i < staniceDo.Count - 1)
