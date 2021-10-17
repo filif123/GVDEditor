@@ -219,7 +219,7 @@ namespace GVDEditor.Tools
         /// <param name="specDays">Pouzivat sviatky a pracovne dni.</param>
         /// <param name="allowRunsDaily">Vracat tiez - ide denne.</param>
         /// <param name="fromToday">Zohladnit az vzhladom ku dnesku.</param>
-        /// <param name="bInsertMarks">Vkladat znacky {}.</param>
+        /// <param name="insertMarks">Vkladat znacky {}.</param>
         /// <param name="maxDays">Pocet dni do buducnosti (maximalny poradovy index dna).</param>
         /// <param name="monthRoman">Cisla mesiacov rimskymi cislicami.</param>
         /// <param name="skipDateRangeCheck">Preskakovat u datumu chyby pre datum mimo grafikonu.</param>
@@ -227,7 +227,7 @@ namespace GVDEditor.Tools
         /// <param name="today">Ktory datum pouzit ako dnesok (ak sa neuvedie, pouzije sa skutocny dnesok).</param>
         public DateLimit(DateTime from, DateTime to, 
             bool specDays = true, bool allowRunsDaily = false,
-            bool fromToday = false, bool bInsertMarks = true, 
+            bool fromToday = false, bool insertMarks = true, 
             int maxDays = 0, bool monthRoman = true,
             bool skipDateRangeCheck = false, bool altForm = false, 
             DateTime? today = null)
@@ -243,7 +243,7 @@ namespace GVDEditor.Tools
             _specDays = specDays;
             _allowRunsDaily = allowRunsDaily;
             _fromToday = fromToday;
-            _insertMarks = bInsertMarks;
+            _insertMarks = insertMarks;
             _maxDays = maxDays;
             _monthRoman = monthRoman;
             _skipDateRangeCheck = skipDateRangeCheck;
