@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.VisualBasic.CompilerServices;
@@ -2366,43 +2367,37 @@ namespace GVDEditor.Tools
 
             public bool Merge(DateLimitInfo info)
             {
-                if (HaveDays && Type == info.Type &&
-                    To + 60 > info.From &&
-                    (Runs || info.Runs || RunsNot || info.RunsNot) || !info.HaveDays && 
-                    info.From == 0 && 
-                    info.To == 0)
+                if ((!HaveDays || Type != info.Type || To + 60 <= info.From || !Runs && !info.Runs && !RunsNot && !info.RunsNot) &&
+                    (info.HaveDays || info.From != 0 || info.To != 0)) return false;
+
+                if (info.To != 0 || info.From != 0)
                 {
-                    if (info.To != 0 || info.From != 0)
-                    {
-                        if (Runs)
-                            foreach (var o in ListRuns)
-                                if (o.From > To && o.From < info.From || o.To > To && o.To < info.From)
-                                    return false;
+                    if (Runs)
+                        if (ListRuns.Any(o => o.From > To && o.From < info.From || o.To > To && o.To < info.From))
+                            return false;
 
-                        ListRunsNot.Add(new DateLimitInfo(To + 1, info.From - 1));
-                        To = info.To;
-                    }
-
-                    if (info.Runs)
-                    {
-                        if (Runs)
-                            ListRuns.AddRange(info.ListRuns);
-                        else
-                            ListRuns = info.ListRuns;
-                    }
-
-                    if (info.RunsNot)
-                    {
-                        if (RunsNot)
-                            ListRunsNot.AddRange(info.ListRunsNot);
-                        else
-                            ListRunsNot = info.ListRunsNot;
-                    }
-
-                    return true;
+                    ListRunsNot.Add(new DateLimitInfo(To + 1, info.From - 1));
+                    To = info.To;
                 }
 
-                return false;
+                if (info.Runs)
+                {
+                    if (Runs)
+                        ListRuns.AddRange(info.ListRuns);
+                    else
+                        ListRuns = info.ListRuns;
+                }
+
+                if (info.RunsNot)
+                {
+                    if (RunsNot)
+                        ListRunsNot.AddRange(info.ListRunsNot);
+                    else
+                        ListRunsNot = info.ListRunsNot;
+                }
+
+                return true;
+
             }
         }
 
