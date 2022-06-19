@@ -1,6 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.VisualBasic.CompilerServices;
+
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedMember.Global
+// ReSharper disable StringLiteralTypo
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 // ReSharper disable UnusedMember.Local
 namespace GVDEditor.Tools;
@@ -10,6 +18,29 @@ namespace GVDEditor.Tools;
 /// </summary>
 internal class DateLimit
 {
+    private const int MINCOUNT3 = 80;
+    private const int MINCOUNT4 = 14;
+    private const int MINCOUNT5 = 30;
+    private const int MINWEEKDAYS = 8;
+    private const string DAY_TYPE_SIGNS = "1234567X+";
+
+    private BitArray _bits;
+    private readonly StringBuilder _builder;
+    private readonly List<ParseData> _parsedData;
+
+    private readonly bool _allowRunsDaily;
+    private readonly bool _fromToday;
+    private readonly bool _insertMarks;
+    private readonly int _maxDays;
+    private readonly bool _monthRoman;
+    private readonly bool _skipDateRangeCheck;
+    private readonly bool _specDays;
+        
+    private int _decorLength;
+    private string _lastMonth;
+    private int _position;
+    private string _text;
+
     /// <summary>
     ///     Jazyk generovaných datumových obmedzeni.
     /// </summary>
@@ -66,15 +97,7 @@ internal class DateLimit
         Dec
     }
 
-    private const int MINCOUNT3 = 80;
-    private const int MINCOUNT4 = 14;
-    private const int MINCOUNT5 = 30;
-
-    private const int MINWEEKDAYS = 8;
-
-    private const string DayTypeSigns = "1234567X+";
-
-    private static readonly string[] _messagesCZ =
+    private static readonly string[] MessagesCZ =
     {
         "chyba",
         "",
@@ -113,14 +136,14 @@ internal class DateLimit
         "XII"
     };
 
-    private static readonly string[] _messagesSK =
+    private static readonly string[] MessagesSK =
     {
         "chyba",
         "",
         "ide denne",
         "t.č. nejde",
         "nikdy",
-        "zatial nejde",
+        "zatiaľ nejde",
         "nejde ",
         "okrem ",
         "ide ",
@@ -152,7 +175,7 @@ internal class DateLimit
         "XII"
     };
 
-    private static readonly string[] _messagesRegex =
+    private static readonly string[] MessagesRegex =
     {
         "",
         "",
@@ -190,23 +213,6 @@ internal class DateLimit
         "",
         ""
     };
-
-    private BitArray _bits;
-    private readonly StringBuilder _builder;
-    private readonly List<ParseData> _parsedData;
-
-    private readonly bool _allowRunsDaily;
-    private readonly bool _fromToday;
-    private readonly bool _insertMarks;
-    private readonly int _maxDays;
-    private readonly bool _monthRoman;
-    private readonly bool _skipDateRangeCheck;
-    private readonly bool _specDays;
-        
-    private int _decorLength;
-    private string _lastMonth;
-    private int _position;
-    private string _text;
 
     /// <summary>
     ///     Vytvori novu instanciu triedy <see cref="DateLimit"/>.
@@ -248,8 +254,8 @@ internal class DateLimit
         if (DateTo < DateFrom)
             throw new Exception($"Dátum do {to} je menší ako dátum od {from}.");
 
-        if (TotalDays > 400)
-            throw new Exception($"Príliš dlhý grafikon <{from},{to}>.");
+        //if (TotalDays > 400) TODO test ci pojde aj tak
+            //throw new Exception($"Príliš dlhý grafikon <{from},{to}>.");
     }
 
     /// <summary>
@@ -305,10 +311,7 @@ internal class DateLimit
     /// <summary>
     ///     Vrati vzdialenost medzi datumami ako <see cref="int"/>.
     /// </summary>
-    public static int DateDiff(DateTime from, DateTime to)
-    {
-        return (int)Math.Round((to - from).TotalDays);
-    }
+    public static int DateDiff(DateTime from, DateTime to) => (int)Math.Round((to - from).TotalDays);
 
     /// <summary>
     ///     Konvertuje bitove pole do textovej poznamky.
@@ -327,110 +330,107 @@ internal class DateLimit
         var dateFrom = DateFrom;
         var dateTo = DateTo;
 
-        checked
+        try
         {
-            try
+            DateFrom = DateFrom.AddDays(cycle);
+            DateTo = DateTo.AddDays(cycle);
+
+            var maxIndex = MaxDay;
+            var minIndex = 0;
+
+            if (_maxDays > 0 && DateTo > Today.AddDays(_maxDays))
             {
-                DateFrom = DateFrom.AddDays(cycle);
-                DateTo = DateTo.AddDays(cycle);
+                DateTo = Today.AddDays(_maxDays);
 
-                var maxIndex = MaxDay;
-                var minIndex = 0;
+                if (DateTo < DateFrom) 
+                    return MsgText(Message.RunsNext);
 
-                if (_maxDays > 0 && DateTo > Today.AddDays(_maxDays))
+                maxIndex = DateDiff(DateFrom, DateTo);
+            }
+
+            if (_fromToday)
+            {
+                if (Today > DateTo) 
+                    return AltMsgText(Message.RunsNever, Message.RunsNeverAlt);
+
+                if (Today > DateFrom)
                 {
-                    DateTo = Today.AddDays(_maxDays);
-
-                    if (DateTo < DateFrom) 
-                        return MsgText(Message.RunsNext);
-
-                    maxIndex = DateDiff(DateFrom, DateTo);
+                    minIndex = DateDiff(DateFrom, Today);
+                    DateFrom = Today;
                 }
+            }
 
-                if (_fromToday)
+            var hasData = false;
+
+            for (var i = minIndex + 1; i <= maxIndex; i++)
+            {
+                if (bits[i] == bits[minIndex]) 
+                    continue;
+
+                hasData = true;
+                break;
+            }
+
+            if (!hasData)
+            {
+                return !bits[minIndex] ? 
+                    AltMsgText(Message.RunsNever, Message.RunsNeverAlt) : 
+                    MsgText(_allowRunsDaily ? Message.RunsDaily : Message.Empty);
+            }
+            else
+            {
+                var valitBitsAlt = validBits;
+
+                if (minIndex > 0 || maxIndex != bits.Length - 1)
                 {
-                    if (Today > DateTo) 
-                        return AltMsgText(Message.RunsNever, Message.RunsNeverAlt);
-
-                    if (Today > DateFrom)
+                    int j;
+                    if (validBits != null && validBits.Count == bits.Count)
                     {
-                        minIndex = DateDiff(DateFrom, Today);
-                        DateFrom = Today;
-                    }
-                }
+                        valitBitsAlt = new BitArray(maxIndex - minIndex + 1);
 
-                var hasData = false;
-
-                for (var i = minIndex + 1; i <= maxIndex; i++)
-                {
-                    if (bits[i] != bits[minIndex])
-                    {
-                        hasData = true;
-                        break;
-                    }
-                }
-
-                if (!hasData)
-                {
-                    return !bits[minIndex] ? 
-                        AltMsgText(Message.RunsNever, Message.RunsNeverAlt) : 
-                        MsgText(_allowRunsDaily ? Message.RunsDaily : Message.Empty);
-                }
-                else
-                {
-                    var oValidBits2 = validBits;
-
-                    if (minIndex > 0 || maxIndex != bits.Length - 1)
-                    {
-                        int j;
-                        if (validBits != null && validBits.Count == bits.Count)
-                        {
-                            oValidBits2 = new BitArray(maxIndex - minIndex + 1);
-
-                            j = 0;
-                            for (var k = minIndex; k <= maxIndex; k++)
-                            {
-                                oValidBits2[j] = validBits[k];
-                                j++;
-                            }
-                        }
-
-                        var oBits2 = new BitArray(maxIndex - minIndex + 1);
                         j = 0;
-
-                        for (var l = minIndex; l <= maxIndex; l++)
+                        for (var k = minIndex; k <= maxIndex; k++)
                         {
-                            oBits2[j] = bits[l];
+                            valitBitsAlt[j] = validBits[k];
                             j++;
                         }
-
-                        bits = oBits2;
                     }
 
-                    _bits = bits;
+                    var bitArray = new BitArray(maxIndex - minIndex + 1);
+                    j = 0;
 
-                    var positive = BitArrayToTextInternal(false, out int infosCountPos, out int lenPos, oValidBits2);
-                    var negative = BitArrayToTextInternal(true, out int infosCountNeg, out int lenNeg, oValidBits2);
+                    for (var l = minIndex; l <= maxIndex; l++)
+                    {
+                        bitArray[j] = bits[l];
+                        j++;
+                    }
 
-                    if (lenNeg + (lenPos > 40 ? 20 : 25) < lenPos || lenNeg < lenPos && infosCountNeg < infosCountPos)
-                        return negative;
-
-                    return positive;
+                    bits = bitArray;
                 }
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-            finally
-            {
-                DateFrom = dateFrom;
-                DateTo = dateTo;
-                _bits = null;
-            }
 
-            return "";
+                _bits = bits;
+
+                var positive = BitArrayToTextInternal(false, out var infosCountPos, out var lenPos, valitBitsAlt);
+                var negative = BitArrayToTextInternal(true, out var infosCountNeg, out var lenNeg, valitBitsAlt);
+
+                if (lenNeg + (lenPos > 40 ? 20 : 25) < lenPos || lenNeg < lenPos && infosCountNeg < infosCountPos)
+                    return negative;
+
+                return positive;
+            }
         }
+        catch (Exception)
+        {
+            // ignored
+        }
+        finally
+        {
+            DateFrom = dateFrom;
+            DateTo = dateTo;
+            _bits = null;
+        }
+
+        return "";
     }
 
     /// <summary>
@@ -551,10 +551,7 @@ internal class DateLimit
     /// <summary>
     ///     Logicka operacia NOT podla textu.
     /// </summary>
-    public string TextNot(string text)
-    {
-        return BitArrayToText(TextToBitArray(text).Not());
-    }
+    public string TextNot(string text) => BitArrayToText(TextToBitArray(text).Not());
 
     /// <summary>
     ///     Vrati text správy.
@@ -563,8 +560,8 @@ internal class DateLimit
     {
         return Loc switch
         {
-            Locale.CZ => _messagesCZ[(int)message],
-            Locale.SK => _messagesSK[(int)message],
+            Locale.CZ => MessagesCZ[(int)message],
+            Locale.SK => MessagesSK[(int)message],
             _ => "?"
         };
     }
@@ -572,14 +569,11 @@ internal class DateLimit
     /// <summary>
     ///     Text správy so zohlednenim alternativnej formulacie.
     /// </summary>
-    public string AltMsgText(Message msg1, Message msg2)
-    {
-        return MsgText(AltForm ? msg2 : msg1);
-    }
+    public string AltMsgText(Message msg1, Message msg2) => MsgText(AltForm ? msg2 : msg1);
 
     private static void ReduceDates(IList<DateLimitInfo> dateLimit, BitArray validBits)
     {
-        for (var i = dateLimit.Count - 1; i >= 0; i += -1)
+        for (var i = dateLimit.Count - 1; i >= 0; i--)
         {
             var info = dateLimit[i];
 
@@ -651,16 +645,14 @@ internal class DateLimit
         if (datelimit != null)
             return datelimit;
 
-        var OKCount = new int[9];
+        var okCount = new int[9];
         var badCount = new int[9];
 
-        var isFC = 0;
+        var isFc = 0;
         var scanWeekDaysOK = false;
 
-        if (ScanDays(from, to, OKCount, badCount, ref isFC) && !AllSet(OKCount) && !NoBad(badCount) && to - from > 6)
-        {
+        if (ScanDays(from, to, okCount, badCount, ref isFc) && !AllSet(okCount) && !NoBad(badCount) && to - from > 6)
             scanWeekDaysOK = true;
-        }
         else
         {
             datelimit = GetIntervals(from, to);
@@ -668,10 +660,10 @@ internal class DateLimit
             if (datelimit != null)
                 return datelimit;
 
-            goto IL_74;
+            goto RECURSES;
         }
 
-        IL_B8:
+        LOOP:
         while (true)
         {
             datelimit = ScanWeekDays(minCount, from, to);
@@ -686,12 +678,12 @@ internal class DateLimit
             minCount -= i;
 
             if (!scanWeekDaysOK)
-                goto IL_74;
+                goto RECURSES;
         }
 
         return datelimit;
 
-        IL_74:
+        RECURSES:
         datelimit = Recurse1(minCount, from, to);
         if (datelimit != null)
             return datelimit;
@@ -706,14 +698,14 @@ internal class DateLimit
 
         datelimit = Recurse4(minCount, from, to);
         if (datelimit == null)
-            goto IL_B8;
+            goto LOOP;
 
         return datelimit;
     }
 
     private List<DateLimitInfo> Recurse1(int minCount, int from, int to)
     {
-        List<DateLimitInfo> daterem = null;
+        List<DateLimitInfo> limitsInfo = null;
         var i = -1;
 
         for (var j = from; j <= to; j++)
@@ -728,23 +720,23 @@ internal class DateLimit
                 var l = 0;
                 l++;
 
-                if (l >= minCount && i >= 0)
-                {
-                    AppendIntervals(ref daterem, ProcessInterval(minCount, i, 0));
-                    i = -1;
-                }
+                if (l < minCount || i < 0) 
+                    continue;
+
+                AppendIntervals(ref limitsInfo, ProcessInterval(minCount, i, 0));
+                i = -1;
             }
         }
 
-        if (i > from && daterem != null)
-            AppendIntervals(ref daterem, ProcessInterval(minCount, i, to));
+        if (i > from && limitsInfo != null)
+            AppendIntervals(ref limitsInfo, ProcessInterval(minCount, i, to));
 
-        return daterem;
+        return limitsInfo;
     }
 
     private List<DateLimitInfo> Recurse2(int minCount, int from, int to)
     {
-        List<DateLimitInfo> datelimit = null;
+        List<DateLimitInfo> limitInfo = null;
         var i = -1;
         var k = 0;
 
@@ -761,12 +753,12 @@ internal class DateLimit
                 if (k >= MINCOUNT5)
                 {
                     if (i > from)
-                        datelimit = ProcessInterval(minCount, from, i - 1);
+                        limitInfo = ProcessInterval(minCount, from, i - 1);
 
-                    AppendInterval(ref datelimit, new DateLimitInfo(i, j - 1));
-                    AppendIntervals(ref datelimit, ProcessInterval(minCount, j, to));
+                    AppendInterval(ref limitInfo, new DateLimitInfo(i, j - 1));
+                    AppendIntervals(ref limitInfo, ProcessInterval(minCount, j, to));
 
-                    return datelimit;
+                    return limitInfo;
                 }
 
                 k = 0;
@@ -779,7 +771,7 @@ internal class DateLimit
 
     private List<DateLimitInfo> Recurse3(int minCount, int from, int to)
     {
-        List<DateLimitInfo> datelimit = null;
+        List<DateLimitInfo> limitsInfo = null;
         var i = from;
         var j = 0;
 
@@ -789,15 +781,14 @@ internal class DateLimit
             i++;
         }
 
-        if (j >= MINCOUNT4)
-        {
-            AppendInterval(ref datelimit, new DateLimitInfo(from, from + j - 1));
-            AppendIntervals(ref datelimit, ProcessInterval(minCount, from + j, to));
+        if (j < MINCOUNT4) 
+            return null;
 
-            return datelimit;
-        }
+        AppendInterval(ref limitsInfo, new DateLimitInfo(from, from + j - 1));
+        AppendIntervals(ref limitsInfo, ProcessInterval(minCount, from + j, to));
 
-        return null;
+        return limitsInfo;
+
     }
 
     private List<DateLimitInfo> Recurse4(int minCount, int from, int to)
@@ -811,228 +802,230 @@ internal class DateLimit
             i--;
         }
 
-        if (j >= MINCOUNT4)
-        {
-            var datelimit = ProcessInterval(minCount, from, to - j);
-            AppendInterval(ref datelimit, new DateLimitInfo(to - j + 1, to));
-            return datelimit;
-        }
+        if (j < MINCOUNT4) 
+            return null;
 
-        return null;
+        var datelimit = ProcessInterval(minCount, from, to - j);
+        AppendInterval(ref datelimit, new DateLimitInfo(to - j + 1, to));
+        return datelimit;
+
     }
 
     private List<DateLimitInfo> ScanWeekDays(int minCount, int from, int to)
     {
-        List<DateLimitInfo> aodatelimit = null;
-        var OKCount = new int[9];
+        List<DateLimitInfo> limitsInfo = null;
+        var okCount = new int[9];
         var badCount = new int[9];
 
-        checked
+        for (var t = to; t >= from + 7; t--)
         {
-            for (var t = to; t >= from + 7; t--)
+            if (t < to && RunsNot(t)) 
+                continue;
+
+            var isFc = 0;
+
+            ScanDays(from, t, okCount, badCount, ref isFc);
+
+            var i = 0;
+            var isOK = false;
+
+            do
             {
-                if (t >= to || !RunsNot(t))
+                if (okCount[i] > badCount[i] * 2 && badCount[i] <= 8)
                 {
-                    var isFC = 0;
+                    okCount[i] = 1;
+                    isOK = true;
+                }
+                else
+                    okCount[i] = 0;
 
-                    ScanDays(from, t, OKCount, badCount, ref isFC);
+                i++;
+            } while (i <= 8);
 
-                    var i = 0;
-                    var isOK = false;
+            if (isOK)
+            {
+                var j = 0;
 
-                    do
+                for (i = from; i <= t; i++)
+                    if (Runs(i) && okCount[(int)GetDayIndex(i, isFc)] == 0 && (i == from || RunsNot(i - 1) || okCount[(int)GetDayIndex(i - 1, isFc)] != 0))
+                        j++;
+
+                var k = 0;
+                i = from;
+
+                while (i <= t)
+                {
+                    if (okCount[(int)GetDayIndex(i, isFc)] != 0 && RunsNot(i))
                     {
-                        if (OKCount[i] > badCount[i] * 2 && badCount[i] <= 8)
-                        {
-                            OKCount[i] = 1;
-                            isOK = true;
-                        }
-                        else
-                            OKCount[i] = 0;
-
-                        i++;
-                    } while (i <= 8);
-
-                    if (isOK)
-                    {
-                        var j = 0;
-
-                        for (i = from; i <= t; i++)
-                            if (Runs(i) && OKCount[(int)GetDayIndex(i, isFC)] == 0 &&
-                                (i == from || RunsNot(i - 1) || OKCount[(int)GetDayIndex(i - 1, isFC)] != 0))
-                                j++;
-
-                        var k = 0;
-                        i = from;
-
+                        k++;
                         while (i <= t)
-                            if (OKCount[(int)GetDayIndex(i, isFC)] != 0 && RunsNot(i))
-                            {
-                                k++;
-                                while (i <= t)
-                                {
-                                    if (!RunsNot(i)) 
-                                        break;
-                                    i++;
-                                }
-                            }
-                            else
-                                i++;
-
-                        if (j + k <= 13 || t - from > 350 && j + k <= 19)
                         {
-                            if (k > 0)
-                            {
-                                i = t;
+                            if (!RunsNot(i)) 
+                                break;
+                            i++;
+                        }
+                    }
+                    else
+                        i++;
+                }
 
-                                while (OKCount[(int)GetDayIndex(i, isFC)] == 0) 
-                                    i--;
+                if (j + k <= 13 || t - from > 350 && j + k <= 19)
+                {
+                    if (k > 0)
+                    {
+                        i = t;
 
-                                if (RunsNot(i)) 
-                                    continue;
-                            }
+                        while (okCount[(int)GetDayIndex(i, isFc)] == 0) 
+                            i--;
 
-                            if (t < to || GetBetterDayTo(t, OKCount, isFC) < MaxDay)
-                            {
-                                i = 0;
-                                while (!((OKCount[(int)GetDayIndex(t - i, isFC)] != 0) ^ Runs(t - i)))
-                                {
-                                    i++;
-                                    if (i > 6) 
-                                        goto IL_18F;
-                                }
+                        if (RunsNot(i)) 
+                            continue;
+                    }
 
-                                goto IL_4CB;
-                            }
+                    if (t < to || GetBetterDayTo(t, okCount, isFc) < MaxDay)
+                    {
+                        i = 0;
+                        while (!((okCount[(int)GetDayIndex(t - i, isFc)] != 0) ^ Runs(t - i)))
+                        {
+                            i++;
+                            if (i > 6) 
+                                goto EQUAL_PATTERN;
+                        }
 
-                            IL_18F:
-                            if ((j != 0 || k != 0) && t < to - 21 && t > 13 &&
-                                (EqualPattern(t - 6, t + 1) && EqualPattern(t - 6, t + 8) &&
-                                 EqualPattern(t - 6, t + 15) ||
-                                 EqualPattern(t - 13, t + 1) && EqualPattern(t - 13, t + 8) &&
-                                 EqualPattern(t - 13, t + 15)))
-                                continue;
-                            if (j + k > 3 && t - from > 35)
-                            {
-                                var aiOKCount2 = new int[9];
-                                var aiBadCount2 = new int[9];
-                                var iIsFC2 = 0;
+                        goto APPEND_INTERVAL;
+                    }
 
-                                if (ScanDays(from, from + 20, aiOKCount2, aiBadCount2, ref iIsFC2) &&
-                                    GetDayType(OKCount) != GetDayType(aiOKCount2))
-                                {
-                                    i = from + 20;
-                                    while (i <= t - 1 && ScanDays(from, i, aiOKCount2, aiBadCount2, ref iIsFC2))
-                                        i++;
-                                    t = i - 1;
-                                    AppendIntervals(ref aodatelimit, ProcessInterval(minCount, from, t));
-                                    goto IL_4CB;
-                                }
-                            }
+                    EQUAL_PATTERN:
+                    if ((j != 0 || k != 0) && t < to - 21 && t > 13 &&
+                        (EqualPattern(t - 6, t + 1) && EqualPattern(t - 6, t + 8) &&
+                         EqualPattern(t - 6, t + 15) ||
+                         EqualPattern(t - 13, t + 1) && EqualPattern(t - 13, t + 8) &&
+                         EqualPattern(t - 13, t + 15)))
+                        continue;
 
-                            var _DayFrom = GetBetterDayFrom(from, OKCount, isFC);
-                            var _DayTo = GetBetterDayTo(t, OKCount, isFC);
+                    if (j + k > 3 && t - from > 35)
+                    {
+                        var aiOKCount2 = new int[9];
+                        var aiBadCount2 = new int[9];
+                        var iIsFc2 = 0;
 
-                            if (_DayFrom > 0 && OKCount[(int)GetDayIndex(_DayFrom, isFC)] == 0)
-                            {
-                                i = _DayFrom;
-                                while (Runs(_DayFrom)) _DayFrom++;
-                                if (_DayFrom > i)
-                                {
-                                    AppendIntervals(ref aodatelimit, ProcessInterval(minCount, i, _DayFrom - 1));
-                                    while (RunsNot(_DayFrom)) _DayFrom++;
-                                    from = _DayFrom;
-                                }
-                            }
-
-                            var o = new DateLimitInfo(_DayFrom, _DayTo);
-                            if (_DayFrom != _DayTo)
-                                o.Type = CheckDayType(_DayFrom, _DayTo, GetDayType(OKCount));
-
-                            AppendInterval(ref aodatelimit, o);
-
-                            if (j > 0)
-                            {
-                                i = from;
-                                while (i <= t)
-                                    if (OKCount[(int)GetDayIndex(i, isFC)] == 0 && Runs(i))
-                                    {
-                                        j = i;
-                                        while (i <= t && Runs(i)) i++;
-                                        var l = i - 1;
-                                        while (OKCount[(int)GetDayIndex(l, isFC)] != 0) l--;
-                                        AppendPeriod(
-                                            ref aodatelimit[aodatelimit.Count - 1].ListRuns, j, l);
-                                    }
-                                    else
-                                    {
-                                        i++;
-                                    }
-                            }
-
-                            if (k > 0)
-                            {
-                                i = from;
-
-                                while (i <= t)
-                                    if (OKCount[(int)GetDayIndex(i, isFC)] != 0 && RunsNot(i))
-                                    {
-                                        j = i;
-                                        k = i;
-                                        var iPocetOKDnu = 0;
-                                        var aiOKDen = new int[4];
-                                        while (i <= t && RunsNot(i))
-                                        {
-                                            if (OKCount[(int)GetDayIndex(i, isFC)] != 0)
-                                            {
-                                                k = i;
-                                                if (iPocetOKDnu < 2)
-                                                    aiOKDen[iPocetOKDnu] = k;
-
-                                                iPocetOKDnu++;
-                                            }
-
-                                            i++;
-                                        }
-
-                                        if (iPocetOKDnu < 3)
-                                        {
-                                            var num6 = iPocetOKDnu - 1;
-                                            for (k = 0; k <= num6; k++)
-                                                AppendDay(ref aodatelimit[aodatelimit.Count - 1].ListRunsNot, aiOKDen[k]);
-                                        }
-                                        else
-                                        {
-                                            while (j >= _DayFrom && RunsNot(j)) j--;
-                                            j++;
-                                            while (k <= _DayTo && RunsNot(k)) k++;
-                                            k--;
-                                            AppendPeriod(ref aodatelimit[aodatelimit.Count - 1].ListRunsNot, j, k);
-                                            if (k > i)
-                                                i = k;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        i++;
-                                    }
-                            }
+                        if (ScanDays(from, from + 20, aiOKCount2, aiBadCount2, ref iIsFc2) &&
+                            GetDayType(okCount) != GetDayType(aiOKCount2))
+                        {
+                            i = from + 20;
+                            while (i <= t - 1 && ScanDays(from, i, aiOKCount2, aiBadCount2, ref iIsFc2))
+                                i++;
+                            t = i - 1;
+                            AppendIntervals(ref limitsInfo, ProcessInterval(minCount, from, t));
+                            goto APPEND_INTERVAL;
                         }
                     }
 
-                    IL_4CB:
-                    if (aodatelimit != null)
+                    var dayFrom = GetBetterDayFrom(from, okCount, isFc);
+                    var dayTo = GetBetterDayTo(t, okCount, isFc);
+
+                    if (dayFrom > 0 && okCount[(int)GetDayIndex(dayFrom, isFc)] == 0)
                     {
-                        if (t < to)
-                            AppendIntervals(ref aodatelimit,
-                                ProcessInterval(minCount, t + 1, to));
-                        break;
+                        i = dayFrom;
+                        while (Runs(dayFrom)) dayFrom++;
+                        if (dayFrom > i)
+                        {
+                            AppendIntervals(ref limitsInfo, ProcessInterval(minCount, i, dayFrom - 1));
+                            while (RunsNot(dayFrom)) 
+                                dayFrom++;
+                            from = dayFrom;
+                        }
+                    }
+
+                    var limitInfo = new DateLimitInfo(dayFrom, dayTo);
+                    if (dayFrom != dayTo)
+                        limitInfo.Type = CheckDayType(dayFrom, dayTo, GetDayType(okCount));
+
+                    AppendInterval(ref limitsInfo, limitInfo);
+
+                    if (j > 0)
+                    {
+                        i = from;
+                        while (i <= t)
+                        {
+                            if (okCount[(int)GetDayIndex(i, isFc)] == 0 && Runs(i))
+                            {
+                                j = i;
+                                while (i <= t && Runs(i)) 
+                                    i++;
+                                var l = i - 1;
+                                while (okCount[(int)GetDayIndex(l, isFc)] != 0) 
+                                    l--;
+                                AppendPeriod(ref limitsInfo[limitsInfo.Count - 1].ListRuns, j, l);
+                            }
+                            else
+                                i++;
+                        }
+                    }
+
+                    if (k > 0)
+                    {
+                        i = from;
+
+                        while (i <= t)
+                        {
+                            if (okCount[(int)GetDayIndex(i, isFc)] != 0 && RunsNot(i))
+                            {
+                                j = i;
+                                k = i;
+                                var pocetOKDni = 0;
+                                var aiOKDen = new int[4];
+                                while (i <= t && RunsNot(i))
+                                {
+                                    if (okCount[(int)GetDayIndex(i, isFc)] != 0)
+                                    {
+                                        k = i;
+                                        if (pocetOKDni < 2)
+                                            aiOKDen[pocetOKDni] = k;
+
+                                        pocetOKDni++;
+                                    }
+
+                                    i++;
+                                }
+
+                                if (pocetOKDni < 3)
+                                {
+                                    var num6 = pocetOKDni - 1;
+                                    for (k = 0; k <= num6; k++)
+                                        AppendDay(ref limitsInfo[limitsInfo.Count - 1].ListRunsNot, aiOKDen[k]);
+                                }
+                                else
+                                {
+                                    while (j >= dayFrom && RunsNot(j)) j--;
+                                    j++;
+                                    while (k <= dayTo && RunsNot(k)) k++;
+                                    k--;
+                                    AppendPeriod(ref limitsInfo[limitsInfo.Count - 1].ListRunsNot, j, k);
+                                    if (k > i)
+                                        i = k;
+                                }
+                            }
+                            else
+                            {
+                                i++;
+                            }
+                        }
                     }
                 }
             }
 
-            return aodatelimit;
+            APPEND_INTERVAL:
+            if (limitsInfo != null)
+            {
+                if (t < to)
+                    AppendIntervals(ref limitsInfo,
+                        ProcessInterval(minCount, t + 1, to));
+                break;
+            }
         }
+
+        return limitsInfo;
     }
 
     /// <summary>
@@ -1062,53 +1055,44 @@ internal class DateLimit
     /// <returns></returns>
     private List<DateLimitInfo> GetIntervals(int from, int to)
     {
-        checked
-        {
-            var count1 = 0;
-            var count2 = 0;
+        var count1 = 0;
+        var count2 = 0;
 
-            for (var i = from; i < to; i++)
-                if (Runs(i) && RunsNot(i + 1))
-                    count1++;
-                else if (Runs(i + 1) && RunsNot(i))
-                    count2++;
-
-            if (Runs(to))
+        for (var i = from; i < to; i++)
+            if (Runs(i) && RunsNot(i + 1))
                 count1++;
-            else
+            else if (Runs(i + 1) && RunsNot(i))
                 count2++;
 
-            List<DateLimitInfo> intervals;
+        if (Runs(to))
+            count1++;
+        else
+            count2++;
 
-            if (count1 <= 2 && count1 <= count2 || count1 == 1 && count2 == 0)
-            {
-                var info = new DateLimitInfo();
-                var j = -1;
+        if (count1 <= 2 && count1 <= count2 || count1 == 1 && count2 == 0)
+        {
+            var info = new DateLimitInfo();
+            var j = -1;
 
-                for (var k = from; k <= to; k++)
-                    if (Runs(k))
-                    {
-                        if (j < 0) 
-                            j = k;
-                    }
-                    else if (j >= 0)
-                    {
-                        AppendPeriod(ref info.ListRuns, j, k - 1);
-                        j = -1;
-                    }
+            for (var k = from; k <= to; k++)
+                if (Runs(k))
+                {
+                    if (j < 0) 
+                        j = k;
+                }
+                else if (j >= 0)
+                {
+                    AppendPeriod(ref info.ListRuns, j, k - 1);
+                    j = -1;
+                }
 
-                if (j >= 0)
-                    AppendPeriod(ref info.ListRuns, j, to);
+            if (j >= 0)
+                AppendPeriod(ref info.ListRuns, j, to);
 
-                intervals = new List<DateLimitInfo> { info };
-            }
-            else
-            {
-                intervals = null;
-            }
-
-            return intervals;
+            return new List<DateLimitInfo> { info };
         }
+
+        return null;
     }
 
     private List<DateLimitInfo> GetSingleDays(int from, int to)
@@ -1122,11 +1106,11 @@ internal class DateLimit
         if (j == 0) 
             return null;
 
-        var OKCount = new int[9];
+        var okCount = new int[9];
         var badCount = new int[9];
-        var isFC = 0;
+        var isFc = 0;
 
-        var daysOK = ScanDays(from, to, OKCount, badCount, ref isFC);
+        var daysOK = ScanDays(from, to, okCount, badCount, ref isFc);
 
         if (daysOK || j <= 6 && (j == to - from + 1 || j <= to - from + 2 - j))
         {
@@ -1134,9 +1118,9 @@ internal class DateLimit
 
             if (daysOK && to - from > 8)
             {
-                limitInfo.From = GetBetterDayFrom(from, OKCount, isFC);
-                limitInfo.To = GetBetterDayTo(to, OKCount, isFC);
-                limitInfo.Type = GetDayType(OKCount);
+                limitInfo.From = GetBetterDayFrom(from, okCount, isFc);
+                limitInfo.To = GetBetterDayTo(to, okCount, isFc);
+                limitInfo.Type = GetDayType(okCount);
             }
             else
             {
@@ -1180,10 +1164,7 @@ internal class DateLimit
         baseIntervals.Add(interval);
     }
 
-    private static void AppendDay(ref List<DateLimitInfo> runs, int day)
-    {
-        AppendPeriod(ref runs, day, day);
-    }
+    private static void AppendDay(ref List<DateLimitInfo> runs, int day) => AppendPeriod(ref runs, day, day);
 
     /// <summary>
     ///     Prida periodu.
@@ -1202,186 +1183,231 @@ internal class DateLimit
         runs.Add(new DateLimitInfo(from, to));
     }
 
-    private bool ScanDays(int from, int to, int[] OKCount, int[] badCount, ref int isFC)
+    /// <summary>
+    ///     Vrati, ci v zadany den vlak IDE.
+    /// </summary>
+    /// <param name="day">Den na posudenie.</param>
+    /// <returns></returns>
+    private bool Runs(int day) => _bits[day];
+
+    /// <summary>
+    ///     Vrati, ci v zadany den vlak NEJDE.
+    /// </summary>
+    /// <param name="day">Den na posudenie.</param>
+    /// <returns></returns>
+    private bool RunsNot(int day) => !Runs(day);
+
+    /// <summary>
+    ///     Prida zadany den do <see cref="StringBuilder"/>a, ktory pred pridanim sformatuje.
+    /// </summary>
+    /// <param name="day">Den, ktory sa ma pridat na koniec buildera.</param>
+    private void AppendDay(int day)
     {
-        Array.Clear(OKCount, 0, OKCount.Length);
+        AppendComma();
+        _builder.Append(FormatDay(day));
+    }
+
+    /// <summary>
+    ///     Sformatuje zadany den.
+    /// </summary>
+    /// <param name="day">Den, ktory sa ma sformatovat.</param>
+    /// <returns>sformatovany den ako retazec.</returns>
+    private string FormatDay(int day)
+    {
+        var date = DateFrom.AddDays(day);
+        var month = MsgMonth(date.Month) + ".";
+
+        if (!DateUnique(date)) 
+            month += date.Year;
+
+        if (!string.IsNullOrEmpty(_lastMonth) && _lastMonth == month)
+        {
+            var i = _builder.ToString().LastIndexOf(_lastMonth, StringComparison.Ordinal);
+            _builder.Remove(i, _lastMonth.Length);
+        }
+        else
+            _lastMonth = month;
+
+        return $"{date.Day}.{_lastMonth}";
+    }
+
+    /// <summary>
+    ///     Prida znak ciarky (,) na koniec <see cref="StringBuilder"/>a.
+    /// </summary>
+    private void AppendComma()
+    {
+        var last = _builder.Length - 1;
+        if (last > 0 && _builder[last] != ' ' && _builder[last] != ',')
+            _builder.Append(',');
+    }
+
+    /// <summary>
+    ///     Prida znak medzery ( ) na koniec <see cref="StringBuilder"/>a.
+    /// </summary>
+    private void AppendSpace()
+    {
+        var last = _builder.Length - 1;
+        if (last > 0 && _builder[last] > ' ')
+            _builder.Append(' ');
+    }
+    
+    private bool ScanDays(int from, int to, int[] okCount, int[] badCount, ref int isFc)
+    {
+        Array.Clear(okCount, 0, okCount.Length);
         Array.Clear(badCount, 0, badCount.Length);
 
         var dayIndex = GetDayIndex(from, 0);
 
-        checked
+        var saturdays = 0;
+        var totalBad = 0;
+
+        for (var i = from; i <= to; i++)
         {
-            var saturdays = 0;
-            var totalBad = 0;
-
-            for (var i = from; i <= to; i++)
-            {
-                if (Runs(i))
-                {
-                    if (_specDays)
-                    {
-                        var type = GetDayType(i);
-                        if ((type & DayType.Workday) != DayType.None)
-                        {
-                            OKCount[7]++;
-                        }
-                        else if ((type & DayType.Holiday) != DayType.None)
-                        {
-                            OKCount[8]++;
-
-                            if (dayIndex == DayIndex.Saturday)
-                                saturdays++;
-                        }
-                    }
-
-                    OKCount[(int)dayIndex]++;
-                }
-                else
-                {
-                    if (_specDays)
-                    {
-                        var type = GetDayType(i);
-                        if ((type & DayType.Workday) != DayType.None)
-                        {
-                            badCount[7]++;
-                        }
-                        else if ((type & DayType.Holiday) != DayType.None)
-                        {
-                            badCount[8]++;
-                        }
-                    }
-
-                    badCount[(int)dayIndex]++;
-                    totalBad++;
-                }
-
-                dayIndex = GetNextDayIndex(dayIndex);
-            }
-
-            if (totalBad != 0)
+            if (Runs(i))
             {
                 if (_specDays)
                 {
-                    if (OKCount[5] > 2 * badCount[5] && OKCount[8] < 2 * badCount[8])
+                    var type = GetDayType(i);
+                    if ((type & DayType.Workday) != DayType.None)
+                        okCount[7]++;
+                    else if ((type & DayType.Holiday) != DayType.None)
                     {
-                        OKCount[8] -= saturdays;
-                    }
+                        okCount[8]++;
 
-                    var j = DayIndex.Monday;
-                    var count = 0;
-                    var count2 = 0;
-                    do
-                    {
-                        if (OKCount[(int)j] > 0 && OKCount[(int)j] > badCount[(int)j])
-                        {
-                            if (j <= DayIndex.Sunday) 
-                                count += OKCount[(int)j] - badCount[(int)j];
-
-                            if (j is DayIndex.Saturday or DayIndex.Workday or DayIndex.Holiday)
-                                count2 += OKCount[(int)j] - badCount[(int)j];
-                        }
-
-                        unchecked
-                        {
-                            j++;
-                        }
-                    } while (j <= DayIndex.Holiday);
-
-                    if (count2 > count)
-                    {
-                        isFC = 1;
-                        var k = DayIndex.Monday;
-                        unchecked
-                        {
-                            do
-                            {
-                                if (k != DayIndex.Saturday)
-                                {
-                                    OKCount[(int)k] = 0;
-                                    badCount[(int)k] = 0;
-                                }
-
-                                k++;
-                            } while (k <= DayIndex.Sunday);
-                        }
-
-                        if (OKCount[8] > 2 * badCount[8] && OKCount[5] < 2 * badCount[5])
-                        {
-                            OKCount[5] -= saturdays;
-                        }
-                        else
-                        {
-                            isFC |= 32;
-                        }
-                    }
-                    else
-                    {
-                        OKCount[7] = 0;
-                        badCount[7] = 0;
-                        OKCount[8] = 0;
-                        badCount[8] = 0;
+                        if (dayIndex == DayIndex.Saturday)
+                            saturdays++;
                     }
                 }
 
-                var l = DayIndex.Monday;
-                unchecked
-                {
-                    while (OKCount[(int)l] == 0 || badCount[(int)l] == 0)
-                    {
-                        l++;
-                        if (l > DayIndex.Holiday)
-                            return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-    }
-
-    private int GetBetterDayFrom(int from, IReadOnlyList<int> OKCount, int isFC)
-    {
-        var fromSave = from;
-
-        if (from < 7)
-        {
-            while (from >= 0 && (Runs(from) || OKCount[(int)GetDayIndex(from, isFC)] == 0))
-                from--;
-
-            if (from < 0)
-            {
-                from = 0;
+                okCount[(int)dayIndex]++;
             }
             else
             {
-                from = fromSave;
-                while (OKCount[(int)GetDayIndex(from, isFC)] == 0)
-                    from++;
+                if (_specDays)
+                {
+                    var type = GetDayType(i);
+                    if ((type & DayType.Workday) != DayType.None)
+                    {
+                        badCount[7]++;
+                    }
+                    else if ((type & DayType.Holiday) != DayType.None)
+                    {
+                        badCount[8]++;
+                    }
+                }
+
+                badCount[(int)dayIndex]++;
+                totalBad++;
             }
+
+            dayIndex = GetNextDayIndex(dayIndex);
+        }
+
+        if (totalBad == 0) 
+            return false;
+
+        if (_specDays)
+        {
+            if (okCount[5] > 2 * badCount[5] && okCount[8] < 2 * badCount[8]) 
+                okCount[8] -= saturdays;
+
+            var j = DayIndex.Monday;
+            var count = 0;
+            var count2 = 0;
+            do
+            {
+                if (okCount[(int)j] > 0 && okCount[(int)j] > badCount[(int)j])
+                {
+                    if (j <= DayIndex.Sunday) 
+                        count += okCount[(int)j] - badCount[(int)j];
+
+                    if (j is DayIndex.Saturday or DayIndex.Workday or DayIndex.Holiday)
+                        count2 += okCount[(int)j] - badCount[(int)j];
+                }
+
+                j++;
+            } while (j <= DayIndex.Holiday);
+
+            if (count2 > count)
+            {
+                isFc = 1;
+                var k = DayIndex.Monday;
+
+                do
+                {
+                    if (k != DayIndex.Saturday)
+                    {
+                        okCount[(int)k] = 0;
+                        badCount[(int)k] = 0;
+                    }
+
+                    k++;
+                } while (k <= DayIndex.Sunday);
+
+                if (okCount[8] > 2 * badCount[8] && okCount[5] < 2 * badCount[5])
+                    okCount[5] -= saturdays;
+                else
+                    isFc |= 32;
+            }
+            else
+            {
+                okCount[7] = 0;
+                okCount[8] = 0;
+                badCount[7] = 0;
+                badCount[8] = 0;
+            }
+        }
+
+        var l = DayIndex.Monday;
+        while (okCount[(int)l] == 0 || badCount[(int)l] == 0)
+        {
+            l++;
+            if (l > DayIndex.Holiday)
+                return true;
+        }
+
+        return false;
+    }
+
+    private int GetBetterDayFrom(int from, IReadOnlyList<int> okCount, int isFc)
+    {
+        var fromSave = from;
+
+        if (from >= 7) 
+            return from;
+
+        while (from >= 0 && (Runs(from) || okCount[(int)GetDayIndex(from, isFc)] == 0))
+            from--;
+
+        if (from < 0)
+            from = 0;
+        else
+        {
+            from = fromSave;
+            while (okCount[(int)GetDayIndex(from, isFc)] == 0)
+                from++;
         }
 
         return from;
     }
 
-    private int GetBetterDayTo(int to, IReadOnlyList<int> OKCount, int isFC)
+    private int GetBetterDayTo(int to, IReadOnlyList<int> okCount, int isFc)
     {
-        var to2 = to;
+        var toBackup = to;
 
-        if (to > MaxDay - 7)
+        if (to <= MaxDay - 7) 
+            return to;
+
+        while (to <= MaxDay && (Runs(to) || okCount[(int)GetDayIndex(to, isFc)] == 0))
+            to++;
+
+        if (to > MaxDay)
+            to = MaxDay;
+        else
         {
-            while (to <= MaxDay && (Runs(to) || OKCount[(int)GetDayIndex(to, isFC)] == 0))
-                to++;
-
-            if (to > MaxDay)
-            {
-                to = MaxDay;
-            }
-            else
-            {
-                to = to2;
-                while (OKCount[(int)GetDayIndex(to, isFC)] == 0)
-                    to--;
-            }
+            to = toBackup;
+            while (okCount[(int)GetDayIndex(to, isFc)] == 0)
+                to--;
         }
 
         return to;
@@ -1390,43 +1416,15 @@ internal class DateLimit
     private static bool AllSet(IReadOnlyList<int> count)
     {
         var dayType = GetDayType(count);
-        return (dayType & DayType.All1) == DayType.All1 || 
-               (dayType & DayType.All2) == DayType.All2;
+        return (dayType & DayType.All1) == DayType.All1 || (dayType & DayType.All2) == DayType.All2;
     }
-
-    private static bool NoBad(IEnumerable<int> count)
-    {
-        foreach (var t in count)
-            if (t != 0)
-                return false;
-
-        return true;
-    }
-
-    /// <summary>
-    ///     Vrati, ci v zadany den vlak IDE.
-    /// </summary>
-    /// <param name="day">Den na posudenie.</param>
-    /// <returns></returns>
-    private bool Runs(int day)
-    {
-        return _bits[day];
-    }
-
-    /// <summary>
-    ///     Vrati, ci v zadany den vlak NEJDE.
-    /// </summary>
-    /// <param name="day">Den na posudenie.</param>
-    /// <returns></returns>
-    private bool RunsNot(int day)
-    {
-        return !Runs(day);
-    }
+    
+    private static bool NoBad(IEnumerable<int> count) => count.All(t => t == 0);
 
     private bool EqualPattern(int from, int to)
     {
-        var i = 0;
-        while (Runs(from + i) == Runs(to + i))
+        var i = 0; 
+        while (Runs(from + i) == Runs(to + i)) 
         {
             i++;
 
@@ -1434,12 +1432,13 @@ internal class DateLimit
                 return true;
         }
 
-        return false;
+        return false; 
     }
 
     private string Format(IList<DateLimitInfo> datelimit, bool isNot)
     {
-        if (datelimit == null || datelimit.Count == 0) return MsgText(Message.Empty);
+        if (datelimit == null || datelimit.Count == 0) 
+            return MsgText(Message.Empty);
 
         Merge(datelimit);
         _builder.Length = 0;
@@ -1580,112 +1579,75 @@ internal class DateLimit
             _builder.Append(MsgDayType(Message.Workday));
 
         var i = 0;
-        checked
-        {
-            while (true)
-                if (i > 6 || (dayType & (DayType)(1 << i)) != DayType.None)
+        while (true)
+            if (i > 6 || (dayType & (DayType)(1 << i)) != DayType.None)
+            {
+                if (i > 6)
+                    break;
+
+                var j = i;
+
+                while (j < 6 && (dayType & (DayType)(1 << (j + 1))) != DayType.None) 
+                    j++;
+
+                if (j - i > 1)
                 {
-                    if (i > 6)
-                        break;
-
-                    var j = i;
-
-                    while (j < 6 && (dayType & (DayType)(1 << (j + 1))) != DayType.None) 
-                        j++;
-
-                    if (j - i > 1)
-                    {
-                        AppendComma();
-                        _builder.Append(MsgDayType(Message.Monday + i)).Append("-").Append(MsgDayType(Message.Monday + j));
-                    }
-                    else
-                    {
-                        while (i <= j)
-                        {
-                            AppendComma();
-                            _builder.Append(MsgDayType(Message.Monday + i));
-                            i++;
-                        }
-                    }
-
-                    i = j + 1;
-                    if (i > 6)
-                        break;
+                    AppendComma();
+                    _builder.Append(MsgDayType(Message.Monday + i)).Append("-").Append(MsgDayType(Message.Monday + j));
                 }
                 else
                 {
-                    i++;
+                    while (i <= j)
+                    {
+                        AppendComma();
+                        _builder.Append(MsgDayType(Message.Monday + i));
+                        i++;
+                    }
                 }
 
-            if ((dayType & DayType.Holiday) == DayType.Holiday)
-            {
-                AppendComma();
-                _builder.Append(MsgDayType(Message.Holiday));
+                i = j + 1;
+                if (i > 6)
+                    break;
             }
-        }
+            else
+            {
+                i++;
+            }
+
+        if ((dayType & DayType.Holiday) != DayType.Holiday) 
+            return;
+
+        AppendComma();
+        _builder.Append(MsgDayType(Message.Holiday));
     }
 
     private void AppendPeriod(int dayFrom, int dayTo)
     {
-        if (dayFrom != 0 || dayTo != MaxDay)
+        if (dayFrom == 0 && dayTo == MaxDay) 
+            return;
+
+        if (dayTo - dayFrom <= 1)
         {
-            if (dayTo - dayFrom <= 1)
-            {
-                for (var i = dayFrom; i <= dayTo; i++)
-                    AppendDay(i);
+            for (var i = dayFrom; i <= dayTo; i++)
+                AppendDay(i);
 
-                return;
-            }
-
-            AppendComma();
-
-            if (dayFrom > 0)
-                _builder.Append(MsgText(Message.From)).Append(FormatDay(dayFrom));
-
-            if (dayTo < MaxDay)
-            {
-                AppendSpace();
-                _builder.Append(MsgText(Message.To)).Append(FormatDay(dayTo));
-            }
-
-            _lastMonth = null;
+            return;
         }
-    }
 
-    /// <summary>
-    ///     Prida zadany den do <see cref="StringBuilder"/>a, ktory pred pridanim sformatuje.
-    /// </summary>
-    /// <param name="day">Den, ktory sa ma pridat na koniec buildera.</param>
-    private void AppendDay(int day)
-    {
         AppendComma();
-        _builder.Append(FormatDay(day));
-    }
 
-    /// <summary>
-    ///     Sformatuje zadany den.
-    /// </summary>
-    /// <param name="day">Den, ktory sa ma sformatovat.</param>
-    /// <returns>sformatovany den ako retazec.</returns>
-    private string FormatDay(int day)
-    {
-        var date = DateFrom.AddDays(day);
-        var month = MsgMonth(date.Month) + ".";
+        if (dayFrom > 0)
+            _builder.Append(MsgText(Message.From)).Append(FormatDay(dayFrom));
 
-        if (!DateUnique(date)) 
-            month += date.Year;
-
-        if (!string.IsNullOrEmpty(_lastMonth) && _lastMonth == month)
+        if (dayTo < MaxDay)
         {
-            var i = _builder.ToString().LastIndexOf(_lastMonth, StringComparison.Ordinal);
-            _builder.Remove(i, _lastMonth.Length);
+            AppendSpace();
+            _builder.Append(MsgText(Message.To)).Append(FormatDay(dayTo));
         }
-        else
-            _lastMonth = month;
 
-        return $"{date.Day}.{_lastMonth}";
+        _lastMonth = null;
     }
-
+    
     private bool DateUnique(DateTime date)
     {
         var count = 0;
@@ -1708,40 +1670,21 @@ internal class DateLimit
         return count <= 1;
     }
 
-    /// <summary>
-    ///     Prida znak ciarky (,) na koniec <see cref="StringBuilder"/>a.
-    /// </summary>
-    private void AppendComma()
-    {
-        var last = _builder.Length - 1;
-        if (last > 0 && _builder[last] != ' ' && _builder[last] != ',')
-            _builder.Append(',');
-    }
-
-    /// <summary>
-    ///     Prida znak medzery ( ) na koniec <see cref="StringBuilder"/>a.
-    /// </summary>
-    private void AppendSpace()
-    {
-        var last = _builder.Length - 1;
-        if (last > 0 && _builder[last] > ' ')
-            _builder.Append(' ');
-    }
-
     private void ParseText()
     {
         var from = new DateTime();
         var to = new DateTime();
         DayType days = 0;
         var level = Level.Runs;
-        var dateLevel = DateLevel.DATE;
+        var dateLevel = DateLevel.Date;
 
         while (SkipWhiteSpace())
         {
             var token = ExtractToken();
             var exit = false;
+            var changePosition = true;
 
-            while (Operators.CompareString(token, ",", false) != 0)
+            if (token != ",")
             {
                 if (TokenIsMsg(token, Message.And))
                 {
@@ -1751,28 +1694,28 @@ internal class DateLimit
                 {
                     FlushData(level, ref from, ref to, ref days, ref dateLevel, false);
                     level = Level.Runs;
-                    dateLevel = DateLevel.DATE;
+                    dateLevel = DateLevel.Date;
                 }
                 else if (TokenIsMsg(token, Message.RunsNot, Message.RunsNotAlt))
                 {
                     FlushData(level, ref from, ref to, ref days, ref dateLevel, false);
                     level = Level.RunsNot;
-                    dateLevel = DateLevel.DATE;
+                    dateLevel = DateLevel.Date;
                 }
                 else if (TokenIsMsg(token, Message.From))
                 {
-                    dateLevel = DateLevel.FROM;
+                    dateLevel = DateLevel.From;
                 }
                 else if (TokenIsMsg(token, Message.To))
                 {
-                    dateLevel = DateLevel.TO;
+                    dateLevel = DateLevel.To;
                 }
                 else if (TokenIsMsg(token, Message.On))
                 {
-                    dateLevel = DateLevel.ON;
+                    dateLevel = DateLevel.On;
                     days = DayType.None;
                 }
-                else if (dateLevel == DateLevel.ON)
+                else if (dateLevel == DateLevel.On)
                 {
                     days |= GetDayType(token);
                 }
@@ -1781,35 +1724,39 @@ internal class DateLimit
                     var lastDate = new DateTime();
                     if (IsDayType(token) || IsDayRange(token))
                     {
-                        dateLevel = DateLevel.ON;
+                        dateLevel = DateLevel.On;
                         days = DayType.None;
-                        continue;
-                    }
-
-                    lastDate = GetDate(token, lastDate, dateLevel == DateLevel.TO);
-                    if (dateLevel != DateLevel.FROM)
-                    {
-                        if (dateLevel != DateLevel.TO)
-                        {
-                            from = lastDate;
-                            to = lastDate;
-                        }
-                        else
-                            to = lastDate;
+                        changePosition = false;
                     }
                     else
-                        from = lastDate;
+                    {
+                        lastDate = GetDate(token, lastDate, dateLevel == DateLevel.To);
+                        if (dateLevel != DateLevel.From)
+                        {
+                            if (dateLevel != DateLevel.To)
+                            {
+                                from = lastDate;
+                                to = lastDate;
+                            }
+                            else
+                                to = lastDate;
+                        }
+                        else
+                            from = lastDate;
+                    }
                 }
 
-                _position += token.Length;
-                exit = true;
-                break;
+                if (changePosition)
+                {
+                    _position += token.Length;
+                    exit = true;
+                }
             }
 
             if (exit)
                 continue;
 
-            if (dateLevel != DateLevel.ON)
+            if (dateLevel != DateLevel.On)
             {
                 FlushData(level, ref from, ref to, ref days, ref dateLevel, false);
                 _position += token.Length;
@@ -1840,34 +1787,34 @@ internal class DateLimit
 
     private void FlushData(Level level, ref DateTime from, ref DateTime to, ref DayType days, ref DateLevel dateLevel, bool and)
     {
-        if (from != DateTime.MinValue || to != DateTime.MinValue || days != DayType.None)
+        if (from == DateTime.MinValue && to == DateTime.MinValue && days == DayType.None) 
+            return;
+
+        var o = new ParseData
         {
-            var o = new ParseData
-            {
-                From = from,
-                To = to,
-                Level = level,
-                Days = days,
-                And = and
-            };
+            From = from,
+            To = to,
+            Level = level,
+            Days = days,
+            And = and
+        };
 
-            if (days != DayType.None)
+        if (days != DayType.None)
+        {
+            var i = _parsedData.Count - 1;
+            while (i >= 0 && _parsedData[i].And && _parsedData[i].Days == DayType.None)
             {
-                var i = _parsedData.Count - 1;
-                while (i >= 0 && _parsedData[i].And && _parsedData[i].Days == DayType.None)
-                {
-                    _parsedData[i].Days = days;
-                    i += -1;
-                }
+                _parsedData[i].Days = days;
+                i--;
             }
-
-            _parsedData.Add(o);
-
-            from = DateTime.MinValue;
-            to = DateTime.MinValue;
-            days = DayType.None;
-            dateLevel = DateLevel.DATE;
         }
+
+        _parsedData.Add(o);
+
+        from = DateTime.MinValue;
+        to = DateTime.MinValue;
+        days = DayType.None;
+        dateLevel = DateLevel.Date;
     }
 
     private void FlushData(Level level)
@@ -1905,7 +1852,7 @@ internal class DateLimit
     private bool SkipWhiteSpace()
     {
         while (_position < _text.Length && _text[_position] <= ' ')
-            _position += 1;
+            _position++;
 
         return _position < _text.Length;
     }
@@ -1926,16 +1873,14 @@ internal class DateLimit
 
         while (i < msgs.Length)
         {
-            if (!string.Equals(token, MsgText(msgs[i]).Trim(), StringComparison.OrdinalIgnoreCase))
-            {
-                var pattern = _messagesRegex[(int)msgs[i]];
+            if (string.Equals(token, MsgText(msgs[i]).Trim(), StringComparison.OrdinalIgnoreCase)) 
+                return true;
 
-                if (string.IsNullOrEmpty(pattern) || token.Contains(" ") &&
-                    !pattern.Contains(" ") || !Regex.Match(token, pattern).Success)
-                {
-                    i++;
-                    continue;
-                }
+            var pattern = MessagesRegex[(int)msgs[i]];
+            if (string.IsNullOrEmpty(pattern) || token.Contains(" ") && !pattern.Contains(" ") || !Regex.Match(token, pattern).Success)
+            {
+                i++;
+                continue;
             }
 
             return true;
@@ -1944,59 +1889,42 @@ internal class DateLimit
         return false;
     }
 
-    private static bool IsDayType(string token)
-    {
-        return token.ToUpper().TrimEnd(DayTypeSigns.ToCharArray()).Length == 0;
-    }
+    private static bool IsDayType(string token) => token.ToUpper().TrimEnd(DAY_TYPE_SIGNS.ToCharArray()).Length == 0;
 
-    private static bool IsDayRange(string token)
-    {
-        return token.Length == 3 && token[1] == '-' && char.IsDigit(token[0]) && char.IsDigit(token[2]);
-    }
+    private static bool IsDayRange(string token) => token.Length == 3 && token[1] == '-' && char.IsDigit(token[0]) && char.IsDigit(token[2]);
 
     private DayType GetDayType(string token)
     {
         token = token.ToUpper();
 
-        checked
+        if (IsDayType(token))
+            return token.Aggregate(DayType.None, (current, c) => current | (DayType) (1 << DAY_TYPE_SIGNS.IndexOf(c)));
+        var i = DAY_TYPE_SIGNS.IndexOf(token[0]);
+
+        switch (token.Length)
         {
-            if (!IsDayType(token))
+            case 1 when i >= 0:
+                return (DayType)(1 << i);
+            case 3 when token[1] == '-' && i < 6:
             {
-                var i = DayTypeSigns.IndexOf(token[0]);
-
-                switch (token.Length)
+                var j = "1234567".IndexOf(token[2]);
+                if (j > i)
                 {
-                    case 1 when i >= 0:
-                        return (DayType)(1 << i);
-                    case 3 when token[1] == '-' && i < 6:
+                    DayType dayType = 0;
+                    while (i <= j)
                     {
-                        var j = "1234567".IndexOf(token[2]);
-                        if (j > i)
-                        {
-                            DayType dayType = 0;
-                            while (i <= j)
-                            {
-                                dayType |= (DayType)(1 << i);
-                                i++;
-                            }
-
-                            return dayType;
-                        }
-
-                        break;
+                        dayType |= (DayType)(1 << i);
+                        i++;
                     }
+
+                    return dayType;
                 }
 
-                throw new ParseException($"Chybný pevný kód dňa {token}.", _position);
+                break;
             }
-
-            var daytype = DayType.None;
-
-            foreach (var c in token)
-                daytype |= (DayType)(1 << DayTypeSigns.IndexOf(c));
-
-            return daytype;
         }
+
+        throw new ParseException($"Chybný pevný kód dňa {token}.", _position);
     }
 
     // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
@@ -2030,69 +1958,69 @@ internal class DateLimit
         }
 
         var j = s.IndexOf('.');
-        if (j >= 0)
+
+        if (j < 0) 
+            throw new ParseException($"Chybný dátum {token}.", _position);
+
+        var lastDateOrig = lastDate;
+        var month = GetMonth(s.Substring(0, j));
+        var yearSet = int.TryParse(s.Substring(j + 1), out var year) && year is >= 2000 and < 2100;
+
+        if (!yearSet)
         {
-            var dtLastDateOrig = lastDate;
-            var month = GetMonth(s.Substring(0, j));
-            var yearSet = int.TryParse(s.Substring(j + 1), out var year) && year is >= 2000 and < 2100;
+            if (lastDate == DateTime.MinValue)
+                lastDate = DateFrom;
 
-            if (!yearSet)
+            if (month < lastDate.Month || month == lastDate.Month && day < lastDate.Day)
+                year = lastDate.Year + 1;
+            else
+                year = lastDate.Year;
+        }
+
+        DateTime date;
+        try
+        {
+            date = new DateTime(year, month, day);
+        }
+        catch (Exception)
+        {
+            throw new ParseException($"Chybný dátum {token}.", _position);
+        }
+
+        if (date > DateTo && !yearSet)
+        {
+            if (checkLast)
             {
-                if (lastDate == DateTime.MinValue)
-                    lastDate = DateFrom;
+                if (_skipDateRangeCheck)
+                    return DateTo;
 
-                if (month < lastDate.Month || month == lastDate.Month && day < lastDate.Day)
-                    year = lastDate.Year + 1;
-                else
-                    year = lastDate.Year;
+                throw new ParseException($"Koncový dátum {FormatDate(date)} je mimo rozsahu platnosti grafikonu.", _position);
             }
 
-            DateTime date;
             try
             {
-                date = new DateTime(year, month, day);
+                date = new DateTime(year - 1, month, day);
             }
             catch (Exception)
             {
                 throw new ParseException($"Chybný dátum {token}.", _position);
             }
-
-            if (date > DateTo && !yearSet)
-            {
-                if (checkLast)
-                {
-                    if (_skipDateRangeCheck)
-                        return DateTo;
-
-                    throw new ParseException($"Koncový dátum {FormatDate(date)} je mimo rozsahu platnosti grafikonu.", _position);
-                }
-
-                try
-                {
-                    date = new DateTime(year - 1, month, day);
-                }
-                catch (Exception)
-                {
-                    throw new ParseException($"Chybný dátum {token}.", _position);
-                }
-            }
-
-            if (date < DateFrom || date > DateTo)
-            {
-                if (!_skipDateRangeCheck)
-                    throw new ParseException($"Dátum {FormatDate(date)} je mimo rozsahu platnosti grafikonu.", _position);
-
-                if (dtLastDateOrig == DateTime.MinValue && !yearSet && date < DateFrom &&
-                    DateFrom.Subtract(date).TotalDays > date.AddYears(1).Subtract(DateTo).TotalDays)
-                {
-                    date = date.AddYears(1);
-                }
-            }
-
-            return date;
         }
 
-        throw new ParseException($"Chybný dátum {token}.", _position);
+        if (date < DateFrom || date > DateTo)
+        {
+            if (!_skipDateRangeCheck)
+                throw new ParseException($"Dátum {FormatDate(date)} je mimo rozsahu platnosti grafikonu.", _position);
+
+            if (lastDateOrig == DateTime.MinValue && !yearSet && date < DateFrom &&
+                DateFrom.Subtract(date).TotalDays > date.AddYears(1).Subtract(DateTo).TotalDays)
+            {
+                date = date.AddYears(1);
+            }
+        }
+
+        return date;
+
     }
 
     private int GetMonth(string month)
@@ -2100,7 +2028,7 @@ internal class DateLimit
         if (int.TryParse(month, out var monthIndex))
             return monthIndex;
 
-        var i = Array.IndexOf(_messagesCZ, month.ToUpper(), 23);
+        var i = Array.IndexOf(MessagesCZ, month.ToUpper(), 23);
 
         if (i is < 23 or > 34)
             throw new ParseException($"Neplatný mesiac {month}.", _position);
@@ -2108,50 +2036,43 @@ internal class DateLimit
         return i - 23 + 1;
     }
 
-    private string MsgMonth(int month)
-    {
-        return _monthRoman ? MsgText(Message.Jan + month - 1) : month.ToString();
-    }
+    private string MsgMonth(int month) => _monthRoman ? MsgText(Message.Jan + month - 1) : month.ToString();
 
     private string MsgDayType(Message message)
     {
-        if (_insertMarks)
-        {
-            _decorLength += 2;
-            return "{" + MsgText(message) + "}";
-        }
+        if (!_insertMarks) 
+            return MsgText(message);
 
-        return MsgText(message);
+        _decorLength += 2;
+        return "{" + MsgText(message) + "}";
     }
 
     private DayType GetDayType(DateTime date, bool forceSpecDays = false)
     {
-        var iDayType = (DayType)(1 << (int)GetDayIndex(date));
-        if (_specDays || forceSpecDays)
-        {
-            if (IsHoliday(date))
-                iDayType |= DayType.Holiday;
+        var dayType = (DayType)(1 << (int)GetDayIndex(date));
 
-            else if (iDayType <= DayType.Friday)
-                iDayType |= DayType.Workday;
-        }
+        if (!_specDays && !forceSpecDays) 
+            return dayType;
 
-        return iDayType;
+        if (IsHoliday(date))
+            dayType |= DayType.Holiday;
+
+        else if (dayType <= DayType.Friday)
+            dayType |= DayType.Workday;
+
+        return dayType;
     }
 
-    private DayType GetDayType(int day, bool forceSpecDays = false)
-    {
-        return GetDayType(DateFrom.AddDays(day), forceSpecDays);
-    }
+    private DayType GetDayType(int day, bool forceSpecDays = false) => GetDayType(DateFrom.AddDays(day), forceSpecDays);
 
-    private static DayType GetDayType(IReadOnlyList<int> OKCount)
+    private static DayType GetDayType(IReadOnlyList<int> okCount)
     {
         var i = DayIndex.Monday;
         DayType dayType = 0;
 
         do
         {
-            if (OKCount[(int)i] != 0)
+            if (okCount[(int)i] != 0)
                 dayType |= (DayType)(1 << (int)i);
 
             i++;
@@ -2162,34 +2083,27 @@ internal class DateLimit
 
     private DayType CheckDayType(int dayFrom, int dayTo, DayType dayType)
     {
-        checked
+        while (dayFrom <= dayTo)
         {
-            while (dayFrom <= dayTo)
-            {
-                if ((GetDayType(dayFrom) & dayType) == DayType.None)
-                    return dayType;
-
-                dayFrom++;
-            }
-
-            return DayType.None;
+            if ((GetDayType(dayFrom) & dayType) == DayType.None)
+                return dayType;
+            dayFrom++;
         }
+
+        return DayType.None;
     }
 
-    private static DayIndex GetDayIndex(DateTime date)
-    {
-        return (DayIndex)date.AddDays(-1).DayOfWeek;
-    }
+    private static DayIndex GetDayIndex(DateTime date) => (DayIndex)date.AddDays(-1).DayOfWeek;
 
-    private DayIndex GetDayIndex(int day, int isFC)
+    private DayIndex GetDayIndex(int day, int isFc)
     {
         var date = DateFrom.AddDays(day);
         var index = GetDayIndex(date);
 
-        if (isFC == 0 || !_specDays)
+        if (isFc == 0 || !_specDays)
             return index;
 
-        if (index == DayIndex.Saturday && (isFC & 32) != 0)
+        if (index == DayIndex.Saturday && (isFc & 32) != 0)
             return index;
 
         if (IsHoliday(date))
@@ -2222,12 +2136,12 @@ internal class DateLimit
         switch (Loc)
         {
             case Locale.CZ:
-                if (d == 1 && m == 1 || // 1.1.
-                    d == 1 && m == 5 || // 1.5.
-                    d == 8 && m == 5 || // 8.5.
-                    d == 5 && m == 7 || // 5.7.
-                    d == 6 && m == 7 || // 6.7.
-                    d == 28 && m == 9 || // 28.9.
+                if (d == 1  && m == 1  || // 1.1.
+                    d == 1  && m == 5  || // 1.5.
+                    d == 8  && m == 5  || // 8.5.
+                    d == 5  && m == 7  || // 5.7.
+                    d == 6  && m == 7  || // 6.7.
+                    d == 28 && m == 9  || // 28.9.
                     d == 28 && m == 10 || // 28.10.
                     d == 17 && m == 11 || // 17.11.
                     d == 24 && m == 12 || // 24.12.
@@ -2236,15 +2150,15 @@ internal class DateLimit
                     return true;
                 break;
             case Locale.SK:
-                if (d == 1 && m == 1 || // 1.1.
-                    d == 6 && m == 1 || // 6.1.
-                    d == 1 && m == 5 || // 1.5.
-                    d == 8 && m == 5 || // 8.5.
-                    d == 5 && m == 7 || // 5.7. 
-                    d == 29 && m == 8 || // 29.8.
-                    d == 1 && m == 9 || // 1.9. 
-                    d == 15 && m == 9 || // 15.9.
-                    d == 1 && m == 11 || // 1.11.
+                if (d == 1  && m == 1  || // 1.1.
+                    d == 6  && m == 1  || // 6.1.
+                    d == 1  && m == 5  || // 1.5.
+                    d == 8  && m == 5  || // 8.5.
+                    d == 5  && m == 7  || // 5.7. 
+                    d == 29 && m == 8  || // 29.8.
+                    d == 1  && m == 9  || // 1.9. 
+                    d == 15 && m == 9  || // 15.9.
+                    d == 1  && m == 11 || // 1.11.
                     d == 17 && m == 11 || // 17.11.
                     d == 24 && m == 12 || // 24.12.
                     d == 25 && m == 12 || // 25.12.
@@ -2276,6 +2190,7 @@ internal class DateLimit
         }
     }
 
+    ///vrati mesiac a den velkonocneho pondelka v roku <paramref name="year"/>
     private static void GetEasterMonday(int year, out int month, out int day)
     {
         var a = year % 19;
@@ -2285,25 +2200,18 @@ internal class DateLimit
         var e = b % 4;
         var f = c / 4;
         var g = c % 4;
-        checked
-        {
-            var h = (8 * b + 13) / 25;
-            var i = (19 * a + b - d - h + 15) % 30;
-            var j = (a + 11 * i) / 319;
-            var k = (2 * e + 2 * f - g - i + j + 32) % 7;
-            month = (i - j + k + 91) / 25;
-            day = (i - j + k + 20 + month) % 32;
-        }
+        var h = (8 * b + 13) / 25;
+        var i = (19 * a + b - d - h + 15) % 30;
+        var j = (a + 11 * i) / 319;
+        var k = (2 * e + 2 * f - g - i + j + 32) % 7;
+        month = (i - j + k + 91) / 25;
+        day = (i - j + k + 20 + month) % 32;
     }
 
     public class ParseException : Exception
     {
-        public ParseException(string message, int pos) : base(message)
-        {
-            Position = pos;
-        }
+        public ParseException(string message, int pos) : base(message) => Position = pos;
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global
         public int Position { get; }
     }
 
@@ -2315,22 +2223,22 @@ internal class DateLimit
         Undefined,
 
         /// <summary>
-        ///     Ide.
+        ///     Vlak ide.
         /// </summary>
         Runs,
 
         /// <summary>
-        ///     Nejde.
+        ///     Vlak nejde.
         /// </summary>
         RunsNot
     }
 
     private enum DateLevel
     {
-        DATE,
-        FROM,
-        TO,
-        ON
+        Date,
+        From,
+        To,
+        On
     }
 
     private class DateLimitInfo
@@ -2364,7 +2272,8 @@ internal class DateLimit
         public bool Merge(DateLimitInfo info)
         {
             if ((!HaveDays || Type != info.Type || To + 60 <= info.From || !Runs && !info.Runs && !RunsNot && !info.RunsNot) &&
-                (info.HaveDays || info.From != 0 || info.To != 0)) return false;
+                (info.HaveDays || info.From != 0 || info.To != 0)) 
+                return false;
 
             if (info.To != 0 || info.From != 0)
             {
@@ -2393,7 +2302,6 @@ internal class DateLimit
             }
 
             return true;
-
         }
     }
 
