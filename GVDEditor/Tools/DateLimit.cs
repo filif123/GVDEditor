@@ -26,12 +26,11 @@ internal class DateLimit
 
     private readonly bool _allowRunsDaily;
     private readonly bool _fromToday;
-    private readonly bool _insertMarks;
     private readonly int _maxDays;
     private readonly bool _monthRoman;
     private readonly bool _skipDateRangeCheck;
     private readonly bool _specDays;
-        
+
     private int _decorLength;
     private string _lastMonth;
     private int _position;
@@ -42,8 +41,8 @@ internal class DateLimit
     /// </summary>
     public enum Locale
     {
-        CZ,
-        SK
+        Cz,
+        Sk
     }
 
     /// <summary>
@@ -93,7 +92,7 @@ internal class DateLimit
         Dec
     }
 
-    private static readonly string[] MessagesCZ =
+    private static readonly string[] MessagesCz =
     {
         "chyba",
         "",
@@ -132,7 +131,7 @@ internal class DateLimit
         "XII"
     };
 
-    private static readonly string[] MessagesSK =
+    private static readonly string[] MessagesSk =
     {
         "chyba",
         "",
@@ -242,22 +241,21 @@ internal class DateLimit
         _specDays = specDays;
         _allowRunsDaily = allowRunsDaily;
         _fromToday = fromToday;
-        _insertMarks = insertMarks;
+        InsertMarks = insertMarks;
         _maxDays = maxDays;
         _monthRoman = monthRoman;
         _skipDateRangeCheck = skipDateRangeCheck;
 
         if (DateTo < DateFrom)
-            throw new Exception($"Dátum do {to} je menší ako dátum od {from}.");
-
-        //if (TotalDays > 400) TODO test ci pojde aj tak
-            //throw new Exception($"Príliš dlhý grafikon <{from},{to}>.");
+            throw new ArgumentException($"Dátum do {to} je menší ako dátum od {from}.");
     }
 
     /// <summary>
     ///     Vrati jazyk generovanych poznamok.
     /// </summary>
-    public static Locale Loc { get; set; } = Locale.SK;
+    public static Locale Loc { get; set; } = Locale.Sk;
+
+    public bool InsertMarks { get; set; }
 
     /// <summary>
     ///     Vrati celkovy pocet dni grafikonu.
@@ -321,7 +319,7 @@ internal class DateLimit
     public string BitArrayToText(BitArray bits, int cycle = 0, BitArray validBits = null)
     {
         if (bits == null || bits.Length != TotalDays)
-            throw new ArgumentException(@"Bitové pole na vstupu chýba alebo neodpovedá jeho dĺžka.", nameof(bits));
+            throw new ArgumentException(@"Bitové pole na vstupe chýba alebo neodpovedá jeho dĺžka.", nameof(bits));
 
         var dateFrom = DateFrom;
         var dateTo = DateTo;
@@ -369,9 +367,7 @@ internal class DateLimit
 
             if (!hasData)
             {
-                return !bits[minIndex] ? 
-                    AltMsgText(Message.RunsNever, Message.RunsNeverAlt) : 
-                    MsgText(_allowRunsDaily ? Message.RunsDaily : Message.Empty);
+                return !bits[minIndex] ? AltMsgText(Message.RunsNever, Message.RunsNeverAlt) : MsgText(_allowRunsDaily ? Message.RunsDaily : Message.Empty);
             }
             else
             {
@@ -459,7 +455,7 @@ internal class DateLimit
         }
         catch (Exception)
         {
-            return null;
+            return new BitArray(0);
         }
     }
 
@@ -556,8 +552,8 @@ internal class DateLimit
     {
         return Loc switch
         {
-            Locale.CZ => MessagesCZ[(int)message],
-            Locale.SK => MessagesSK[(int)message],
+            Locale.Cz => MessagesCz[(int)message],
+            Locale.Sk => MessagesSk[(int)message],
             _ => "?"
         };
     }
@@ -2024,7 +2020,7 @@ internal class DateLimit
         if (int.TryParse(month, out var monthIndex))
             return monthIndex;
 
-        var i = Array.IndexOf(MessagesCZ, month.ToUpper(), 23);
+        var i = Array.IndexOf(MessagesCz, month.ToUpper(), 23);
 
         if (i is < 23 or > 34)
             throw new ParseException($"Neplatný mesiac {month}.", _position);
@@ -2036,7 +2032,7 @@ internal class DateLimit
 
     private string MsgDayType(Message message)
     {
-        if (!_insertMarks) 
+        if (!InsertMarks) 
             return MsgText(message);
 
         _decorLength += 2;
@@ -2131,7 +2127,7 @@ internal class DateLimit
         var m = date.Month;
         switch (Loc)
         {
-            case Locale.CZ:
+            case Locale.Cz:
                 if (d == 1  && m == 1  || // 1.1.
                     d == 1  && m == 5  || // 1.5.
                     d == 8  && m == 5  || // 8.5.
@@ -2145,7 +2141,7 @@ internal class DateLimit
                     d == 26 && m == 12) // 26.12.
                     return true;
                 break;
-            case Locale.SK:
+            case Locale.Sk:
                 if (d == 1  && m == 1  || // 1.1.
                     d == 6  && m == 1  || // 6.1.
                     d == 1  && m == 5  || // 1.5.
