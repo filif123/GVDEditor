@@ -5,8 +5,8 @@ using System.Text.RegularExpressions;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedAutoPropertyAccessor.Global
-
 // ReSharper disable UnusedMember.Local
+
 namespace GVDEditor.Tools;
 
 /// <summary>
@@ -652,45 +652,23 @@ internal class DateLimit
             if (datelimit != null)
                 return datelimit;
 
-            goto RECURSES;
+            datelimit = Recurse1(minCount, from, to) ?? Recurse2(minCount, from, to) ?? Recurse3(minCount, from, to) ?? Recurse4(minCount, from, to);
+            if (datelimit != null)
+                return datelimit;
         }
 
-        LOOP:
-        while (true)
+        while (datelimit == null)
         {
             datelimit = ScanWeekDays(minCount, from, to);
-            if (datelimit != null)
-                break;
-
-            var i = minCount >> 1;
-
-            if (i <= 0)
-                i = 1;
-
-            minCount -= i;
+            minCount -= Math.Max(minCount >> 1, 1);
 
             if (!scanWeekDaysOK)
-                goto RECURSES;
+            {
+                datelimit = Recurse1(minCount, from, to) ?? Recurse2(minCount, from, to) ?? Recurse3(minCount, from, to) ?? Recurse4(minCount, from, to);
+                if (datelimit != null)
+                    return datelimit;
+            }
         }
-
-        return datelimit;
-
-        RECURSES:
-        datelimit = Recurse1(minCount, from, to);
-        if (datelimit != null)
-            return datelimit;
-
-        datelimit = Recurse2(minCount, from, to);
-        if (datelimit != null)
-            return datelimit;
-
-        datelimit = Recurse3(minCount, from, to);
-        if (datelimit != null)
-            return datelimit;
-
-        datelimit = Recurse4(minCount, from, to);
-        if (datelimit == null)
-            goto LOOP;
 
         return datelimit;
     }
@@ -880,14 +858,18 @@ internal class DateLimit
                         while (!((okCount[(int)GetDayIndex(t - i, isFc)] != 0) ^ Runs(t - i)))
                         {
                             i++;
-                            if (i > 6) 
-                                goto EQUAL_PATTERN;
+                            if (i > 6)
+                                break;
                         }
 
-                        goto APPEND_INTERVAL;
+                        if (limitsInfo != null)
+                        {
+                            if (t < to)
+                                AppendIntervals(ref limitsInfo, ProcessInterval(minCount, t + 1, to));
+                            break;
+                        }
                     }
 
-                    EQUAL_PATTERN:
                     if ((j != 0 || k != 0) && t < to - 21 && t > 13 &&
                         (EqualPattern(t - 6, t + 1) && EqualPattern(t - 6, t + 8) &&
                          EqualPattern(t - 6, t + 15) ||
@@ -909,7 +891,13 @@ internal class DateLimit
                                 i++;
                             t = i - 1;
                             AppendIntervals(ref limitsInfo, ProcessInterval(minCount, from, t));
-                            goto APPEND_INTERVAL;
+
+                            if (limitsInfo != null)
+                            {
+                                if (t < to)
+                                    AppendIntervals(ref limitsInfo, ProcessInterval(minCount, t + 1, to));
+                                break;
+                            }
                         }
                     }
 
@@ -1007,12 +995,10 @@ internal class DateLimit
                 }
             }
 
-            APPEND_INTERVAL:
             if (limitsInfo != null)
             {
                 if (t < to)
-                    AppendIntervals(ref limitsInfo,
-                        ProcessInterval(minCount, t + 1, to));
+                    AppendIntervals(ref limitsInfo, ProcessInterval(minCount, t + 1, to));
                 break;
             }
         }
@@ -2138,7 +2124,7 @@ internal class DateLimit
                     d == 17 && m == 11 || // 17.11.
                     d == 24 && m == 12 || // 24.12.
                     d == 25 && m == 12 || // 25.12.
-                    d == 26 && m == 12) // 26.12.
+                    d == 26 && m == 12)   // 26.12.
                     return true;
                 break;
             case Locale.Sk:
@@ -2154,7 +2140,7 @@ internal class DateLimit
                     d == 17 && m == 11 || // 17.11.
                     d == 24 && m == 12 || // 24.12.
                     d == 25 && m == 12 || // 25.12.
-                    d == 26 && m == 12) // 26.12.
+                    d == 26 && m == 12)   // 26.12.
                     return true;
                 break;
             default:
@@ -2182,7 +2168,9 @@ internal class DateLimit
         }
     }
 
-    ///vrati mesiac a den velkonocneho pondelka v roku <paramref name="year"/>
+    /// <summary>
+    ///     Vrati mesiac a den velkonocneho pondelka v roku <paramref name="year"/>.
+    /// </summary>
     private static void GetEasterMonday(int year, out int month, out int day)
     {
         var a = year % 19;
